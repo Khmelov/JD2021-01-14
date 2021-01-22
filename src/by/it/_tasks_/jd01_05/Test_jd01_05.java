@@ -89,4 +89,27 @@ public class Test_jd01_05 extends HomeWork {
                 "B[ 20] = 4,36483 ");
         run("").include("2045");
     }
+
+    @Test(timeout = 5000)
+    public void testTaskC2__TaskC() throws Exception {
+        run("")
+                .checkCount(2,"╗",2)
+                .checkCount(2,"╝",2)
+                .checkCount(2,"╔",2)
+                .checkCount(2,"╚",2)
+                .checkCount(4,"╠")
+                .checkCount(4,"╣")
+                .checkCount(4,"╦")
+                .checkCount(4,"╩")
+                .checkCount(4,"╬")
+                .checkCount(32,"═")
+                .checkCount(32,"\\[")
+                .checkCount(32,"]")
+                .checkCount(12,"║")
+                .checkCount(1,"10")
+                .checkCount(1,"11")
+                .checkCount(1,"22")
+                .checkCount(1,"31")
+        ;
+    }
 }
