@@ -84,7 +84,6 @@ public class TaskC {
         return arrayB;
     }
 
-
     static void printingArrayToString(double[] array, String nameArray) {
         int countColumn = 3;
 
@@ -226,4 +225,3 @@ public class TaskC {
         System.out.print("\n");
     }
 }
-
