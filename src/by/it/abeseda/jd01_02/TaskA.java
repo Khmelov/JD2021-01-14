@@ -13,6 +13,7 @@ public class TaskA {
         step1(array);
         step2(array);
         step3(array);
+
     }
 
     private static void step1(int[] array) {
