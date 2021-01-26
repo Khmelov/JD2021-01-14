@@ -11,9 +11,6 @@ public class TaskA1 {
         Matcher matcher = pattern.matcher(Poem.text);
         while(matcher.find()){
             String word = matcher.group();
-            if (matcher.end() - matcher.start())
-            int start = matcher.start();
-            dyText.setCharAt(start + 3, '#');
         }
         System.out.println(dyText);
     }
