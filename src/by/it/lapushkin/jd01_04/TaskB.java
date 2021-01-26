@@ -47,8 +47,6 @@ public class TaskB {
                 newMatrix[k][j] = data[i][j];
             }
         }
-
-
         return newMatrix;
     }
 

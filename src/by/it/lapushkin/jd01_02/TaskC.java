@@ -17,12 +17,12 @@ public class TaskC {
         step2(matrix);
 
         step3(matrix);
-
-
     }
+
 
     private static int[][] step1(int n) {
         int[][] matrix;
+
         do {
             matrix = generateMatrix(n);
 
@@ -36,28 +36,26 @@ public class TaskC {
     private static int step2(int[][] matrix) {
         int sum = 0;
         for (int i = 0; i < matrix.length; i++) {
-            int[] posPosition = new int[]{99, 99};
+            int[] posIndex = new int[]{-1, -1};
             for (int j = 0; j < matrix.length; j++) {
                 if (matrix[i][j] > 0) {
-                    if (posPosition[0] == 99) {
-                        posPosition[0] = j;
+                    if (posIndex[0] == -1) {
+                        posIndex[0] = j;
 
                     } else {
-                        if (posPosition[1] == 99) {
-                            posPosition[1] = j;
-
-                        }
+                        posIndex[1] = j;
+                        break;
                     }
                 }
             }
 
-            if (posPosition[0] != 99 && posPosition[1] != 99) {
-                for (int n = posPosition[0] + 1; n < posPosition[1]; n++) {
-
-                    sum += matrix[i][n];
+            if (posIndex[0] != -1 && posIndex[1] != -1) {
+                for (int k = posIndex[0] + 1; k < posIndex[1]; k++) {
+                    sum += matrix[i][k];
                 }
             }
         }
+
         System.out.println(sum);
         return sum;
     }
@@ -73,12 +71,12 @@ public class TaskC {
             matrix = removeRow(matrix, findRow(matrix, max));
         }
         while (findColumns(tempMatrix, max) >= 0) {
-            tempMatrix = matrix = removeColumns(matrix, findColumns(tempMatrix, max));
+            tempMatrix = matrix = removeColumn(matrix, findColumns(tempMatrix, max));
         }
 
         printMatrix(matrix);
-        return matrix;
 
+        return matrix;
     }
 
 
@@ -86,7 +84,7 @@ public class TaskC {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 //System.out.print(matrix[i][j] + "\t");
-                System.out.printf("%5d",matrix[i][j]);
+                System.out.printf("%5d", matrix[i][j]);
             }
             System.out.println();
         }
@@ -118,12 +116,12 @@ public class TaskC {
         return matrix;
     }
 
-    private static int[][] removeColumns(int[][] matrix, int columns) {
+    private static int[][] removeColumn(int[][] matrix, int column) {
         int[][] newMatrix = new int[matrix.length][matrix[0].length - 1];
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0, k = 0; j < matrix[i].length; j++) {
-                if (columns != j && j != matrix[i].length) {
+                if (column != j && j != matrix[i].length) {
                     newMatrix[i][k++] = matrix[i][j];
                 }
             }
