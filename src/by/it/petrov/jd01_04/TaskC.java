@@ -5,68 +5,174 @@ import java.util.Scanner;
 
 public class  TaskC {
 
-    public static double[] get1DArrayFrom2DArrayByIndex(double[][] arr, int index){
-        return arr[index];
-    }
+    public static void mergeSort(double[] arr) {
+        int n = arr.length;
+        boolean c = true;
+        int i = 0;
+        int i1 = 0;
+        int i2 = 0;
+        int n1 = 0;
+        int n2 = 0;
+        double[] barr = new double[n];
+        int mergelen = 0;
 
-    public static double[] merge1DArraysWithSorting(double[] firstArray, double[] secondArray){
-        double[] resultArray = new double[firstArray.length + secondArray.length];
-        for (int i = 0, j = 0, k = 0; i < firstArray.length; i++) {
-            while(firstArray[i] >= secondArray[j] && k < resultArray.length - 1){
-                resultArray[k] = secondArray[j];
-                k++;
-                if (k < resultArray.length - 1){
-                    j++;
+        barr = new double[n];
+        mergelen = 1;
+        while (mergelen < n) {
+            if (c) {
+                i = 0;
+                while (i + mergelen <= n) {
+                    i1 = i + 1;
+                    i2 = i + mergelen + 1;
+                    n1 = i + mergelen;
+                    n2 = i + 2 * mergelen;
+                    if (n2 > n) {
+                        n2 = n;
+                    }
+                    while (i1 <= n1 | i2 <= n2) {
+                        if (i1 > n1) {
+                            while (i2 <= n2) {
+                                i = i + 1;
+                                barr[i - 1] = arr[i2 - 1];
+                                i2 = i2 + 1;
+                            }
+                        } else {
+                            if (i2 > n2) {
+                                while (i1 <= n1) {
+                                    i = i + 1;
+                                    barr[i - 1] = arr[i1 - 1];
+                                    i1 = i1 + 1;
+                                }
+                            } else {
+                                if (arr[i1 - 1] > arr[i2 - 1]) {
+                                    i = i + 1;
+                                    barr[i - 1] = arr[i2 - 1];
+                                    i2 = i2 + 1;
+                                } else {
+                                    i = i + 1;
+                                    barr[i - 1] = arr[i1 - 1];
+                                    i1 = i1 + 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                i = i + 1;
+                while (i <= n) {
+                    barr[i - 1] = arr[i - 1];
+                    i = i + 1;
+                }
+            } else {
+                i = 0;
+                while (i + mergelen <= n) {
+                    i1 = i + 1;
+                    i2 = i + mergelen + 1;
+                    n1 = i + mergelen;
+                    n2 = i + 2 * mergelen;
+                    if (n2 > n) {
+                        n2 = n;
+                    }
+                    while (i1 <= n1 | i2 <= n2) {
+                        if (i1 > n1) {
+                            while (i2 <= n2) {
+                                i = i + 1;
+                                arr[i - 1] = barr[i2 - 1];
+                                i2 = i2 + 1;
+                            }
+                        } else {
+                            if (i2 > n2) {
+                                while (i1 <= n1) {
+                                    i = i + 1;
+                                    arr[i - 1] = barr[i1 - 1];
+                                    i1 = i1 + 1;
+                                }
+                            } else {
+                                if (barr[i1 - 1] > barr[i2 - 1]) {
+                                    i = i + 1;
+                                    arr[i - 1] = barr[i2 - 1];
+                                    i2 = i2 + 1;
+                                } else {
+                                    i = i + 1;
+                                    arr[i - 1] = barr[i1 - 1];
+                                    i1 = i1 + 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                i = i + 1;
+                while (i <= n) {
+                    arr[i - 1] = barr[i - 1];
+                    i = i + 1;
                 }
             }
-            resultArray[k] = firstArray[i];
-            if (k < resultArray.length - 1){
-                resultArray[k + 1] = secondArray[j];
-                k++;
-            }
+            mergelen = 2 * mergelen;
+            c = !c;
         }
-        return resultArray;
+        if (!c) {
+            i = 1;
+            do {
+                arr[i - 1] = barr[i - 1];
+                i = i + 1;
+            } while (i <= n);
+        }
+        System.out.println(Arrays.toString(barr));
     }
 
-    public static double[] sortArr(double[] arr){
-        double[][] dividedArrays = new double[arr.length][1];
-        System.out.println(Arrays.deepToString(dividedArrays));
-        for (int i = 0; i < dividedArrays.length; i++) {
-            System.out.println(Arrays.toString(get1DArrayFrom2DArrayByIndex(dividedArrays,i)));
-        }
-        return null;
-        }
-
-    static void buildOneDimArray(String line){
-
+    static void buildOneDimArray(String line) {
         double[] array = InOut.getArray(line);
         double firstElement = array[0];
         double lastElement = array[array.length - 1];
-        sortArr(array);
-        InOut.printArray(array, "V", 10);
+        InOut.printArray(array, "V", 5);
+        mergeSort(array);
+        InOut.printArray(array, "V", 4);
+        System.out.println(Arrays.toString(array));
         int indexOfFirstElement = Integer.MAX_VALUE;
         int indexOfLastElement = Integer.MIN_VALUE;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == firstElement){
-                indexOfFirstElement = i;
-            }
-            if (array[i] == lastElement){
-                indexOfLastElement = i;
-            }
-        }
-        //System.out.println("Index of first element=" + indexOfFirstElement);
-        //System.out.println("Index of last element=" + indexOfLastElement);
+
+        indexOfFirstElement = binarySearch(array,firstElement);
+        indexOfLastElement = binarySearch(array,lastElement);
+
+        System.out.println("Index of first element=" + indexOfFirstElement);
+        System.out.println("Index of last element=" + indexOfLastElement);
+
     }
 
-    public static void main(String[] args) {
-        /*Scanner sc = new Scanner(System.in);
-        String inputLineArray = sc.nextLine();
-        buildOneDimArray(inputLineArray);*/
+    static void printMulTable() {
+        for (int i = 2; i < 10; i++) {
+            for (int j = 2; j < 10; j++) {
+                System.out.printf("%1$2d*%2$d=%3$-2d", i, j, i * j);
+                if (j % 9 == 0) {
+                    System.out.println();
+                }
+            }
+        }
+    }
 
-        double[] firstArray = new double[]{1, 5, 10, 555, 1000, 5000, 10000};
-        double[] secondArray = new double[]{-500, 2, 12, 555, 525, 10000, 15000};
-        double[] resultArray = merge1DArraysWithSorting(firstArray,secondArray);
-        System.out.println(Arrays.toString(resultArray));
+    static int binarySearch(double[] arr, double value){
+        int low = 0;
+        int high = arr.length - 1;
+        int index = -1;
+        while(low <= high){
+            int mid = (low + high) / 2;
+            if (arr[mid] < value) {
+                low = mid + 1;
+            }
+                else if (arr[mid] > value){
+                    high = mid - 1;
+                }
+                else if (arr[mid] == value){
+                    index = mid;
+                    break;
+                }
+            }
+            return index;
+        }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        buildOneDimArray(line);
 
     }
 }
