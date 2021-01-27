@@ -62,13 +62,15 @@ public class TaskC {
             if (arrayOne[i] * 0.1 > i)
                 arrayTwoSize++;
         }
-        InOut.printArrayC3(arrayOne, "A", 1);
+        Helper.printArrayC3(arrayOne, "A",true);
         Arrays.sort(arrayOne);
         arrayTwo = new int[arrayTwoSize];
         for (int i = 0; i < arrayTwo.length; i++) {
             arrayTwo[i] = arrayOne[arrayOne.length - arrayTwo.length + i];
         }
-        InOut.printArrayC3(arrayTwo, "B", 2);
+        Helper.printArrayC3(arrayTwo, "B",false);
+
+
     }
 
 }
