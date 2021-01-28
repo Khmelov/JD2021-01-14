@@ -36,8 +36,6 @@ public class TaskB1 {
         return firstLetterIsConsonant && lastLetterIsVowel;
     }
     public static void main(String[] args) {
-        String[]wordsToPrint = new String[]{};
-        boolean lastLetterIsVowel;
         StringBuilder Text = new StringBuilder(Poem.text);
         Pattern pattern = Pattern.compile("[а-яА-ЯЁё]{3,}");
         Matcher matcher = pattern.matcher(Text);
@@ -48,6 +46,7 @@ public class TaskB1 {
             boolean Check = checkForTheLetters(matcher.group(), matcher.group().length());
             if (Check){
                 System.out.println(matcher.group());
+
             }
         }
     }
