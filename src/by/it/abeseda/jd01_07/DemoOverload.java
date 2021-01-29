@@ -1,4 +1,4 @@
-package by.it._examples_.jd01_07;
+package by.it.abeseda.jd01_07;
 public class DemoOverload {
     public static void printArgCount(Object... args)    {
         System.out.println("Object args: " + args.length);}

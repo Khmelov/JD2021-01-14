@@ -8,9 +8,7 @@ import java.util.regex.Pattern;
 public class TaskB2 {
     public static void main(String[] args) {
         String s = Poem.text.replaceAll("\n", " ");
- //       System.out.println(s);
         String s1 = s.replaceAll("\\.\\.\\.", "");
-  //      System.out.println(s1);
         Pattern pat = Pattern.compile("[.!]+");
         String[] sentences = pat.split(s1);
   //      for (int i = 0; i < sentences.length; i++) {

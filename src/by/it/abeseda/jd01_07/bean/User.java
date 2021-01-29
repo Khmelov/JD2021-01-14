@@ -1,4 +1,4 @@
-package by.it._examples_.jd01_07.bean;
+package by.it.abeseda.jd01_07.bean;
 
 import java.io.Serializable;
 
