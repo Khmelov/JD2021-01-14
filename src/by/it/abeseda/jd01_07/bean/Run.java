@@ -1,4 +1,4 @@
-package by.it._examples_.jd01_07.bean;
+package by.it.abeseda.jd01_07.bean;
 
 public class Run {
     public static void main(String[] args) {

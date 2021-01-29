@@ -1,4 +1,4 @@
-package by.it._examples_.jd01_07.matrixOk;
+package by.it.abeseda.jd01_07.matrixOk;
 @SuppressWarnings("all")
 public class Multiplicator {
     public Matrix multiply(Matrix p, Matrix q) throws MatrixException {

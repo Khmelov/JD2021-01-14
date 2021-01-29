@@ -1,4 +1,4 @@
-package by.it._examples_.jd01_07;
+package by.it.abeseda.jd01_07;
 @SuppressWarnings("all")
 public class Department {
     {
