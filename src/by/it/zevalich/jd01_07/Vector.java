@@ -16,13 +16,10 @@ class Vector extends Var {
     }
 
     Vector(String strVector){
-        String[] strArray = strVector.split("[, ]+");
-        double[] value = new double[strArray.length];
-        for (int i = 0; i < strArray.length; i++) {
-            value[i] = Double.parseDouble(strArray[i]);
-        }
+        String[] strArray = strVector.replace('{',' ').replace('}',' ').trim().split(",\\s*");
+        value = new double[strArray.length];
         for(int i = 0; i < value.length;i++){
-            this.value = value;
+            value[i] = Double.parseDouble(strArray[i]);
         }
     }
 
