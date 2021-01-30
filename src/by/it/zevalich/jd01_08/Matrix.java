@@ -1,8 +1,8 @@
-package by.it.zevalich.jd01_07;
+package by.it.zevalich.jd01_08;
 
-import java.util.Arrays;
 
-class Matrix extends Var{
+
+class Matrix extends Var {
     private double[][] value;
 
     Matrix(double[ ][ ] value){
@@ -26,7 +26,6 @@ class Matrix extends Var{
 
     }
 
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -46,4 +45,6 @@ class Matrix extends Var{
         sb.append("}");
         return sb.toString();
     }
+
+
 }
