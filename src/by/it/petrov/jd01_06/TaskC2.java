@@ -29,7 +29,7 @@ public class TaskC2 {
         String finalTextIs = "";
 
         for (int i = 0; i < randomWordsArray.length; i++) {
-            finalTextIs = finalTextIs + " " + randomWordsArray[i];
+            finalTextIs = finalTextIs  + randomWordsArray[i] + " ";
         }
 
         return finalTextIs;
@@ -49,12 +49,13 @@ public class TaskC2 {
         randomWordsArray = getSequence(Poem.text);
         long timeCounter1 = System.nanoTime()/ 10000000;
         String text = slow(" ");
+        System.out.println(text);
         long timeCounter2 = System.nanoTime()/ 10000000;
         System.out.println(timeCounter2 - timeCounter1);
 
         long timeCounter3 = System.nanoTime()/ 10000000;
         String text2 = fast(" ");
-        System.out.println(text);
+        System.out.println(text2);
         long timeCounter4 = System.nanoTime() / 10000000;
         System.out.println(timeCounter4 - timeCounter3);
 
