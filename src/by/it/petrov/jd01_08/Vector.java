@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 class Vector extends Var {
 
-    private double[] value;
+    private final double[] value;
 
     public Vector(double[] value) {
         this.value = value;

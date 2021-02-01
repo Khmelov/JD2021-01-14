@@ -2,7 +2,7 @@ package by.it.petrov.jd01_08;
 
 class Scalar extends Var {
 
-    private double value;
+    private final double value;
 
     Scalar(double value) {
         this.value = value;

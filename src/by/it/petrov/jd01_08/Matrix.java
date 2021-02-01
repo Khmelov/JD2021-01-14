@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Matrix extends Var {
 
-    private double[][] value;
+    private final double[][] value;
 
     public Matrix(double[][] value) {
         this.value = value;
@@ -52,10 +52,20 @@ public class Matrix extends Var {
         this.value = matrix;
     }
 
+    private static double[][] copyTwoDimArray(double[][] array){
+        double[][] result = new double[array.length][array[0].length];
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                result[i][j] = array[i][j];
+            }
+        }
+        return result;
+    }
+
     @Override
     public Var add(Var other) {
         if (other instanceof  Scalar){
-            double[][] result = Arrays.copyOf(value, value.length);
+            double[][] result = copyTwoDimArray(value);
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
                     result[i][j] = result[i][j] + ((Scalar) other).getValue();
@@ -64,7 +74,7 @@ public class Matrix extends Var {
             return new Matrix(result);
         }
         if (other instanceof Matrix){
-            double[][] result = Arrays.copyOf(value, value.length);
+            double[][] result = copyTwoDimArray(value);
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
                     result[i][j] = result[i][j] + ((Matrix) other).value[i][j];
@@ -78,7 +88,7 @@ public class Matrix extends Var {
     @Override
     public Var sub(Var other) {
         if (other instanceof Matrix){
-            double[][]result = Arrays.copyOf(value, value.length);
+            double[][] result = copyTwoDimArray(value);
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
                     result[i][j] -= ((Matrix) other).value[i][j];
@@ -87,7 +97,7 @@ public class Matrix extends Var {
             return new Matrix(result);
         }
         if (other instanceof Scalar){
-            double[][]result = Arrays.copyOf(value, value.length);
+            double[][] result = copyTwoDimArray(value);
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
                     result[i][j] -= ((Scalar) other).getValue();
