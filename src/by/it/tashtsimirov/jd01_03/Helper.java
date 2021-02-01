@@ -68,7 +68,7 @@ public class Helper {
             }
             k++;
         }
-    }
+        }
         return matrixX;
     }
 

@@ -1,6 +1,8 @@
 package by.it.tashtsimirov.jd01_08;
 
 
+import java.util.Arrays;
+
 public class Matrix extends Var {
 
     private final double[][] value;
@@ -50,6 +52,137 @@ public class Matrix extends Var {
 
     }
 
+    @Override
+    public Var add(Var other) {
+        if (other instanceof Matrix) {
+            double[][] resM = new double[value.length][value[0].length];
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = value[i][j];
+                }
+            }
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = resM[i][j] + ((Matrix) other).value[i][j];
+                }
+            }
+            return new Matrix(resM);
+        }
+
+        else if (other instanceof Scalar) {
+            double[][] resM = new double[value.length][value[0].length];
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = value[i][j];
+                }
+            }
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = resM[i][j] + ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(resM);
+        }
+
+        else
+            return super.add(other);
+    }
+
+    @Override
+    public Var sub(Var other) {
+        if (other instanceof Matrix) {
+            double[][] resM = new double[value.length][value[0].length];
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = value[i][j];
+                }
+            }
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = resM[i][j] - ((Matrix) other).value[i][j];
+                }
+            }
+            return new Matrix(resM);
+        }
+
+        if (other instanceof Scalar) {
+            double[][] resM = new double[value.length][value[0].length];
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = value[i][j];
+                }
+            }
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = resM[i][j] - ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(resM);
+        }
+
+        else
+            return super.add(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        if (other instanceof Matrix) {
+            double[][] resM = new double[value.length][value[0].length];
+            double[][] resMM = new double[value.length][resM[0].length];
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resM[i][j] = value[i][j];
+                }
+            }
+
+            for (int z = 0; z < value.length; z++) {     //Вернуться и решить проблему
+                int k = 0;
+                for (int m = 0; m < resM[0].length; m++) {
+                    for (int n = 0; n < value[0].length; n++) {
+                        resMM[z][m] += ((value[z][n]) * (((Matrix) other).value[n][k]));
+                    }
+                    k++;
+                }
+            }
+            return new Matrix(resMM);
+        }
+
+        else if (other instanceof Vector) {
+            double[] resMV = new double[value.length];
+
+            int x=0;
+            for (int j = 0; j < value.length; j++) {
+                for (int i = 0; i < value[0].length; i++) {
+                    resMV[x] += (value[x][i] * ((Vector) other).getValue()[i]);
+                }
+                x++;
+            }
+            return new Vector(resMV);
+        }
+
+        else if (other instanceof Scalar) {
+            double[][] resMS = new double[value.length][value[0].length];
+
+            for(int i=0; i<value.length; i++) {
+                for (int j = 0; j < value[i].length; j++) {
+                    resMS[i][j] = value[i][j] * ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(resMS);
+        }
+
+        else
+            return super.mul(other);
+    }
 
     @Override
     public String toString () {
