@@ -26,33 +26,25 @@ public class Matrix extends Var {
     }
 
     public Matrix(String value) {
-        Pattern pattern = Pattern.compile("\\d+(,\\d+)+");
-        Matcher matcher = pattern.matcher(value);
-        Matcher matcher1 = pattern.matcher(value);
+        value = value.replaceAll("[{]", " ").replaceAll("[}]", " ").trim();
 
-        int n = 0;
+        String[] matrixRows = value.split(" , ");
+        String[] Row = matrixRows[0].split(",");
+        int columnCount = Row.length;
 
-        while (matcher1.find()) {
-            n = matcher1.group().split(",").length;
-            break;
-        }
-
-
-        double[][] newMatrix = new double[n][n];
-
-        for (int i = 0; matcher.find(); i++) {
-            String[] s = matcher.group().split(",");
-            for (int j = 0; j < s.length; j++) {
-                newMatrix[i][j] = Double.parseDouble(s[j]);
+        double[][] newDoubleMatrix = new double[matrixRows.length][columnCount];
+        for (int i = 0; i < matrixRows.length; i++) {
+            String[] row = matrixRows[i].split(",");
+            for (int j = 0; j < columnCount; j++) {
+                newDoubleMatrix[i][j] = Double.parseDouble(row[j]);
             }
         }
-        this.value = newMatrix;
-
+        this.value = newDoubleMatrix;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("{ { ");
+        StringBuilder sb = new StringBuilder("{{");
         String delimiter = "";
         for (int i = 0; i < value.length; i++) {
             for (int j = 0; j < value[0].length; j++) {
@@ -62,10 +54,10 @@ public class Matrix extends Var {
                 delimiter = ", ";
             }
             if (i <= value.length - 2) {
-                sb.append(" }, { ");
+                sb.append("}, {");
             }
         }
-        sb.append(" } }");
+        sb.append("}}");
         return sb.toString();
     }
 

@@ -17,28 +17,27 @@ class Vector extends Var {
     }
 
     Vector(String value) {
-
-        Pattern pattern = Pattern.compile("\\d");
-        Matcher matcher = pattern.matcher(value);
-        this.value = new double[0];
-        for (int i = 0; matcher.find(); i++) {
-            this.value = Arrays.copyOf(this.value, this.value.length + 1);
-            this.value[i] = Double.parseDouble(matcher.group());
+        value = value.replaceAll("[{]", " ")
+                .replaceAll("[}]", " ")
+                .replaceAll("[,]", " ")
+                .trim();
+        String[] row = value.split(" ");
+        double[] newVector = new double[row.length];
+        for (int i = 0; i < newVector.length; i++) {
+            newVector[i] = Double.parseDouble(row[i]);
         }
-
+        this.value = newVector;
     }
 
     @Override
     public String toString() {
-        StringBuilder out = new StringBuilder();
+        StringBuilder sb = new StringBuilder("{");
         String delimiter = "";
-        out.append('{');
-        for (double v : value) {
-            out.append(delimiter);
-            out.append(v);
+        for (double element : value) {
+            sb.append(delimiter).append(element);
             delimiter = ", ";
         }
-        out.append('}');
-        return out.toString();
+        sb.append("}");
+        return sb.toString();
     }
 }
