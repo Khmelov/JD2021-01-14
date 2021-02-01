@@ -1,5 +1,9 @@
 package by.it.nakhankov.jd01_07;
 
-public class Var {
+ abstract class Var {
 
+    @Override
+    public String toString() {
+        return "Это класс Var";
+    }
 }
