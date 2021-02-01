@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class Matrix extends Var {
 
-    private final double[][] value;
+    private double[][] value;
 
     public Matrix(double[][] value) {
         this.value = value;
@@ -58,7 +58,7 @@ public class Matrix extends Var {
             double[][] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
-                    result[i][j] += ((Scalar) other).getValue();
+                    result[i][j] = result[i][j] + ((Scalar) other).getValue();
                 }
             }
             return new Matrix(result);
@@ -67,7 +67,7 @@ public class Matrix extends Var {
             double[][] result = Arrays.copyOf(value, value.length);
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result[0].length; j++) {
-                    result[i][j] += ((Matrix) other).value[i][j];
+                    result[i][j] = result[i][j] + ((Matrix) other).value[i][j];
                 }
             }
             return new Matrix(result);
@@ -101,13 +101,13 @@ public class Matrix extends Var {
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar){
-            double result = 0;
+            double result[][] = Arrays.copyOf(value, value.length);
             for (int i = 0; i < value.length; i++) {
                 for (int j = 0; j < value[0].length; j++) {
-                    result += value[i][j]*((Scalar) other).getValue();
+                    result[i][j] = value[i][j]*((Scalar) other).getValue();
                 }
             }
-            return new Scalar(result);
+            return new Matrix(result);
         }
         if(other instanceof Matrix){
             double[][] result = new double[value.length][((Matrix) other).value[0].length];
@@ -119,6 +119,15 @@ public class Matrix extends Var {
                 }
             }
             return new Matrix(result);
+        }
+        if(other instanceof Vector){
+            double[]result = new double [value.length];
+            for (int i = 0; i < value.length; i++) {
+                for (int j = 0; j < ((Vector) other).getValue().length; j++) {
+                    result[i] = result[i] + value[i][j] * ((Vector) other).getValue()[j];
+                }
+            }
+            return new Vector(result);
         }
         return super.mul(other);
     }

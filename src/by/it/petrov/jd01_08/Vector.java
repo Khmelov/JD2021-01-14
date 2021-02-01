@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 class Vector extends Var {
 
-    private final double[] value;
+    private double[] value;
 
     public Vector(double[] value) {
         this.value = value;
@@ -24,6 +24,10 @@ class Vector extends Var {
             doubleArray[i] = Double.parseDouble(stringArray[i]);
         }
         this.value = doubleArray;
+    }
+
+    public double[] getValue() {
+        return value;
     }
 
     @Override
