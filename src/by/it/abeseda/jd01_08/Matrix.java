@@ -41,10 +41,12 @@ public class Matrix extends Var {
 
     public Matrix(String strMatrix) {
 
-        String[] emptyArray = {};
-        Pattern pattern = Pattern.compile("([0-9.,\\s]+[0-9.]+)");
+        String[] emptyArray = {};//создаем пустой массив стринг
+        Pattern pattern = Pattern.compile("([0-9.,\\s]+[0-9.]+)");//шаблон для группы строка
+        //{{1,2,3},{4,5,6},{7,8,9},{7.0,0.8,33.1}} - находит 4 строки
         Matcher matcher = pattern.matcher(strMatrix);
 
+        //НЕНОБХОДИМО НАЙТИ ПРОБЛЕМУ, почему это код работает. а мой, точно такой же - нет!
         int count = 0;
         while (matcher.find()) {
             emptyArray = Arrays.copyOf(emptyArray, emptyArray.length + 1);
@@ -65,6 +67,8 @@ public class Matrix extends Var {
         }
         this.value = finishArray;
 /*какого то черта кидает искючение, т.к. есть возможность количество стобиков равное нулю
+
+
 
         if(strMatrix!=null && strMatrix.trim()!="") {
             String line = strMatrix.replace("{{", "").replace("}}", "")
@@ -92,9 +96,12 @@ public class Matrix extends Var {
             String[][] middle = new String[row][column];
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < column; j++) {
+
                     middle[i][j] = start[k];
-                    k++;
+                    if(k<row*column){
+                        k++;}
                 }
+
             }
 //создаем массив finish  и заполняем его элементами из массива middle и приводим элементы к типу double
             double[][] finish = new double[row][column];
@@ -105,7 +112,9 @@ public class Matrix extends Var {
             }
             this.value = finish;
         }
-*/
+
+
+ */
     }
 
     public Matrix(Matrix matrix) {
