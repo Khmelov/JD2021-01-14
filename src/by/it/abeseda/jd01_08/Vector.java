@@ -76,7 +76,7 @@ class Vector extends Var {
         } else
             return super.add(other);//вектор от матрицы отнять нельзя, мы идем к родителю
     }
-
+//умножение
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar) {
@@ -116,4 +116,6 @@ class Vector extends Var {
         }
         return super.div(other);
     }
+
+
 }
