@@ -3,7 +3,7 @@ package by.it.voitenkov.jd01_07;
 public class Runner {
 
     public static void main(String[] args) {
-        Scalar scalar1 = new Scalar(3.1415);
+        Scalar scalar1 = new Scalar('2');
         Scalar scalar2 = new Scalar(new Scalar(3.1415));
         Scalar scalar3 = new Scalar("3.1415");
         System.out.println(scalar1.toString());
