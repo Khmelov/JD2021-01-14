@@ -1,6 +1,5 @@
 package by.it.petrov.JavaVocabulary;
 
-import java.io.File;
 import java.io.IOException;
 
 public class InitialArrays {
@@ -10,5 +9,9 @@ public class InitialArrays {
     Integer[] points = FileOperator.readFileIntoIntegerArray("points.txt");
 
     public InitialArrays() throws IOException {
+    }
+
+    public static void ModifyInitialPointsArray(int numberOfElementToModify){
+
     }
 }
