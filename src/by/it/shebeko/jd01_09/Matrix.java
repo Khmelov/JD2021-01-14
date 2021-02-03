@@ -1,8 +1,8 @@
-package by.it.shebeko.jd01_08;
+package by.it.shebeko.jd01_09;
 
 import java.util.Arrays;
 
-public class Matrix extends Var{
+public class Matrix extends Var {
 
         private double[][] value;
 
