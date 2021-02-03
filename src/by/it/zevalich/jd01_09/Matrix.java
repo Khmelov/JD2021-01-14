@@ -1,5 +1,6 @@
 //часть не работает
-package by.it.zevalich.jd01_08;
+package by.it.zevalich.jd01_09;
+
 
 import java.util.Arrays;
 
