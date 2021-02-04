@@ -125,37 +125,66 @@ public class Matrix extends Var {
         if (other instanceof Scalar) {
             double[][] m = new double[value.length][0];
             for (int i = 0; i < value.length; i++) {
-                m[i] = Arrays.copyOf(m[i], value.length);
-                for (int j = 0; j < value[i].length; j++) {
-                    m[i][j] = m[i][j] * ((Scalar) other).getValue();
+                m[i] = Arrays.copyOf(m[i], value[0].length);
+                for (int j = 0; j < m[i].length; j++) {
+                    m[i][j] = value[i][j] * ((Scalar) other).getValue();
                 }
             }
             return new Matrix(m);
         }
         else if (other instanceof Matrix) {
-            double[][] z = new double[value.length][((Matrix) other).value.length];
+            double[][] z = new double[value.length][((Matrix) other).value[0].length];
             for (int i = 0; i < value.length; i++) {
                 z[i] = Arrays.copyOf(z[i], value.length);
-                for (int j = 0; j < value[i].length; j++) {
+                for (int j = 0; j < ((Matrix) other).value[0].length; j++) {
                     for (int k = 0; k < ((Matrix) other).value.length; k++) {
-                        z[i][j] = z[i][j] + z[i][k] * value[k][j];
+                        z[i][j] = z[i][j] + value[i][k] * ((Matrix)other).value[k][j];
                     }
                 }
             }
             return new Matrix(z);
-
         }
+        /*
+            static double[][] mul(double[][]matrixLeft, double[][]matrixRight){
+        double [][] z=new double[matrixLeft.length][matrixRight[0].length];
+        for (int i = 0; i < matrixLeft.length; i++) {
+            for (int j = 0; j < matrixRight[0].length; j++) {
+                for (int k = 0; k < matrixRight.length; k++) {
+                    z[i][j]=z[i][j]+matrixLeft[i][k]*matrixRight[k][j];
+                }
+            }
+        }
+        System.out.println(Arrays.toString(z));
+        return z;
+    }
+
+
+         */
         else if (other instanceof Vector) {
            double[][] z = new double[value.length][0];
-            double[] vec = ((Vector) other).getValue();
+            double[] vec = new double[value.length];
             for (int i = 0; i < value.length; i++) {
                 z[i] = Arrays.copyOf(z[i], value.length);
-                for (int j = 0; j < value[i].length; j++) {
-                        vec[i]= ((Vector) other).getValue()[i] + z[i][j] * ((Vector) other).getValue()[j];
+                for (int j = 0; j < ((Vector)other).getValue().length; j++) {
+                        vec[i]=vec[i]+ value[i][j] * ((Vector) other).getValue()[j];
                     }
                }
               return new Vector(vec);
             }
+
+        /*
+            static double[] mul(double[][]matrix,double[]vector){
+        double[] z=new double[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < vector.length; j++) {
+                z[i]=z[i]+matrix[i][j]*vector[j];
+            }
+        }
+        System.out.println(Arrays.toString(z));
+        return z;
+    }
+
+         */
         return super.mul(other);
     }
         @Override
