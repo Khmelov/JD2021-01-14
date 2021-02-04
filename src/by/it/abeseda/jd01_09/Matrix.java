@@ -133,7 +133,7 @@ public class Matrix extends Var {
             return new Matrix(m);
         }
         else if (other instanceof Matrix) {
-            double[][] z = new double[value.length][0];
+            double[][] z = new double[value.length][((Matrix) other).value.length];
             for (int i = 0; i < value.length; i++) {
                 z[i] = Arrays.copyOf(z[i], value.length);
                 for (int j = 0; j < value[i].length; j++) {
