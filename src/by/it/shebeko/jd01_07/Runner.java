@@ -6,5 +6,10 @@ public class Runner {
         Var v2 = new Vector(new double[]{1.0, 2.0, 4.0});   //v2 ищет в вектор метод ту стринг, не находит, идет в его потомок, те вар
         System.out.println(v1);
         System.out.println(v2);
+        Var m1 = new Matrix(new double[][]{{1, 2}, {3,4}});
+        System.out.println(m1);
+        Var m2 = new Matrix("{{1, 2}, {3,4}}");
+        System.out.println(m2);
     }
+
 }
