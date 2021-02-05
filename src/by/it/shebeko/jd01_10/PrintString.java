@@ -8,9 +8,8 @@ public class PrintString {
         Class<String> structureString = String.class;
         Method[] methods = structureString.getDeclaredMethods();
         for (Method method : methods) {
-            StringBuilder out = new StringBuilder();
             if (!Modifier.isStatic(method.getModifiers())){
-                System.out.println(out.append(method.getName()));
+                System.out.println(method.getName());
             }
 
         }
