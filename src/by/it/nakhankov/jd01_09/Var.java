@@ -1,6 +1,17 @@
-package by.it.nakhankov.jd01_08;
+package by.it.nakhankov.jd01_09;
 
- public abstract class Var implements Operation {
+
+
+public abstract class Var implements Operation {
+
+    static Var createVar(String operand) {
+        operand=operand.trim().replace("\\s+", "");
+        if (operand.matches(Patterns.SCALAR))
+            return new Scalar(operand);
+        if (operand.matches(Patterns.VECTOR))
+            return new Vector(operand);
+        return null;
+    }
 
 
      @Override
