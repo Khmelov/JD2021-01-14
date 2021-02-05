@@ -3,12 +3,10 @@ package by.it.petrov.JavaVocabulary;
 import java.io.IOException;
 
 public class ExerciseArray {
-
     String[] exerciseArrayDefs;
     String[] exerciseArrayWords;
     int[] indexesOfElementsFromInitialArrays;
     int[] numberOfActualCorrectAnswersInExercise;
-
     ExerciseArray (Integer numberOfWordsInExercise) throws IOException {
         String[] exerciseArraysDefs = new String[numberOfWordsInExercise];
         String[] exerciseArrayWords = new String[numberOfWordsInExercise];
@@ -39,7 +37,6 @@ public class ExerciseArray {
         this.exerciseArrayWords = exerciseArrayWords;
         this.indexesOfElementsFromInitialArrays = indexesOfElementsFromInitialArrays;
     }
-
     public void TrimExerciseArray(int indexOfElementToTrim){
         String[] trimmedExerciseArrayDefs = new String[exerciseArrayWords.length - 1];
         String[] trimmedExerciseArrayWords = new String[exerciseArrayWords.length - 1];;
@@ -61,5 +58,8 @@ public class ExerciseArray {
         this.exerciseArrayDefs = trimmedExerciseArrayDefs;
         this.numberOfActualCorrectAnswersInExercise = trimmedNumberOfActualCorrectAnswersInExercise;
         this.indexesOfElementsFromInitialArrays = trimmedIndexesOfElementsFromInitialArrays;
+    }
+    public void ModifyNumberOfActualCorrectAnswersInExercise(int numberOfElementToModify){
+        this.numberOfActualCorrectAnswersInExercise[numberOfElementToModify] += 1;
     }
 }

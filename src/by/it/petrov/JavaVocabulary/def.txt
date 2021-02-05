@@ -968,3 +968,7 @@ Convenience
 Redundant
 chalk
 wig
+deprecated
+retention
+inherited
+halt

@@ -11,6 +11,6 @@ public class Printer {
           numberOfRightAnswers += ar.points[i];
         }
         System.out.printf("Total number of words in vocabulary: %1$-6d%2$s%n",numberOfWordsInVocabulary, "words");
-        System.out.printf("Total number of correct answers:     %1$-6d%2$s",numberOfRightAnswers, "answers");
+        System.out.printf("Total number of correct answers:     %1$-6d%2$s%n",numberOfRightAnswers, "answers");
     }
 }
