@@ -1,4 +1,4 @@
-package by.it.shebeko.jd01_08;
+package by.it.shebeko.jd01_09;
 
 public class Runner {
     public static void print(Var var) {
@@ -21,12 +21,6 @@ public class Runner {
             print(v.sub(v)); //Выведет на консоль {0.0, 0.0, 0.0}
             print(v.mul(v)); //Выведет на консоль 14.0
             print(v.div(v)); //Сообщит о невозможности операции
-
-        Var m = new Matrix(new double[][]{{1,2}, {3,4}});
-        print(m.add(m));
-        print(m.sub(m));
-        print(m.mul(m));
-        print(m.mul(v));
         }
 
 }
