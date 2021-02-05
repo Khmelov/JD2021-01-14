@@ -8,7 +8,7 @@ public class Demo {
     //эта особенность языка хороша лишь для демонстрации
 }
 
-class    ConstMethod {
+class ConstMethod {
     // метод method() не может быть полиморфным
     final void method() {
     }
