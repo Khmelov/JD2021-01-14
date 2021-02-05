@@ -8,10 +8,6 @@ public class BeanTester {
     public static void main(String[] args) throws Exception{
         Class<Bean> userClass = Bean.class;
 
-        //здесь создаем экземпляр класса
-        Constructor<Bean> constructor = userClass.getConstructor(Bean.class);
-        Object onno=constructor.newInstance(2.0,3.0);
-        System.out.println(onno);
 
 
         //здесь вызываем все доступные методы
@@ -20,10 +16,17 @@ public class BeanTester {
             String name = method.getName();
             Class<?>[] parameterTypes = method.getParameterTypes();
             String returnType = method.getReturnType().getSimpleName();
+            System.out.printf("%s %s (%s)\n",returnType,name, Arrays.toString(parameterTypes));
 
-            System.out.printf("%s %s (%s)\n",returnType,name, Arrays.toString(parameterTypes));        }
+        }
+        //попытка обратится к методу
+        //здесь создаем экземпляр класса
+        Constructor<Bean> constructor = Bean.class.getConstructor(Integer.class);// у нас конструтор без параметров
+        Bean arr=constructor.newInstance();//значит мы не передаем никаких параметров
+        Method obj=Bean.class.getDeclaredMethod("min", int.class, int.class);
+        obj.setAccessible(true);
+        System.out.println(obj.invoke(arr));
+//метод статический надо инраче вызвать!
 
-//        Method method= userClass.getMethod("min");
-  //      System.out.println(method.invoke);
     }
 }
