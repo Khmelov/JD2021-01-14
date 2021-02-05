@@ -1,4 +1,4 @@
-package by.it.abeseda.jd01_08;
+package by.it.abeseda.jd01_09;
 
 import java.util.Arrays;
 

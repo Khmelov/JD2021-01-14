@@ -1,4 +1,4 @@
-package by.it.abeseda.jd01_08;
+package by.it.abeseda.jd01_09;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -161,16 +161,16 @@ public class Matrix extends Var {
 
          */
         else if (other instanceof Vector) {
-            double[][] z = new double[value.length][0];
+           double[][] z = new double[value.length][0];
             double[] vec = new double[value.length];
             for (int i = 0; i < value.length; i++) {
                 z[i] = Arrays.copyOf(z[i], value.length);
                 for (int j = 0; j < ((Vector)other).getValue().length; j++) {
-                    vec[i]=vec[i]+ value[i][j] * ((Vector) other).getValue()[j];
-                }
+                        vec[i]=vec[i]+ value[i][j] * ((Vector) other).getValue()[j];
+                    }
+               }
+              return new Vector(vec);
             }
-            return new Vector(vec);
-        }
 
         /*
             static double[] mul(double[][]matrix,double[]vector){
@@ -187,18 +187,18 @@ public class Matrix extends Var {
          */
         return super.mul(other);
     }
-    @Override
-    public Var div (Var other){
-        if (other instanceof Scalar) {
-            double[][] del = new double[value.length][0];
-            for (int i = 0; i < value.length; i++) {
-                del[i] = Arrays.copyOf(del[i], value.length);
-                for (int j = 0; j < del[i].length; j++) {
-                    del[i][j] = value[i][j] / ((Scalar) other).getValue();
+        @Override
+        public Var div (Var other){
+            if (other instanceof Scalar) {
+                double[][] del = new double[value.length][0];
+                for (int i = 0; i < value.length; i++) {
+                    del[i] = Arrays.copyOf(del[i], value.length);
+                    for (int j = 0; j < del[i].length; j++) {
+                        del[i][j] = value[i][j] / ((Scalar) other).getValue();
+                    }
                 }
+                return new Matrix(del);
             }
-            return new Matrix(del);
+            return super.div(other);
         }
-        return super.div(other);
     }
-}
