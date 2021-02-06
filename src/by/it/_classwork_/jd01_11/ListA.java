@@ -4,6 +4,7 @@ import java.util.*;
 
 class ListA<E> implements List<E> {
 
+    @SuppressWarnings("unchecked")
     private E[] elements = (E[]) new Object[16];
 
     private int size = 0;
