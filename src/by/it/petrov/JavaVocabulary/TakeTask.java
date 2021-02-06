@@ -24,7 +24,7 @@ public class TakeTask {
                 }
                 continue;
             }
-            System.out.println("****** INCORRECT! ****** \n The right answer was \"" + ea.exerciseArrayDefs[randomTry] + "\"");
+            System.out.println("****** INCORRECT! ****** \n The right answer was \"" + ea.exerciseArrayDefs[randomTry] + "\"\n");
             if (ea.exerciseArrayDefs[randomTry].length() >= 20) {
                 System.out.print("Do you agree? (type NO to take a point)");
                 if (sc.nextLine().toLowerCase(Locale.ROOT).equals("no")) {
