@@ -1,5 +1,4 @@
-package by.it.zevalich.jd01_08;
-
+package by.it.zevalich.jd01_09;
 
 
 class Scalar extends Var {

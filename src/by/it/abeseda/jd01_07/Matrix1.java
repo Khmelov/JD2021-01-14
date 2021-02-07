@@ -1,13 +1,13 @@
 package by.it.abeseda.jd01_07;
 
-public class Matrix extends Var{
+public class Matrix1 extends Var{
 
     private double [][] value;
 
 
     // конструктор двумерный массив двумерный массив
 
-    Matrix(double[][] value) {
+    Matrix1(double[][] value) {
         this.value = value;
     }
 
@@ -33,7 +33,7 @@ public class Matrix extends Var{
     // из двумерного массива в строку
     // спросить у Александра про matcher.group - т.к. не разобралась
 
-    Matrix(String strMatrix) {
+    Matrix1(String strMatrix) {
         String str=strMatrix.replace("{{","").
                 replace("}}","")
                 .replace(" ","").trim();
@@ -56,7 +56,7 @@ public class Matrix extends Var{
 
     //ничего не понятный объект в объект
 
-    Matrix(Matrix matrix){
+    Matrix1(Matrix1 matrix){
         this.value=matrix.value;
     }
 
