@@ -21,5 +21,7 @@ public class Bean {
     static double avg(int a, int b) {
         return (a + b) / 2.0;
     }
+    public Bean() {
+    }
 
 }
