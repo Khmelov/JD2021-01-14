@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_10;
+package by.it.voitenkov.jd01_10;
 
 
 import by.it.HomeWork;
