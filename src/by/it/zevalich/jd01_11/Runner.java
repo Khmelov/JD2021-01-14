@@ -26,5 +26,7 @@ public class Runner {
 
         System.out.println("myList(0):" + myList.get(0)+ "\narList(0):"+ arList.get(0));
 
+        System.out.println(myList.isEmpty());
+        System.out.println(arList.addAll(myList));
     }
 }
