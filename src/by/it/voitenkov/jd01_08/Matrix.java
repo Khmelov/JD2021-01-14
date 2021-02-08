@@ -15,31 +15,7 @@ public class Matrix extends Var {
         this.value = matrix.value;
     }
 
-    public Matrix(String strMatrix) {
-        String[] arrayNumber = {};
-        Pattern pattern = Pattern.compile("([0-9.,\\s]+[0-9.]+)");
-        Matcher matcher = pattern.matcher(strMatrix);
 
-        int count = 0;
-        while (matcher.find()) {
-            arrayNumber = Arrays.copyOf(arrayNumber, arrayNumber.length + 1);
-            arrayNumber[count] = matcher.group();
-            count++;
-        }
-        double[][] array = new double[arrayNumber.length][0];
-        for (int i = 0; i < arrayNumber.length; i++) {
-            String[] arrayTmp = arrayNumber[i].split("[ ,]");
-            int counter = 0;
-
-            for (String s : arrayTmp) {
-                if (s.matches("[0-9.]+")) {
-                    array[i] = Arrays.copyOf(array[i], array[i].length + 1);
-                    array[i][counter++] = Double.parseDouble(s);
-                }
-            }
-        }
-        this.value = array;
-    }
 
     @Override
     public Var add(Var other) {
