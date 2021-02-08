@@ -26,6 +26,7 @@ class Scalar extends Var {
             double sum = this.value + ((Scalar) other).value;
             return new Scalar(sum);
         }
+
         return other.add(this);
     }
 

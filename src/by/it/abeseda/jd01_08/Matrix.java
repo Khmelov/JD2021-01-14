@@ -1,6 +1,5 @@
 package by.it.abeseda.jd01_08;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,7 +7,6 @@ import java.util.regex.Pattern;
 public class Matrix extends Var {
 
     private double[][] value;
-
 
     // конструктор двумерный массив двумерный массив
 
@@ -66,55 +64,7 @@ public class Matrix extends Var {
             }
         }
         this.value = finishArray;
-/*какого то черта кидает искючение, т.к. есть возможность количество стобиков равное нулю
 
-
-
-        if(strMatrix!=null && strMatrix.trim()!="") {
-            String line = strMatrix.replace("{{", "").replace("}}", "")
-                    .trim();
-            Pattern pattern = Pattern.compile("} ?\\,\\{");
-            Matcher matcher = pattern.matcher(line);
-            //считаем количество строк по знакам },{
-            int row = 1;
-            while (matcher.find()) {
-                row++;
-            }
-            Pattern pattern1 = Pattern.compile("[0-9.0-9]");//здесь я задаю шаблон под элемент
-            Matcher matcher1 = pattern1.matcher(line);
-            int column = 0;
-            //считаем количество элементов массиве
-            while (matcher1.find()) {
-                column++;
-            }
-            //количество колонок равно количество элементов разделить на количество строк
-            column = column / row;
-            //создаем одномерный массив удалив шаблон
-            String[] start = line.split("[},{]+");
-            int k = 0;
-//создаем массив middle заполняя его элементами из массива start
-            String[][] middle = new String[row][column];
-            for (int i = 0; i < row; i++) {
-                for (int j = 0; j < column; j++) {
-
-                    middle[i][j] = start[k];
-                    if(k<row*column){
-                        k++;}
-                }
-
-            }
-//создаем массив finish  и заполняем его элементами из массива middle и приводим элементы к типу double
-            double[][] finish = new double[row][column];
-            for (int i = 0; i < row; i++) {
-                for (int j = 0; j < column; j++) {
-                    finish[i][j] = Double.parseDouble(middle[i][j]);
-                }
-            }
-            this.value = finish;
-        }
-
-
- */
     }
 
     public Matrix(Matrix matrix) {
@@ -169,37 +119,76 @@ public class Matrix extends Var {
         }
         return super.sub(other);
     }
-/*
+
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar) {
             double[][] m = new double[value.length][0];
             for (int i = 0; i < value.length; i++) {
-                m[i] = Arrays.copyOf(m[i], value.length);
-                for (int j = 0; j < value[i].length; j++) {
-                    m[i][j] = m[i][j] * ((Scalar) other).getValue();
+                m[i] = Arrays.copyOf(m[i], value[0].length);
+                for (int j = 0; j < m[i].length; j++) {
+                    m[i][j] = value[i][j] * ((Scalar) other).getValue();
                 }
-                return new Matrix(m);
             }
-        } else if (other instanceof Matrix) {
-            double [][] z=new double[value.length][0];
+            return new Matrix(m);
+        }
+        else if (other instanceof Matrix) {
+            double[][] z = new double[value.length][((Matrix) other).value[0].length];
             for (int i = 0; i < value.length; i++) {
-                z[i]=Arrays.copyOf(z[i],value.length);
-
-                for (int j = 0; j < value[i].length; j++) {
-                    for (int k = 0; k < value.length; k++) {
-                        z[i][j] = z[i][j] + z[i][k] * value[k][j];
+                z[i] = Arrays.copyOf(z[i], value.length);
+                for (int j = 0; j < ((Matrix) other).value[0].length; j++) {
+                    for (int k = 0; k < ((Matrix) other).value.length; k++) {
+                        z[i][j] = z[i][j] + value[i][k] * ((Matrix)other).value[k][j];
                     }
                 }
             }
-            return super.mul(other);
+            return new Matrix(z);
         }
+        /*
+            static double[][] mul(double[][]matrixLeft, double[][]matrixRight){
+        double [][] z=new double[matrixLeft.length][matrixRight[0].length];
+        for (int i = 0; i < matrixLeft.length; i++) {
+            for (int j = 0; j < matrixRight[0].length; j++) {
+                for (int k = 0; k < matrixRight.length; k++) {
+                    z[i][j]=z[i][j]+matrixLeft[i][k]*matrixRight[k][j];
+                }
+            }
+        }
+        System.out.println(Arrays.toString(z));
+        return z;
     }
 
 
+         */
+        else if (other instanceof Vector) {
+            double[][] z = new double[value.length][0];
+            double[] vec = new double[value.length];
+            for (int i = 0; i < value.length; i++) {
+                z[i] = Arrays.copyOf(z[i], value.length);
+                for (int j = 0; j < ((Vector)other).getValue().length; j++) {
+                    vec[i]=vec[i]+ value[i][j] * ((Vector) other).getValue()[j];
+                }
+            }
+            return new Vector(vec);
+        }
 
+        /*
+            static double[] mul(double[][]matrix,double[]vector){
+        double[] z=new double[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < vector.length; j++) {
+                z[i]=z[i]+matrix[i][j]*vector[j];
+            }
+        }
+        System.out.println(Arrays.toString(z));
+        return z;
+    }
+
+         */
+        return super.mul(other);
+    }
     @Override
-    public Var div(Var other) {
+    public Var div (Var other){
         if (other instanceof Scalar) {
             double[][] del = new double[value.length][0];
             for (int i = 0; i < value.length; i++) {
@@ -212,9 +201,4 @@ public class Matrix extends Var {
         }
         return super.div(other);
     }
-
- */
 }
-
-
-

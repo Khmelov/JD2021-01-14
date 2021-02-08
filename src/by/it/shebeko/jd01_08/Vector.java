@@ -9,6 +9,10 @@ class Vector extends Var {
 
     private double [] value;  //создаем приватное поле под вектор чтобы создать три конструктора
 
+    public double [] getValue(){
+        return value;
+    }
+
     public Vector(double[] value) {   // 1 конструктор на вход принимает массив
         this.value = Arrays.copyOf(value, value.length);
     }

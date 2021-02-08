@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class TaskB {
 
     public static void main(String[] args) {
-        int numberPeople;
+        int numberOfPeople;
         int sumOfAllSalaries = 0;
         int numberOfQuarters = 4;
         StringBuilder delimiter = new StringBuilder("-");
@@ -15,9 +15,9 @@ public class TaskB {
         int[][] arrayOfSalaries;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите число человек: ");
-        numberPeople = scanner.nextInt();
+        numberOfPeople = scanner.nextInt();
 
-        arraySurnames = new String[numberPeople];
+        arraySurnames = new String[numberOfPeople];
         arrayOfSalaries = new int[arraySurnames.length][numberOfQuarters];
 
         delimiter.append("-".repeat(tableColumnNames.length * 15));
@@ -62,7 +62,7 @@ public class TaskB {
 
             if (i == arrayOfSalaries.length - 1) {
                 System.out.printf("%s\n", delimiter.toString());
-                double averageSalary = (sumOfAllSalaries / (double) (numberPeople * numberOfQuarters));
+                double averageSalary = (sumOfAllSalaries / (double) (numberOfPeople * numberOfQuarters));
                 System.out.printf("%-15s%-1d\n%-15s%-1.6f", "Итого", sumOfAllSalaries, "Средняя", averageSalary);
             }
         }
