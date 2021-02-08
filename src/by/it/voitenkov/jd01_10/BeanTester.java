@@ -6,8 +6,9 @@ import java.lang.reflect.Method;
 public class BeanTester {
 
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, ClassNotFoundException, InvocationTargetException {
+
         Class<?> clazz = Class.forName(Bean.class.getName());
-        Bean bean = (Bean) clazz.newInstance();
+        Bean bean = Bean.class.newInstance();
         Method[] declaredMethods = bean.getClass().getDeclaredMethods();
         for(Method method : declaredMethods) {
             if (method.isAnnotationPresent(Param.class)) {
