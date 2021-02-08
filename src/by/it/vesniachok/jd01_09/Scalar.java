@@ -4,19 +4,21 @@ class Scalar extends Var {
 
     private double value;
 
+    public double getValue() {
+        return value;
+    }
+
     Scalar(double value) {
         this.value = value;
     }
 
-    Scalar(String value) {
-        this.value=Double.parseDouble(value);
+    Scalar(String scalar) {
+        this.value = Double.parseDouble(scalar);
     }
 
-    Scalar(Scalar otherScalar) {
-        this.value=otherScalar.value;
+    Scalar(Scalar scalar) {
+        this.value = scalar.value;
     }
-
-
     @Override
     public Var add(Var other) {
         if (other instanceof  Scalar){
