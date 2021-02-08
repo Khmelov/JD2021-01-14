@@ -24,7 +24,7 @@ public class ExerciseArray {
             boolean CreationIsFinished = false;
             while(!CreationIsFinished){
                 int randomNumberInGivenRange = (int) (Math.random()*ar.points.length);
-                if (chanceToBeChosen[randomNumberInGivenRange] > Math.random()){
+                if (chanceToBeChosen[randomNumberInGivenRange] < Math.random()){
                     exerciseArraysDefs[i] = ar.defs[randomNumberInGivenRange];
                     exerciseArrayWords[i] = ar.words[randomNumberInGivenRange];
                     indexesOfElementsFromInitialArrays[i] = randomNumberInGivenRange;
