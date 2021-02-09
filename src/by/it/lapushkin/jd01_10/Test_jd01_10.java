@@ -183,7 +183,6 @@ public class Test_jd01_10 extends HomeWork {
 
                 .exclude("checkIndex")
                 .exclude("rangeCheck")
-                .exclude("format")
                 .exclude("copyValueOf")
                 .exclude("checkOffset")
                 .exclude("checkBoundsOffCount")
