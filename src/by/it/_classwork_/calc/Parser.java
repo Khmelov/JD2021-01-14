@@ -8,19 +8,27 @@ class Parser {
         expression = expression.replaceAll("\\s+", "");
         String[] parts = expression.split(Patterns.OPERATION, 2);
         if (parts.length != 1) {
-            Var left = Var.createVar(parts[0]);
             Var right = Var.createVar(parts[1]);
+            //A=2
+            if (expression.contains("=")) {
+                return Var.save(parts[0], right);
+            }
+            Var left = Var.createVar(parts[0]);
             if (left == null || right == null) {
                 return null; //TODO need Exception
             }
             Matcher matcherOp = Pattern.compile(Patterns.OPERATION).matcher(expression);
-            if (matcherOp.find()){
+            if (matcherOp.find()) {
                 String op = matcherOp.group();
-                switch (op){
-                    case "+": return left.add(right);
-                    case "-": return left.sub(right);
-                    case "*": return left.mul(right);
-                    case "/": return left.div(right);
+                switch (op) {
+                    case "+":
+                        return left.add(right);
+                    case "-":
+                        return left.sub(right);
+                    case "*":
+                        return left.mul(right);
+                    case "/":
+                        return left.div(right);
                 }
             }
         } else {
