@@ -11,13 +11,14 @@ public class ArrayExpand2D {
         int[][] a = {{1, 2, 3}, {4, 5, 6}};
         printA(a);
         //add row
-        for (int i = 0; i < 3; i++) {
-            a = newRow(a, scanner.nextLine());
+        for (; ; ) {
+            String line = scanner.nextLine();
+            if (line.equals("end")) {
+                break;
+            }
+            a = newRow(a, line);
             printA(a);
         }
-        //add col
-
-
     }
 
     private static int[][] newRow(int[][] a, String line) {
