@@ -1,6 +1,11 @@
 package by.it._classwork_.calc;
 
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Var implements Operation {
+
+    private static Map<String,Var> vars=new HashMap<>();
 
     static Var createVar(String strVar) {
         if (strVar.matches(Patterns.SCALAR)) {
@@ -10,7 +15,12 @@ abstract class Var implements Operation {
         } else if (strVar.matches(Patterns.MATRIX)) {
             return new Matrix(strVar);
         } else
-            return null;
+            return vars.get(strVar);
+    }
+
+    static Var save(String name, Var value) {
+        vars.put(name,value);
+        return value;
     }
 
     @Override
