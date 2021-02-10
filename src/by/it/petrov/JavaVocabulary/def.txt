@@ -968,3 +968,13 @@ Convenience
 Redundant
 chalk
 wig
+deprecated
+retention
+inherited
+halt
+to instantiate
+Wrapper Classes
+pervasiveness
+Queue
+transient
+testimonials
