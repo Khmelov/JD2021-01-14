@@ -72,7 +72,7 @@ public class TaskB3 {
         }
         return second.get(0);
 //        int[] listPerson = new int[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-//        Queue<int> list = new Queue<int>(listPerson);
+//=        Queue<int> list = new Queue<int>(listPerson);
 //
 //        while (list.Count != 1)
 //        {

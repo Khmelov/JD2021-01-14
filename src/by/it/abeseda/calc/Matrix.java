@@ -144,22 +144,7 @@ public class Matrix extends Var {
             }
             return new Matrix(z);
         }
-        /*
-            static double[][] mul(double[][]matrixLeft, double[][]matrixRight){
-        double [][] z=new double[matrixLeft.length][matrixRight[0].length];
-        for (int i = 0; i < matrixLeft.length; i++) {
-            for (int j = 0; j < matrixRight[0].length; j++) {
-                for (int k = 0; k < matrixRight.length; k++) {
-                    z[i][j]=z[i][j]+matrixLeft[i][k]*matrixRight[k][j];
-                }
-            }
-        }
-        System.out.println(Arrays.toString(z));
-        return z;
-    }
 
-
-         */
         else if (other instanceof Vector) {
            double[][] z = new double[value.length][0];
             double[] vec = new double[value.length];
@@ -172,19 +157,6 @@ public class Matrix extends Var {
               return new Vector(vec);
             }
 
-        /*
-            static double[] mul(double[][]matrix,double[]vector){
-        double[] z=new double[matrix.length];
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < vector.length; j++) {
-                z[i]=z[i]+matrix[i][j]*vector[j];
-            }
-        }
-        System.out.println(Arrays.toString(z));
-        return z;
-    }
-
-         */
         return super.mul(other);
     }
         @Override
