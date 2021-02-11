@@ -15,7 +15,7 @@ public class TaskC3 {
         boolean result = true;
         while (matcher.find()) {
             String bracket = matcher.group();
-            Character ch = bracket.charAt(0);
+            char ch = bracket.charAt(0);
             if (ch == '{' || ch == '[' || ch == '(') {
                 deque.addFirst(ch);
             } else {
