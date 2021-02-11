@@ -1,7 +1,16 @@
 package by.it.abeseda.calc;
 
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Var implements Operation {
 
+    private static Map<String,Var> vars=new HashMap<>();
+
+    static Var saveVar(String name, Var var){
+        vars.put(name, var);
+        return var;
+    }
 
     static Var createVar(String operand){
         operand=operand.trim().replace("\\s+","");
@@ -13,8 +22,12 @@ abstract class Var implements Operation {
         }
         if (operand.matches(Patterns.MATRIX)){
             return new Matrix(operand);
+
         }
-        return null;
+        if(vars.containsKey(operand)){
+            return vars.get(operand);
+        }
+        return null;//если есть ошибка
     }
 
 

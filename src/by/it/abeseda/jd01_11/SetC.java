@@ -77,7 +77,13 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        boolean modified = false;//
+        Iterator<?> iterator = c.iterator();//
+        while (iterator.hasNext()) {
+            if (contains(iterator.next())) //
+                modified = true;
+        }
+        return modified;
     }
 
 
@@ -114,7 +120,14 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean result=false;
+        for(Object t:c){
+            if (this.remove(t)){
+                result=true;
+            }
+            this.remove(t);
+        }
+        return result;
     }
 
     @Override
