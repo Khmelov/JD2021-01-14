@@ -54,5 +54,15 @@ public class Helper {
         a.printArray(arr);
 
     }
+    public static double[ ] mul(double[ ][ ] matrix, double[ ] vector){
+        double[] mulVectorArray = new double[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                mulVectorArray[i] = mulVectorArray[i] + matrix[i][j] * vector[j];
+            }
+        }
+        return mulVectorArray;
+    }
+
 }
 

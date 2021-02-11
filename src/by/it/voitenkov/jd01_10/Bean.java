@@ -21,3 +21,4 @@ public class Bean {
         return (a + b) / (double) 2;
     }
 }
+
