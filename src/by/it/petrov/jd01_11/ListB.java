@@ -99,7 +99,6 @@ public class ListB <T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        c = (List) c;
         T[] totalList = (T[]) new Object[this.size + c.size()];
 
         for (int i = 0; i < elements.length; i++) {

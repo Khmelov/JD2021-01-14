@@ -1,4 +1,4 @@
-package by.it.lapushkin.jd01_10;
+package by.it.nakhankov.jd01_10;
 
 
 import by.it.HomeWork;
@@ -183,6 +183,7 @@ public class Test_jd01_10 extends HomeWork {
 
                 .exclude("checkIndex")
                 .exclude("rangeCheck")
+                .exclude("format")
                 .exclude("copyValueOf")
                 .exclude("checkOffset")
                 .exclude("checkBoundsOffCount")
