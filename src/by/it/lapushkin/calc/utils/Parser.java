@@ -1,11 +1,13 @@
-package by.it.lapushkin.calc;
+package by.it.lapushkin.calc.utils;
+
+import by.it.lapushkin.calc.model.Var;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Parser {
+public class Parser {
 
-    Var parse(String expression) {
+    public Var parse(String expression) {
         expression = expression.replaceAll("\\s+", "");
         String[] parts = expression.split(Patterns.OPERATION, 2);
         if (parts.length != 1) {

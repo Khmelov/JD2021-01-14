@@ -1,6 +1,7 @@
-package by.it.lapushkin.calc;
+package by.it.lapushkin.calc.model;
 
-class Matrix extends Var {
+
+public class Matrix extends Var {
 
     private final double[][] value;
 
@@ -157,11 +158,6 @@ class Matrix extends Var {
             }
         }
         return super.div(other);
-    }
-
-    @Override
-    public String accept(Visitor visitor) {
-       return visitor.visit(this);
     }
 
     @Override
