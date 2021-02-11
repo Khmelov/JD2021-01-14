@@ -5,46 +5,51 @@ import java.util.Map;
 
 abstract class Var implements Operation {
 
-    private static Map<String,Var> vars=new HashMap<>();
+    private static Map<String, Var> vars = new HashMap<>();
 
-    static Var createVar(String strVar) {
+    static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
         } else if (strVar.matches(Patterns.VECTOR)) {
             return new Vector(strVar);
         } else if (strVar.matches(Patterns.MATRIX)) {
             return new Matrix(strVar);
-        } else
-            return vars.get(strVar);
+        } else {
+            Var var = vars.get(strVar);
+            if (var==null) {
+                throw new CalcException("Incorrect var "+strVar);
+            }
+            return var;
+        }
     }
 
     static Var save(String name, Var value) {
-        vars.put(name,value);
+        vars.put(name, value);
         return value;
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.printf("Operation %s + %s incorrect\n", this, other);
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException(String.format(
+                "Operation %s + %s incorrect\n", this, other));
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.printf("Operation %s - %s incorrect\n", this, other);
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(String.format(
+                "Operation %s - %s incorrect\n", this, other));
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.printf("Operation %s * %s incorrect\n", this, other);
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException(String.format(
+                "Operation %s * %s incorrect\n", this, other));
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.printf("Operation %s / %s incorrect\n", this, other);
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException(String.format(
+                "Operation %s / %s incorrect\n", this, other));
     }
 
     @Override
