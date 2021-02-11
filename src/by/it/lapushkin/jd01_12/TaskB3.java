@@ -6,7 +6,7 @@ public class TaskB3 {
 
     public static void main(String[] args) {
         Random random = new Random();
-        String[] peopleArray = new String[262144];
+        String[] peopleArray = new String[4096];
         for (String s : peopleArray) {
             s = String.valueOf(random.nextInt());
         }
@@ -45,6 +45,24 @@ public class TaskB3 {
 
 
     static String process(LinkedList<String> peoples) {
+        for (int counter = 1; peoples.size() > 1; ) {
+            Iterator<String> iterator = peoples.iterator();
+
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (counter % 2 == 0) {
+                    iterator.remove();
+                }
+                counter++;
+            }
+        }
+
+        return peoples.get(0);
+    }
+}
+
+
+   /* static String process(LinkedList<String> peoples) {
         Deque<String> deque = peoples;
         for (; deque.size() > 1; ) {
             if (deque.size() !=2){
@@ -55,5 +73,4 @@ public class TaskB3 {
             }
         }
         return peoples.get(0);
-    }
-}
+    }*/
