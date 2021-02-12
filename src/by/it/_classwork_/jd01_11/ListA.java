@@ -35,7 +35,7 @@ class ListA<E> implements List<E> {
     public String toString() {
         StringJoiner out = new StringJoiner(", ", "[", "]");
         for (int i = 0; i < size; i++) {
-            out.add(elements[i].toString());
+            out.add(elements[i].toString());//отому что массив elements то массив объектов
         }
         return out.toString();
     }

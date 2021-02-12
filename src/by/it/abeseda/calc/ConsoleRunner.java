@@ -8,9 +8,15 @@ public class ConsoleRunner {
         String line;
         Parser parser=new Parser();
         Printer printer=new Printer();
-       while(!(line=scanner.nextLine()).equals("end")){
-           Var result=parser.calc(line);
-           printer.print(result);
+       while(!(line=scanner.next()).equals("end")){
+
+           try {
+               Var result = parser.calc(line);
+               printer.print(result);
+           } catch (CalcException e) {
+               System.out.println(e.getMessage());
+           }
+
        }
     }
 }
