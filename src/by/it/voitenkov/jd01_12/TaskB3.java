@@ -37,7 +37,10 @@ public class TaskB3 {
     }
 
     static String process(LinkedList<? extends Object> peoples) {
-        return (String) removeEverySecond(peoples).get(0);
+        while (peoples.size() != 1) {
+            peoples.pollLast();
+        }
+        return (String) peoples.get(0);
     }
 
     static List<?> removeEverySecond(List<? extends Object> listPersons) {
