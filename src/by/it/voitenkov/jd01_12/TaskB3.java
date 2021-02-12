@@ -24,7 +24,7 @@ public class TaskB3 {
     }
 
     static void getRandomList(List<String> list) {
-        int count = 4096;
+        int count = 3;
         Random random = new Random();
         while (count != 0) {
             list.add(random.nextInt() + "");
@@ -32,15 +32,17 @@ public class TaskB3 {
         }
     }
 
-    static String process(ArrayList<? extends Object> peoples) {
+    static String process(ArrayList<String> peoples) {
         return (String) removeEverySecond(peoples).get(0);
     }
 
-    static String process(LinkedList<? extends Object> peoples) {
+    static String process(LinkedList<String> peoples) {
         while (peoples.size() != 1) {
-            peoples.pollLast();
+            peoples.addLast(peoples.getFirst());
+            peoples.pollFirst();
+            peoples.pollFirst();
         }
-        return (String) peoples.get(0);
+        return peoples.getFirst();
     }
 
     static List<?> removeEverySecond(List<? extends Object> listPersons) {
@@ -51,7 +53,7 @@ public class TaskB3 {
             while (iterator.hasNext()) {
                 iterator.next();
                 count++;
-                if (count % 2 == 0){
+                if (count % 2 == 0) {
                     iterator.remove();
                 }
             }
