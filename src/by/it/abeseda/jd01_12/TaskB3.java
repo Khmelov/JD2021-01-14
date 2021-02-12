@@ -47,7 +47,7 @@ public class TaskB3 {
 
     static String process(LinkedList<String> peoples) {
         int peopleNum=0;
-        while (peoples.size()!=1 && peopleNum%2==0){
+        while (peoples.size()!=1 && peopleNum%2!=0){
             peoples.addLast(peoples.pollFirst());
             peoples.pollFirst();
             peopleNum=peopleNum+1;

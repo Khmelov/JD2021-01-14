@@ -249,7 +249,7 @@ public class Test_jd01_12 extends HomeWork {
         Long tL = System.nanoTime() - t;
 
         assertEquals("Метод c ArrayList  работает неверно", "n" + expectedRes[n - 1], rA);
-        assertEquals("Метод с LinkedList работает неверно", "n" + expectedRes[n - 1], rL);
+       assertEquals("Метод с LinkedList работает неверно", "n" + expectedRes[n - 1], rL);
 
         System.out.println(" Время работы для  ArrayList=" + tA / 1000 + " мкс.");
         System.out.flush();
