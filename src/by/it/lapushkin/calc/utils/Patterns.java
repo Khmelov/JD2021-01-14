@@ -1,6 +1,6 @@
-package by.it.lapushkin.calc;
+package by.it.lapushkin.calc.utils;
 
-interface Patterns {
+public interface Patterns {
 
     String OPERATION = "[-+*/]";
     String SCALAR = "-?[0-9]+(\\.[0-9]+)?";

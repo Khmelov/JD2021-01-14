@@ -1,5 +1,11 @@
 package by.it.lapushkin.calc;
 
+import by.it.lapushkin.calc.model.Matrix;
+import by.it.lapushkin.calc.model.Scalar;
+import by.it.lapushkin.calc.model.Var;
+import by.it.lapushkin.calc.utils.Parser;
+import by.it.lapushkin.calc.utils.Printer;
+
 import java.util.Scanner;
 
 public class ConsoleRunner {
