@@ -1,72 +1,35 @@
 package by.it.zevalich.jd01_02;
 
-
-import java.util.Random;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskC {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
         int[][] array = step1(n);
-        step2(array);
-
 
     }
 
-    static int[][] step1(int n) {
-        int[][] array = new int[n][n];
-        Random r = new Random();
-        boolean isN = false;
-        boolean isM = false;
+    private static int[][] step1(int n) {
+        int[][] res = new int[n][n];
+        boolean max;
+        boolean min;
         do {
-            for (int i = 0; i < array.length; i++) {
-                for (int j = 0; j < array[i].length; j++) {
-                    array[i][j] = r.nextInt((n - (-n) + 1) -n);
-                    if (array[i][j] == n) {
-                        isN = true;
-                    }
-                    if (array[i][j] == -n) {
-                        isM = true;
-                    }
+            max = false;
+            min = false;
+            for (int i = 0; i < res.length; i++) {
+                for (int j = 0; j < res[i].length; j++) {
+                    res[i][j] = -n + (int) (Math.random() * (2 * n + 1));
+                    if (res[i][j] == -n) min = true;
+                    if (res[i][j] == n) max = true;
                 }
             }
-        } while (isN == false && isM == false);
-        for(int[] i : array){
-            for(int j : i){
-                System.out.print(j+ " ");
-            }
-        }
-        return array;
+        } while (!max || !min);
+        System.out.println(Arrays.deepToString(res));
+        return res;
     }
-    static int step2(int[][] array){
-        int sum = 0;
-        int one = 0;
-        int two = 0;
-        for(int i = 0; i < array.length; i++){
-            for(int j = 0; j < array[i].length; j++){
-                if(array[i][j] > 0){
-                    one = j;
-                    break;
-                }
-            }
-        }
-        for(int i = 0;i < array.length;i++){
-            for(int j = one+1;j<array[i].length;j++){
-                if(array[i][j] > 0){
-                    two = j;
-                    break;
-                }
-            }
-        }
-        for(int i = 0; i < array.length; i++){
-            for(int j = one+1; i < two;i++){
-                sum+=array[i][j];
-            }
-        }
-        System.out.print(sum);
-        return sum;
 
-    }
+
 
 }

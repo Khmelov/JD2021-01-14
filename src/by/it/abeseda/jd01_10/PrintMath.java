@@ -30,9 +30,7 @@ public class PrintMath {
                     if((declaredField.getModifiers() & Modifier.FINAL)== Modifier.FINAL) {
                         String declaredFieldName = declaredField.getName();
                         String type = declaredField.getType().getTypeName();
-//                    System.out.println(declaredField);
-//                    System.out.println(declaredFieldName);
-//                    System.out.println(type);
+//                    System.out.println(declaredField);System.out.println(declaredFieldName);System.out.println(type);
                         System.out.printf("%s %s %s\n", "public static final", type, declaredFieldName);
                         //                   System.out.printf("%s %s %s %s %s\n",Modifier.PUBLIC,Modifier.STATIC,Modifier.FINAL, type, declaredFieldName);
                     }

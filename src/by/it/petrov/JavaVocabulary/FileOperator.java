@@ -1,9 +1,7 @@
 package by.it.petrov.JavaVocabulary;
 import java.io.*;
 public class FileOperator {
-
     static String workingDirectory = System.getProperty("user.dir")+"\\src\\by\\it\\petrov\\JavaVocabulary\\";
-
     public static String[] readFileIntoStringArray(String fileName) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new FileReader(workingDirectory + fileName));
@@ -14,9 +12,7 @@ public class FileOperator {
         }
         return sb.toString().split("\n");
     }
-
     public static Integer[] readFileIntoIntegerArray(String fileName) throws IOException {
-
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new FileReader(workingDirectory + fileName));
         String line;
@@ -31,13 +27,12 @@ public class FileOperator {
         }
         return integerArray;
     }
-
     public static void writePointsIntoFile(Integer[] pointsArray) throws IOException {
         StringBuilder strPoints = new StringBuilder();
         for (Integer integer : pointsArray) {
             strPoints.append(integer.toString()).append("\n");
         }
-        FileWriter writer = new FileWriter(workingDirectory + "test.txt", false);
+        FileWriter writer = new FileWriter(workingDirectory + "points.txt", false);
         writer.write(strPoints.toString());
         writer.flush();
         writer.close();
