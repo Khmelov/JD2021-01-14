@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    Var parse(String expression) {
+    Var parse(String expression) throws CalcException {
         expression = expression.replaceAll("\\s+", "");
         String[] parts = expression.split(Patterns.OPERATION, 2);
         if (parts.length != 1) {
@@ -14,9 +14,6 @@ class Parser {
                 return Var.save(parts[0], right);
             }
             Var left = Var.createVar(parts[0]);
-            if (left == null || right == null) {
-                return null; //TODO need Exception
-            }
             Matcher matcherOp = Pattern.compile(Patterns.OPERATION).matcher(expression);
             if (matcherOp.find()) {
                 String op = matcherOp.group();
@@ -34,7 +31,7 @@ class Parser {
         } else {
             return Var.createVar(expression);
         }
-
-        return null; //TODO need Exception
+        CalcException e = new CalcException("something stupid");
+        throw new RuntimeException("jhghjsdfg",e);
     }
 }

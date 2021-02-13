@@ -43,15 +43,19 @@ class Vector extends Var {
 
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException  {
         if (other instanceof Scalar) {
+
             double[] res = Arrays.copyOf(value, value.length);
             for (int i = 0; i < res.length; i++) {
                 res[i] = res[i] + ((Scalar) other).getValue();
             }
             return new Vector(res);
         }
-        if (other instanceof Vector) {//вектор к вектору можно прибавить
+        if (other instanceof Vector) {//вектор к вектору можно прибавить, но только одинаковой длинны!
+            if (((Vector) other).value.length!= value.length){
+                throw new CalcException("Сложение векторов разной длины невозможно.");
+            }
             double[] res = Arrays.copyOf(value, value.length);
             for (int i = 0; i < res.length; i++) {
                 res[i] = res[i] + ((Vector) other).value[i];//массив value[] задан в данном классе
@@ -62,7 +66,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException  {
         if (other instanceof Scalar) {
             double[] minus = Arrays.copyOf(value, value.length);
             for (int i = 0; i < minus.length; i++) {
@@ -70,7 +74,10 @@ class Vector extends Var {
             }
             return new Vector(minus);
         }
-        if (other instanceof Vector) {//вектор к вектору можно прибавить
+        if (other instanceof Vector) {//вектор от вектора можно отнять только пр одинаково длине
+            if (((Vector) other).value.length!= value.length){
+                throw new CalcException("Вычитание векторов разной длины невозможно.");
+            }
             double[] minus = Arrays.copyOf(value, value.length);
             for (int i = 0; i < minus.length; i++) {
                 minus[i] = minus[i] - ((Vector) other).value[i];//массив value[] задан в данном классе
@@ -81,7 +88,7 @@ class Vector extends Var {
     }
 //умножение
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException  {
         if (other instanceof Scalar) {
             double[] mult = Arrays.copyOf(value, value.length);
             for (int i = 0; i < mult.length; i++) {
@@ -106,10 +113,10 @@ class Vector extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException  {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue()==0){
-                return super.div(other);
+                throw new CalcException("Деление на ноль запрещено.");
             }
             double[] d = Arrays.copyOf(value, value.length);
             for (int i = 0; i < d.length; i++) {
