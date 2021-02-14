@@ -5,6 +5,26 @@ import java.util.List;
 import java.util.Scanner;
 //ne prohodit
 public class TaskB {
+    class ArEx extends Exception{
+        public ArEx() {
+        }
+
+        public ArEx(String message) {
+            super(message);
+        }
+
+        public ArEx(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public ArEx(Throwable cause) {
+            super(cause);
+        }
+
+        public ArEx(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<Double> numbers = new ArrayList<>();
