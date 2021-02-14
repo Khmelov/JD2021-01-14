@@ -1,4 +1,4 @@
-package by.it.lapushkin.calc;
+package by.it.lapushkin.calc.model;
 
 interface Operations {
 
@@ -9,8 +9,6 @@ interface Operations {
     Var mul(Var other);
 
     Var div(Var other);
-
-    String accept(Visitor visitor);
 
 }
 

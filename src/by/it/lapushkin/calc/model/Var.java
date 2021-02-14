@@ -1,8 +1,11 @@
-package by.it.lapushkin.calc;
+package by.it.lapushkin.calc.model;
 
-abstract class Var implements Operations {
 
-    static Var createVar(String strVar) {
+import by.it.lapushkin.calc.utils.Patterns;
+
+public abstract class Var implements Operations {
+
+    public static Var createVar(String strVar) {
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
         } else if (strVar.matches(Patterns.VECTOR)) {

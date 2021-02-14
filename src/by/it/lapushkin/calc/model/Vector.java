@@ -1,8 +1,8 @@
-package by.it.lapushkin.calc;
+package by.it.lapushkin.calc.model;
 
 import java.util.Arrays;
 
-class Vector extends Var {
+public class Vector extends Var {
 
     private final double[] value;
 
@@ -104,11 +104,6 @@ class Vector extends Var {
             }
         }
         return super.div(other);
-    }
-
-    @Override
-    public String accept(Visitor visitor) {
-        return visitor.visit(this);
     }
 
     @Override

@@ -1,17 +1,19 @@
-package by.it.lapushkin.calc;
+package by.it.lapushkin.calc.model;
 
-class Scalar extends Var implements Visitor {
+
+public class Scalar extends Var{
+
     private final double value;
 
-    Scalar(double value) {
+    public Scalar(double value) {
         this.value = value;
     }
 
-    Scalar(String value) {
+    public Scalar(String value) {
         this.value = Double.parseDouble(value);
     }
 
-    Scalar(Scalar otherScalar) {
+    public Scalar(Scalar otherScalar) {
         this.value = otherScalar.value;
     }
 
@@ -21,12 +23,7 @@ class Scalar extends Var implements Visitor {
 
     @Override
     public Var add(Var other) {
-        if (other instanceof Scalar) {
-            Scalar sc = (Scalar) other;
-            double result = this.value + sc.value;
-            return new Scalar(result);
-        }
-        return other.add(this);
+        return other;
     }
 
     @Override
@@ -62,28 +59,10 @@ class Scalar extends Var implements Visitor {
         return super.div(other);
     }
 
-    @Override
-    public String accept(Visitor visitor) {
-        return visitor.visit(this);
-    }
 
     @Override
     public String toString() {
         return Double.toString(value);
     }
 
-    @Override
-    public String visit(Scalar scalar) {
-        return null;
-    }
-
-    @Override
-    public String visit(Vector vector) {
-        return null;
-    }
-
-    @Override
-    public String visit(Matrix matrix) {
-        return null;
-    }
 }
