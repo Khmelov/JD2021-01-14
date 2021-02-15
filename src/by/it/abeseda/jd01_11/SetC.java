@@ -120,14 +120,20 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        boolean result=false;
-        for(Object t:c){
-            if (this.remove(t)){
-                result=true;
+        for (Object t: c) {
+            if (this.remove(t)) {
+                return false;
             }
-            this.remove(t);
         }
-        return result;
+        return true;
+//        boolean result=false;
+//        for(Object t:c){
+//            if (this.remove(t)){
+//                result=true;
+//            }
+//            this.remove(t);
+//        }
+//        return result;
     }
 
     @Override
