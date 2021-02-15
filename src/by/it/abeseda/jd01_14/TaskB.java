@@ -25,40 +25,39 @@ public class TaskB {
         while (sc.hasNext()) {
             String[] s = sc.next().split("[? .@:=#,!-]+");
             for (int i = 0; i < s.length; i++) {
-                //                   System.out.println(s[i]);
                 count++;
             }
         }
         sc.close();
         System.out.println("words=" + count);
 
+
+
+        StringBuilder sb=new StringBuilder();
         int rrr=0;
-        //сначала мы должны прочесть и засунуть в буфер
-        try (FileReader poemtxt = new FileReader(dir(TaskB.class) + "TaskB.txt")) {
+        try (FileReader fileReader = new FileReader(dir(TaskB.class) + "TaskB.txt")) {
             int c;
-            while ((c = poemtxt.read()) != -1) {
-                String poem=String.valueOf((char)c);// String poem = Character.toString((char) c);
-                String p = poem.replaceAll("\\.\\.\\.+", "\\.");
-                Pattern pat = Pattern.compile("[.@:=#,!-]+");
- //               System.out.print(p);
-                Matcher mat = pat.matcher(p);
-                while (mat.find()) {
-                    rrr++;
-                }
+            while ((c = fileReader.read())!=-1) {
+                sb.append(Character.toChars(c));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         finally {
-            rrr=rrr-2;//не могу удалить многоточие!
-            System.out.println("marks="+rrr);//не могу удалить многоточие!
-
-            try (PrintWriter out2=new PrintWriter(new FileWriter(dir(TaskA.class)+"resultTaskB.txt"))){
-                out2.println("words=" + count);
-                out2.println("marks="+rrr);//не могу удалить многоточие!
-            } catch (IOException e) {
-                e.printStackTrace();
+            String poem = sb.toString().replaceAll("\\.\\.\\.+", "\\.");
+            Pattern pat = Pattern.compile("[.@:=#,!-]+");
+            Matcher mat = pat.matcher(poem);
+            while (mat.find()) {
+                rrr++;
             }
+            System.out.println("marks="+rrr);
+        }
+
+        try (PrintWriter out2=new PrintWriter(new FileWriter(dir(TaskA.class)+"resultTaskB.txt"))){
+            out2.println("words=" + count);
+            out2.println("marks="+rrr);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
