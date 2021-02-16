@@ -1,12 +1,9 @@
 package by.it._classwork_.jd01_15;
 
-import by.it.shebeko.jd01_02.Str;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
-import java.util.stream.Stream;
 
 public class TaskA {
 
