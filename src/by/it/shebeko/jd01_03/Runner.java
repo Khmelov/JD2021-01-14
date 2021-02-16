@@ -1,5 +1,7 @@
 package by.it.shebeko.jd01_03;
 
+import by.it.shebeko.jd01_02.Str;
+
 import java.util.Scanner;
 
 public class Runner {
