@@ -27,7 +27,7 @@ public class TaskA {
             Files.lines(Paths.get(filename.toString()))
                     .forEach(System.out::println);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
