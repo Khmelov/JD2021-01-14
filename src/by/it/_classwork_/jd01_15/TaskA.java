@@ -1,12 +1,9 @@
 package by.it._classwork_.jd01_15;
 
-import by.it.shebeko.jd01_02.Str;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
-import java.util.stream.Stream;
 
 public class TaskA {
 
@@ -30,7 +27,7 @@ public class TaskA {
             Files.lines(Paths.get(filename.toString()))
                     .forEach(System.out::println);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
