@@ -6,10 +6,12 @@ public class TaskB {
 
     static final String FILENAME_TEXT = "TaskB.txt";
     static final String FILENAME_TXT_RESULT = "resultTaskB.txt";
-    static final String MARKS_REG_EX = "[!?,.;:]";
-    static final String WORD_REG_EX = "[а-яА-ЯёЁ]";
+    static final String MARKS_REG_EXP = "[!?,.;:]";
+    static final String WORD_REG_EXP = "[а-яА-ЯёЁ]";
+    static final String VOID_REG_EXP = " ";
+    static final String TRANS_REG_RXP= "\n";
 
-     static String getPath(Class<?> cl) {
+     public static String getPath(Class<?> cl) {
         String src = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String path = cl.getName()
                 .replace(cl.getSimpleName(), "")
@@ -32,13 +34,13 @@ public class TaskB {
             while (inputStreamReader.ready()){
                 char character = (char) inputStreamReader.read();
                 String charToString =character+"";
-                if (charToString.matches(MARKS_REG_EX)){
+                if (charToString.matches(MARKS_REG_EXP)){
                     countMarks++;
                 }
-                if(charToString.matches(WORD_REG_EX)){
+                if(charToString.matches(WORD_REG_EXP)){
                     lengthWord++;
                 }
-                if(charToString.equals(" ") || charToString.matches(MARKS_REG_EX) || charToString.equals("\n")){
+                if(charToString.matches(VOID_REG_EXP) || charToString.matches(MARKS_REG_EXP) || charToString.matches(TRANS_REG_RXP)){
                     if(lengthWord != 0){
                         lengthWord = 0;
                         countWords++;
@@ -51,7 +53,7 @@ public class TaskB {
             outputStream.append(result);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(),e.getCause());
         }
     }
 
