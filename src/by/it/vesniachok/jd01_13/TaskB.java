@@ -1,4 +1,4 @@
-package by.it.abeseda.jd01_13;
+package by.it.vesniachok.jd01_13;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,45 +7,45 @@ import java.util.Scanner;
 public class TaskB {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Double> doubles = new ArrayList<>();
-        String number;
+        List<Double> numbers = new ArrayList<>();
+        String strNumber;
 
-        while (!(number = scanner.next()).equals("END")) {
-
+        while (!(strNumber = scanner.next()).equals("END")) {
             try {
-                Double formatNumber = Double.parseDouble(number);
-                doubles.add(formatNumber);
+                Double formatNum = Double.parseDouble(strNumber);
+                numbers.add(formatNum);
+
             } catch (NumberFormatException e) {
                 String nameClassException = e.getClass().getName();
-
                 StackTraceElement[] stackTrace = e.getStackTrace();
 
-                for (StackTraceElement el : stackTrace) {
-                    if (TaskB.class.getName().equals(el.getClassName())) {
+                for (StackTraceElement element : stackTrace) {
+                    if (TaskB.class.getName().equals(element.getClassName())) {
 
-                        String nameClassExceptionIn = el.getClassName();
-                        int lineNumberExceptionIn = el.getLineNumber();
+                        String nameClassExceptionIn = element.getClassName();
+                        int lineNumberExceptionIn = element.getLineNumber();
 
 
                         System.out.println("class: " + nameClassException);
                         System.out.println("name: " + nameClassExceptionIn);
                         System.out.println("line: " + lineNumberExceptionIn);
+
                     }
+
+
                 }
             }
-
         }
-        System.out.println(doubles);
-
+        System.out.println(numbers);
         double sum = 0;
-        for (Double element : doubles) {
+        for (Double element : numbers) {
             sum = sum + element;
             try {
                 if (sum < 0) {
                     throw new ArithmeticException();
                 }
-            } catch (ArithmeticException e) {
 
+            } catch (ArithmeticException e) {
                 String nameClassException = e.getClass().getName();
                 StackTraceElement[] stackTrace = e.getStackTrace();
                 for (StackTraceElement el : stackTrace) {
@@ -68,3 +68,4 @@ public class TaskB {
         }
     }
 }
+
