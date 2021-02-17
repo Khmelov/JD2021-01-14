@@ -1,7 +1,5 @@
 package by.it.shebeko.jd01_11;
 
-import by.it.shebeko.jd01_02.Str;
-
 import java.util.*;
 
 public class ListB<T> implements List<T> {

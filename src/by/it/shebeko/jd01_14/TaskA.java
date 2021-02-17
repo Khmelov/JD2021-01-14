@@ -2,7 +2,7 @@ package by.it.shebeko.jd01_14;
 
 import java.io.*;
 
-public class TaskA {
+public class TaskA {   //можно с константами
 
     private static String dir(Class<?> c1){
         String path=System.getProperty("user.dir")+ File.separator+"src"+File.separator;
