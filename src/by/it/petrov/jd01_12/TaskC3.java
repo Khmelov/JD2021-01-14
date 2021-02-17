@@ -1,5 +1,4 @@
 package by.it.petrov.jd01_12;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.regex.Matcher;

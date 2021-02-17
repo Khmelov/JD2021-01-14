@@ -7,6 +7,11 @@ public class ConsoleRunner {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
+        try {
+            Var.loadMap();
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
         for (; ; ) {
             String expression = scanner.nextLine();
             if (!expression.equals("end")) {
