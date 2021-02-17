@@ -1,10 +1,12 @@
 package by.it._classwork_.calc;
 
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
 
+    public static final String TXT = "vars.txt";
     private static Map<String, Var> vars = new HashMap<>();
 
     static Var createVar(String strVar) throws CalcException {
@@ -25,7 +27,33 @@ abstract class Var implements Operation {
 
     static Var save(String name, Var value) {
         vars.put(name, value);
+        saveToFile();
         return value;
+    }
+
+    private static void saveToFile() {
+        String txt= TXT;
+        try (PrintWriter writer = new PrintWriter(txt)){
+            for (Map.Entry<String, Var> entry : vars.entrySet()) {
+                writer.println(entry.getKey()+"="+entry.getValue());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void loadMap() throws CalcException {
+        String txt= TXT;
+        Parser parser = new Parser();
+        try (BufferedReader reader = new BufferedReader(new FileReader(txt))){
+            for(;;){
+                String line = reader.readLine();
+                if (line==null) break;
+                parser.parse(line);
+            }
+        } catch (IOException e) {
+            throw new CalcException(e);
+        }
     }
 
     @Override
