@@ -10,10 +10,10 @@ public class TaskB {
 
         public static void main (String[]args) {
 
-            Scanner scanner = new Scanner(System.in);
+            Scanner scan = new Scanner(System.in);
             List<Double> doubleList = new ArrayList<>();
             for (;;) {
-                String next = scanner.next();
+                String next = scan.next();
                 double sqrt = 0;
                 double sum = 0;
                 if (next.equals("END")) {
