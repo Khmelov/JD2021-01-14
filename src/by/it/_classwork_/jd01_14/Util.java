@@ -2,7 +2,7 @@ package by.it._classwork_.jd01_14;
 
 import java.io.File;
 
-public class Util {
+class Util {
     static File getFile(Class<TaskA> aClass, String fileName) {
         String packageName = aClass.getPackageName();
         String root = System.getProperty("user.dir");
