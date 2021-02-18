@@ -1,8 +1,8 @@
 package by.it.voitenkov.jd01_15;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * dsd
@@ -10,114 +10,14 @@ import java.nio.file.Paths;
 
 public class TaskB {
 
-    // Комментарий строчный 2
-    int a3 = 1;/*
-    Комментарий многострочный:
-    строка 11
-    строка 12
-*/
-    int a2 = 1;
-    int a = 1;/*
-    Комментарий многострочный:
-    строка 21
-    строка 22
-    строка 23
-    строка 24
-    строка 25
-     */
-    int a1 = 1;
-
-    // Комментарий строчный 2
     public static void main(String[] args) {
         readFileJava();
     }
 
-    static void readFileJava() {
-        StringBuilder stringBuffer = new StringBuilder();
-        File file = getFile(TaskB.class, "TaskB.java");
-        Path path = Paths.get(file.toString());
-        try {
-            BufferedReader inputStreamReader = new BufferedReader(new FileReader(file));
-            String str;
-            boolean flagComment = false;
-            boolean flagJavaDOC = false;
-            boolean flag = false;
-
-            while ((str = inputStreamReader.readLine()) != null) {
-
-                char[] chars = str.toCharArray();
-                for (int i = 0; i < chars.length; i++) {
-                    if (chars[i] == '/' && chars[i + 1] == '/') {
-                        flag = false;
-                        break;
-                    } else if (str.length() - i > 2 && chars[i] == '/' && chars[i + 1] == '*' && chars[i + 2] == '*' || flagJavaDOC) {
-                        if (!flagJavaDOC) {
-                            flagJavaDOC = true;
-                            break;
-                        }
-                        while (flagJavaDOC) {
-                            if (chars[i] == '*' && chars[i + 1] == '/') {
-                                flagJavaDOC = false;
-                                i += 2;
-                                if (i == str.length() - 1) {
-                                    stringBuffer.append(str.substring(i)).append("\n");
-                                } else {
-                                    stringBuffer.append(str.substring(i));
-                                }
-                            } else {
-                                i++;
-                            }
-                            if (i == chars.length - 1) {
-                                break;
-                            }
-                        }
-                    } else if (chars[i] == '/' && chars[i + 1] == '*' || flagComment) {
-                        flagComment = true;
-                        while (flagComment) {
-                            if (chars[i] == '*' && chars[i + 1] == '/') {
-                                flagComment = false;
-                                i += 2;
-                                if (i == str.length() - 1) {
-                                    stringBuffer.append(str.substring(i));
-                                } else {
-                                    stringBuffer.append(str.substring(i)).append("\n");
-                                }
-
-                            } else {
-                                i++;
-                            }
-
-                            if (i == str.length() - 1) {
-                                break;
-                            }
-
-                        }
-                    } else {
-                        stringBuffer.append((char) chars[i]);
-                        flag = true;
-                    }
-                }
-
-                if (flag) {
-                    stringBuffer.append("\n");
-                    flag = false;
-                }
-            }
-        } catch (
-                IOException fileNotFoundException) {
-            fileNotFoundException.printStackTrace();
-        }
-        System.out.println(stringBuffer.toString());
-
-        writeFile(stringBuffer);
-
-    }
-
     private static void writeFile(StringBuilder str) {
         File file = getFile(TaskA.class, "TaskB.txt");
-        try (BufferedWriter fileOutputStream = new BufferedWriter(new FileWriter(file))) {
-            fileOutputStream.write(str.toString());
-            fileOutputStream.newLine();
+        try (OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(file))) {
+            outputStreamWriter.write(str.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,4 +33,70 @@ public class TaskB {
                 packageName.replace(".", File.separator);
         return new File(dir, fileName);
     }
+
+    static void readFileJava() {
+        StringBuilder stringBuffer = new StringBuilder();
+        File file = getFile(TaskB.class, "TaskB.java");
+        List<Character> list = new ArrayList<>();
+        boolean isComment;
+
+        try (BufferedReader inputStreamReader = new BufferedReader(new FileReader(file))) {
+            int a;
+            while ((a = inputStreamReader.read()) != -1) {
+                list.add((char) a);
+            }
+        } catch (
+                IOException fileNotFoundException) {
+            fileNotFoundException.printStackTrace();
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == '/' && list.get(i + 1) == '/') {
+                isComment = true;
+                i++;
+                while (isComment) {
+                    if (list.get(i) == '\n' || i == list.size() - 1) {
+                        stringBuffer.append(list.get(i));
+                        isComment = false;
+                    } else {
+                        i++;
+                    }
+                }
+            } else if (list.get(i) == '/' && list.get(i + 1) == '*' && list.get(i + 2) == '*') {
+                isComment = true;
+                i += 2;
+                while (isComment) {
+                    if (list.get(i) == '*' && list.get(i + 1) == '/') {
+                        i++;
+                        isComment = false;
+                    } else {
+                        i++;
+                    }
+                }
+            } else if (list.get(i) == '/' && list.get(i + 1) == '*') {
+                isComment = true;
+                i++;
+                while (isComment) {
+                    if (list.get(i) == '*' && list.get(i + 1) == '/') {
+                        i++;
+                        isComment = false;
+                    } else {
+                        i++;
+                    }
+                }
+            } else {
+                stringBuffer.append(list.get(i));
+            }
+        }
+        System.out.println(stringBuffer.toString());
+        writeFile(stringBuffer);
+    }
+    //комментарий 1
+    //комментарий 2
+    /*
+    комментарий3
+     */
+    /*
+    комментарий4
+     */
 }
