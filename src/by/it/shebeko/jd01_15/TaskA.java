@@ -1,6 +1,9 @@
-package by.it._classwork_.jd01_15;
+package by.it.shebeko.jd01_15;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Random;
@@ -56,4 +59,6 @@ public class TaskA {
         matrix[2][0] = max;
         return matrix;
     }
+
+
 }

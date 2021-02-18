@@ -1,4 +1,4 @@
-package by.it._classwork_.jd01_15;
+package by.it.lapushkin.jd01_15;
 
 import java.io.*;
 import java.nio.file.Files;

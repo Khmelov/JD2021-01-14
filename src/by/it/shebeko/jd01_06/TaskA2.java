@@ -1,7 +1,5 @@
 package by.it.shebeko.jd01_06;
 
-import by.it.shebeko.jd01_02.Str;
-
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

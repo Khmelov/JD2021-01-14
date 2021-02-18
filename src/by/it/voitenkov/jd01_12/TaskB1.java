@@ -1,9 +1,5 @@
 package by.it.voitenkov.jd01_12;
 
-import by.it.shebeko.jd01_02.Str;
-import by.it.voitenkov.jd01_09.Patterns;
-import by.it.voitenkov.jd01_10.Param;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
