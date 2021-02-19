@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_13;
+package by.it.nakhankov.jd01_13;
 
 
 import by.it.HomeWork;
