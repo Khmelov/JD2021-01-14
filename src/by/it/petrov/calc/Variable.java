@@ -6,7 +6,6 @@ public class Variable extends Var {
 
     public Variable(String operand) {
         this.value = String.valueOf(operand);
-        System.out.println(this.value);
     }
     public void ass(String name, Var value){
         DataStore.setVariable(name, value);
