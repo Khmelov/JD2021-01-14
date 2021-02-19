@@ -35,4 +35,5 @@ class Buyer extends Thread implements IBuyer {
     public void goOut() {
         System.out.println(this + "go out");
     }
+
 }
