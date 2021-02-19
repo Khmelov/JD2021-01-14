@@ -3,54 +3,43 @@ package by.it.zevalich.jd01_13;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-//ne prohodit
+
 public class TaskB {
+
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        List<Double> numbers = new ArrayList<>();
+        double number;
+        double sum = 0;
+        double sqr = 0;
         String str;
-        while (!(str = scanner.next()).equals("END")){
+        List<Double> list = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+
+        while (!(str=scanner.next()).equals("END")){
             try{
-                double num = Double.parseDouble(str);
-                numbers.add(num);
-                double sumOfElements = 0;
-                for (Double number : numbers) {
-                    sumOfElements+=number;
+                number = Double.parseDouble(str);
+                if(number<0){
+                    throw new ArithmeticException();
                 }
-                System.out.println(num + " " + Math.sqrt(sumOfElements));
-            } catch (ArithmeticException e){
-                StackTraceElement[] stackTrace = e.getStackTrace();
-                for (StackTraceElement element : stackTrace) {
-                        String name = e.getClass().getName();
-                        String className = element.getClassName();
-                        int arrLine = element.getLineNumber();
-                        System.out.printf("""
-                                         name: %s
-                                         class: %s
-                                         line: %d
-                                        """,
-                                name, className, arrLine);
-                        break;
+                list.add(number);
+                sum += number;
+                sqr = Math.sqrt(sum);
 
-                }
+            }catch (NumberFormatException | ArithmeticException e){
+                String name = e.getClass().getName();
+                String nameC = TaskB.class.getName();
 
-            } catch (Exception e){
-                StackTraceElement[] stackTrace = e.getStackTrace();
-                for (StackTraceElement element : stackTrace) {
-                    if(TaskB.class.getName().equals(element.getClassName())){
-                        String name = e.getClass().getName();
-                        String clName = element.getClassName();
-                        int number = element.getLineNumber();
-                        System.out.printf("""
-                                         name: %s
-                                         class: %s
-                                         line: %d
-                                        """,
-                                name,clName,number);
+                StackTraceElement[] elements = e.getStackTrace();
+                for (StackTraceElement element : elements) {
+                    String className = element.getClassName();
+                    if(className.equals(nameC)){
+                        int line = element.getLineNumber();
+                        System.out.printf("name: %s\n"+"class: %s\n"+ "line: %d\n",name,className,line);
                         break;
                     }
                 }
             }
+            System.out.println(sqr);
 
 
         }
