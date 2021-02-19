@@ -3,7 +3,7 @@ package by.it.lapushkin.jd02_01;
 import java.util.Random;
 
 public class Helper {
-    private final static int K_SPEED = 10;
+    private final static int K_SPEED = 200;
     private final static Random RND = new Random();
 
     private Helper() {

@@ -16,7 +16,7 @@ public class Score {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Score is opened!");
         boolean oldCustomer;
-        for (int time = 0, circleTime = 0, countCustomers = 0; time <= 240; time++, circleTime++) {
+        for (int time = 0, circleTime = 0, countCustomers = 0; time <= 120; time++, circleTime++) {
             int max = (circleTime < 30) ? circleTime + 10 : circleTime - 10;
             circleTime = (circleTime == 60)?0:circleTime;
             if (customersInScore <= 40 + (20 - circleTime)) {
@@ -35,7 +35,7 @@ public class Score {
         for (Person person : personList) {
             person.join();
         }
-        System.out.println(timeMap.toString());
+        //System.out.println(timeMap.toString());
         System.out.println("Score is closed!");
         renderResult(timeMap);
     }
