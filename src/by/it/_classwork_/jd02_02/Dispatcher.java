@@ -5,7 +5,7 @@ class Dispatcher {
     private Dispatcher() {
     }
 
-    //для синхронизации учета покупателей моздадим монитор
+    //для синхронизации учета покупателей создаем отдельный монитор
     private final static Object MONITOR = new Object();
     final static int K_SPEED = 100;
 
@@ -15,7 +15,7 @@ class Dispatcher {
     private volatile static int countBuyerInMarket = 0;
     private volatile static int countBuyerComplete = 0;
 
-    //магазин закрыт когда план выполнен и никого не соталось внутри
+    //магазин закрыт когда план выполнен и никого не осталось внутри
     static boolean marketIsClosed() {
         return countBuyerComplete == PLAN &&
                 countBuyerInMarket == 0;
