@@ -20,7 +20,7 @@ public class Cashier implements Runnable {
                 int timeout = Utils.random(2000, 5000);
                 Utils.timeout(timeout);
                 synchronized (buyer.getMonitorWaiting()) {
-                    buyer.setFlagWaiting(false);
+                    buyer.setWaitFlag(false);
                     buyer.notify();
                 }
                 System.out.println(this + "finished service for " + buyer);

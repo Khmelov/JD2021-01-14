@@ -2,17 +2,17 @@ package by.it._classwork_.jd02_02;
 
 class Buyer extends Thread implements IBuyer {
 
-    //получение монитора ожидания извне
+    //получение монитора для завершения ожидания извне
     Object getMonitorWaiting() {
         return this;
     }
 
     //признак продолжения ожидания
-    private boolean flagWaiting;
+    private boolean waitFlag;
 
     //управление ожиданием извне
-    public void setFlagWaiting(boolean flagWaiting) {
-        this.flagWaiting = flagWaiting;
+    public void setWaitFlag(boolean waitFlag) {
+        this.waitFlag = waitFlag;
     }
 
 
@@ -52,10 +52,10 @@ class Buyer extends Thread implements IBuyer {
     @Override
     public void goToQueue() {
         System.out.println(this + "went to the queue");
-        synchronized (this) {
-            QueueBuyers.add(this); //пока мы добавляемся в очередь кассир не сможет захватить наш монитор
-            flagWaiting = true; //установка признака ожидания
-            while (flagWaiting) //пока извне флаг ожидания не снимут
+        synchronized (this) { //начало - захват монитора
+            QueueBuyers.add(this); //пока покупатель добавляется в очередь кассир не сможет захватить его монитор
+            waitFlag = true; //установка признака ожидания
+            while (waitFlag) //пока извне флаг ожидания не снимут
                 try {
                     this.wait(); //покупатель ожидает.
                     // продолжение будет по notify на этом же мониторе (this)
