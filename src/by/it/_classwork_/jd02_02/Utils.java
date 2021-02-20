@@ -17,10 +17,12 @@ class Utils {
     }
 
     static int random(int begin, int end) {
+        //такой генератор в многопоточных приложениях выгоднее статического (легче)
         ThreadLocalRandom random = ThreadLocalRandom.current();
         return random.nextInt(end - begin + 1) + begin;
     }
 
+    @SuppressWarnings("SameParameterValue")
     static int random(int max) {
         return random(0, max);
     }

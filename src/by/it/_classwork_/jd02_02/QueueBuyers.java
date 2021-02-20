@@ -5,14 +5,17 @@ import java.util.Deque;
 
 class QueueBuyers {
 
-    private static Deque<Buyer> buyers = new ArrayDeque<>();
+    //сама очередь скрыта.
+    private static final Deque<Buyer> BUYER_DEQUE = new ArrayDeque<>();
 
+    //делаем обращение к очереди безопасным safe-thead (монитор - QueueBuyers.class)
     static synchronized void add(Buyer buyer) {
-            buyers.addLast(buyer);
+        BUYER_DEQUE.addLast(buyer);
     }
 
-    static synchronized Buyer poll(){
-        return buyers.pollFirst();
+    //делаем обращение к очереди безопасным safe-thead (монитор - QueueBuyers.class)
+    static synchronized Buyer poll() {
+        return BUYER_DEQUE.pollFirst();
     }
 
 }

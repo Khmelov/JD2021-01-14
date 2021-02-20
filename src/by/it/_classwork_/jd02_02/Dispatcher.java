@@ -5,30 +5,36 @@ class Dispatcher {
     private Dispatcher() {
     }
 
+    //для синхронизации учета покупателей моздадим монитор
     private final static Object MONITOR = new Object();
     final static int K_SPEED = 100;
 
     private final static int PLAN = 100;
 
+    //булевские методы ниже читают эти поля, чтобы это было не из кеша добавим неблокирующую синхронизацию
     private volatile static int countBuyerInMarket = 0;
     private volatile static int countBuyerComplete = 0;
 
-    static boolean marketClosed() {
+    //магазин закрыт когда план выполнен и никого не соталось внутри
+    static boolean marketIsClosed() {
         return countBuyerComplete == PLAN &&
                 countBuyerInMarket == 0;
     }
 
-    static boolean marketOpened() {
+    //магазин открыт пока общее число всех вошедших меньше плана
+    static boolean marketIsOpened() {
         return countBuyerComplete + countBuyerInMarket < PLAN;
     }
 
-    static void enteredBuyer() {
+    //учет вошедшего покупателя
+    static void enteredCurrentBuyer() {
         synchronized (MONITOR) {
             countBuyerInMarket++;
         }
     }
 
-    static void completeBuyer() {
+    //учет покупателя после завершения его обслуживания и его выхода
+    static void completeCurrentBuyer() {
         synchronized (MONITOR) {
             countBuyerInMarket--;
             countBuyerComplete++;
