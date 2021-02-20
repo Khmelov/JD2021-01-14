@@ -17,7 +17,7 @@ public class TaskC {
         String mipath = System.getProperty("user.dir") + File.separator + "src" + File.separator +
                 "by" + File.separator + "it" + File.separator + "abeseda" + File.separator;
         File file = new File(mipath);
-        try (PrintWriter out2 = new PrintWriter(new FileWriter(dir(TaskA.class) + "resultTaskC.txt"))) {
+        try (PrintWriter out2 = new PrintWriter(new FileWriter(dir(TaskC.class) + "resultTaskC.txt"))) {
 
             if (file.isDirectory()) {
                 for (File file1 : file.listFiles()) {
