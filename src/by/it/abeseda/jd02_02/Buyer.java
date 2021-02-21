@@ -4,9 +4,8 @@ package by.it.abeseda.jd02_02;
 class Buyer extends Thread implements BuyerDoInMarket, Basket {
 
     private final int number;
-    private boolean old;
     private int time1 = Generator.GeneratorRandom(500, 2000);
-    private int time2 = Generator.GeneratorRandom(750, 3000);
+//    private int time2 = Generator.GeneratorRandom(750, 3000);
 
     //получение монитора для завершения ожидания извне
     Object getMonitorWaiting() {
@@ -28,21 +27,11 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
         Dispatcher.countEnteredBuyer();
     }
 
-//    public Buyer (int number, boolean old){
-//        this.number=number;
-//        this.old = old;
-//
-//        считаем колчество покупателей в конструкторе
-//        Dispatcher.countExitedBuyer();
-//    }
 
     @Override
     public String toString() {
-        if (old){
-            return "Buyer number "+this.number+" is adult.";
-        }else{
-        return "Buyer number=" + this.number;
-        }
+        return "Buyer №" + this.number;
+
     }
 
     @Override
@@ -59,10 +48,6 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
     @Override
     public void enterToMarket() {
         System.out.println(this.number + " came to the store immediately.");
-        if (old){
-            System.out.println(this.number+" is too slow. He is old.");
-            Generator.timeout(time2);
-        }
     }
 
 
@@ -70,20 +55,12 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
     public void takeBasket() {
         Generator.timeout(time1);
         System.out.println(this.number + " take basket.");
-        if (old){
-            System.out.println(this.number+" take basket. He is old.");
-            Generator.timeout(time2);
-        }
     }
 
     @Override
     public void chooseGoods() {
         System.out.println(this.number + " begin choosing food.");
         Generator.timeout(time1);
-        if (old){
-            System.out.println(this.number+" begin choosing food. He is old.");
-            Generator.timeout(time2);
-        }
     }
 
     @Override
@@ -120,10 +97,9 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
 //        System.out.println(this.number+" payed for "+buyerBasket.size()+" goods.\n");
     }
 
-    // покупатель идет в одну из 2 касс из ОДНОЙ очереди! очередь общая!
     @Override
     public void goToOneOfQueue() {
-        System.out.println(this + "went to the queue");
+        System.out.println(this.number + " went to the queue");
         synchronized (this) { //начало - захват монитора
             OneQueueBuyers.add(this); //пока покупатель добавляется в очередь кассир не сможет захватить его монитор
             waitFlag = true; //установка признака ожидания
@@ -135,16 +111,12 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
                     throw new RuntimeException(e);
                 }
         }
-        System.out.println(this + "left the queue");
+        System.out.println(this.number + " left the queue.");
     }
 
 
     @Override
     public void goOut() {
         System.out.println(this.number + " left the store immediately.");
-        if (old){
-            System.out.println(this.number+" is too slow. He is old.");
-            Generator.timeout(time2);
-        }
     }
 }

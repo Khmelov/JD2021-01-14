@@ -1,18 +1,11 @@
 package by.it.abeseda.jd02_02;
-
-import by.it._classwork_.jd02_02.Cashier;
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainMarket {
 
-
     public static void main(String[] args) {
-        System.out.println("Market has opened right now.");
-
+        System.out.println("Market opened");
         int numberBuyer = 0;
         //для всех потоков есть коллекция (избавимся от нее на следующем занятии)
         List<Thread> threads = new ArrayList<>();
@@ -46,7 +39,6 @@ public class MainMarket {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("Market has closed right now.");
-
+        System.out.println("Market closed");
     }
 }
