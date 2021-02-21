@@ -14,11 +14,6 @@ class Buyer extends Thread implements IBuyer {
     }
 
     @Override
-    public String toString() {
-        return this.getName() + " ";
-    }
-
-    @Override
     public void enterToMarket() {
         System.out.println(this + "entered to market");
     }
@@ -33,7 +28,12 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void goOut() {
-        System.out.println(this + "go out");
+        System.out.println(this + "goes to the out");
+    }
+
+    @Override
+    public String toString() {
+        return this.getName() + " ";
     }
 
 }
