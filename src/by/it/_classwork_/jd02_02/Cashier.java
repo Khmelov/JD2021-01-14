@@ -2,7 +2,7 @@ package by.it._classwork_.jd02_02;
 
 import java.util.Objects;
 
-public class Cashier implements Runnable {
+public class  Cashier implements Runnable {
 
     private final int number;
 
