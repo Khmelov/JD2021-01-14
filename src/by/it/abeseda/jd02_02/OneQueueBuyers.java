@@ -3,7 +3,7 @@ package by.it.abeseda.jd02_02;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class OneQueueBuyers {
+public class  OneQueueBuyers {
 
     //2 кассы, значит будет 2 очереди, значит будет 2 Cashier
     private  static final Deque<Buyer> ONE_BUYERS_DEQUE=new ArrayDeque<>();

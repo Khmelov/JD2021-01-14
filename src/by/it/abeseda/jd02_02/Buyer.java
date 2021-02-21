@@ -1,6 +1,8 @@
 package by.it.abeseda.jd02_02;
 
 
+import java.util.*;
+
 class Buyer extends Thread implements BuyerDoInMarket, Basket {
 
     private final int number;
@@ -66,35 +68,38 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
     @Override
     public void putGoodsToBasket() {
 
-//        Map<String,Double> marketBasket=new HashMap<>();
-//        marketBasket.put("cottage cheese",2.11);
-//        marketBasket.put("lemonade",3.0);
-//        marketBasket.put("strawberry",22.89);
-//        marketBasket.put("fish",9.1);
-//
-//        int goods= Generator.GeneratorRandom(1, marketBasket.size());
-//
-//        Map<String,Double> buyerBasket=new HashMap<>();
-//        List<String> productList = new ArrayList<>(marketBasket.keySet());
-//
-//        for (int i = 1; i <= goods; i++) {
-//            int randIndexProduct = new Random().nextInt(marketBasket.size());
-//
-//            String randomProduct = productList.get(randIndexProduct);
-//
-//            if (buyerBasket.containsKey(randomProduct)){
-//                break;
-//            }
-//
-//            Generator.timeout(time1);//на каждую покупку таймаут)
+        Map<String,Double> marketBasket=new HashMap<>();
+        marketBasket.put("cottage cheese",2.11);
+        marketBasket.put("lemonade",3.0);
+        marketBasket.put("strawberry",22.89);
+        marketBasket.put("fish",9.1);
+
+        int goods= Generator.GeneratorRandom(1, marketBasket.size());
+
+        Map<String,Double> buyerBasket=new HashMap<>();
+        List<String> productList = new ArrayList<>(marketBasket.keySet());
+
+        double check=0;//то наш общий чек
+        for (int i = 1; i <= goods; i++) {
+            int randIndexProduct = new Random().nextInt(marketBasket.size());
+
+            String randomProduct = productList.get(randIndexProduct);
+
+            if (buyerBasket.containsKey(randomProduct)){
+                break;
+            }
+
+            Generator.timeout(time1);//на каждую покупку таймаут)
 //            if (old) {
 //                Generator.timeout(time2);}
-//
-//            Double price = marketBasket.get(randomProduct);
-//            System.out.println(this.number+" put into basket "+randomProduct+", price: "+price);
-//            buyerBasket.put(randomProduct,price);
-//        }
-//        System.out.println(this.number+" payed for "+buyerBasket.size()+" goods.\n");
+
+            Double price = marketBasket.get(randomProduct);
+            System.out.println(this.number+" put into basket "+randomProduct+", price: "+price);
+            buyerBasket.put(randomProduct,price);
+            check=check+price;
+        }
+        System.out.println(this.number+" payed for "+buyerBasket.size()+" goods.\n");
+        System.out.printf(this.number+" payed sum=%.2f %n", check);
     }
 
     @Override
