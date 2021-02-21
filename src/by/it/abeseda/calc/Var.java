@@ -1,34 +1,86 @@
 package by.it.abeseda.calc;
 
+
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
 
-    private static Map<String,Var> vars=new HashMap<>();
+    public static final String TXT = "vars.txt";
+    private static final Map<String,Var> vars=new HashMap<>();
 
-    static Var saveVar(String name, Var var){
-        vars.put(name, var);
-        return var;
-    }
+
+
 
     static Var createVar(String operand) throws CalcException{
         operand=operand.trim().replace("\\s+","");
         if (operand.matches(Patterns.SCALAR)){
             return new Scalar(operand);
         }
-        if (operand.matches(Patterns.VECTOR)){
+        else if (operand.matches(Patterns.VECTOR)){
             return new Vector(operand);
         }
-        if (operand.matches(Patterns.MATRIX)){
+        else if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand);
-
         }
-        if(vars.containsKey(operand)){
+            else if(vars.containsKey(operand)){
             return vars.get(operand);
+
+
+
+
+
+
+        } else {
+            Var var=vars.get(operand);
+            if (var==null){
+                throw new CalcException("Невозможно создать "+operand);//если есть ошибка
+            }
+            return var;
         }
-        throw  new CalcException("Невозможно создать "+operand);//если есть ошибка
+//        else if(vars.containsKey(operand)){
+//            return vars.get(operand);
+//        }
+//        throw new CalcException("Невозможно создать "+operand);//если есть ошибка
     }
+
+
+
+    static Var saveVar(String name, Var var){
+        vars.put(name, var);
+        saveToFile();
+        return var;
+    }
+
+    private static void saveToFile() {
+        try(PrintWriter writer=new PrintWriter(TXT)){
+            for (Map.Entry<String, Var> entry: vars.entrySet()){
+                writer.println(entry.getKey()+"="+entry.getValue());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    static void loadMap() throws CalcException{
+        Parser parser=new Parser();
+        try (BufferedReader reader=new BufferedReader(new FileReader(TXT)))
+        {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                parser.calc(line);
+            }
+        }
+        catch (IOException e) {
+            throw new CalcException(e);
+        }
+    }
+
+
+
 
 
     @Override

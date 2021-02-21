@@ -5,9 +5,12 @@ import java.util.Scanner;
 public class ConsoleRunner {
     public static void main(String[] args) {
         Scanner scanner =new Scanner(System.in);
-        String line;
+
         Parser parser=new Parser();
         Printer printer=new Printer();
+
+
+        String line;
        while(!(line=scanner.next()).equals("end")){
 
            try {
@@ -18,5 +21,15 @@ public class ConsoleRunner {
            }
 
        }
+//обязательно чтобы работало! она должна быть тут! выгрузка карты должна быть после создания переменной!
+        try {
+            Var.loadMap();
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
+
+
+
+
     }
 }
