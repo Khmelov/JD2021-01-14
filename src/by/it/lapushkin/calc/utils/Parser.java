@@ -29,6 +29,8 @@ public class Parser {
                         return left.mul(right);
                     case "/":
                         return left.div(right);
+                    default:
+                        break;
                 }
             }
         } else {
