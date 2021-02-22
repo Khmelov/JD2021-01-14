@@ -8,7 +8,7 @@ public class Manager {
     private static final int END_DAY = 120;
     private static final int TIMEOUT = 1000;
     private static int currentTime = 0;
-    private static boolean manyCashiers;
+    private static boolean limitCashiers;
 
     public static void main(String[] args) {
         workDay();
@@ -41,11 +41,11 @@ public class Manager {
         Thread customerManager = new Thread(() -> {
             while (Score.isScore()) {
                 if (Monitoring.fullScore()) {
-                    if (Score.isDoor()){
+                    if (Score.isDoor()) {
                         Score.closeDoor();
                     }
-                }else {
-                    if (!Score.isDoor() && currentTime < END_DAY){
+                } else {
+                    if (!Score.isDoor() && currentTime < END_DAY) {
                         Score.openDoor();
                     }
                 }
@@ -58,18 +58,18 @@ public class Manager {
     private static void startCashierManager() {
         Thread helperManager = new Thread(() -> {
             while (Score.isScore()) {
-                int expectedCashier = QueueCustomers.getLengthAllQueue() / MAX_CASHIER;
+                int expectedCashier = (QueueCustomers.getLengthAllQueue() / MAX_CASHIER) + 1;
                 if (Monitoring.getCountOpenCashier() < MAX_CASHIER) {
                     if (expectedCashier > Monitoring.getCountOpenCashier()) {
-                        Manager.setManyCashiers(false);
+                        setLimitCashiers(false);
                         openCashier(Monitoring.getNumberCashier());
                     }
                     //last CASHIER
                     else if (Monitoring.getCountOpenCashier() != 1) {
-                        Manager.setManyCashiers(true);
+                        setLimitCashiers(true);
                     }
                 } else if (expectedCashier < MAX_CASHIER) {
-                    Manager.setManyCashiers(true);
+                    setLimitCashiers(true);
                 }
                 Helper.timeout(TIMEOUT);
             }
@@ -77,12 +77,12 @@ public class Manager {
         helperManager.start();
     }
 
-    public static synchronized boolean isManyCashiers() {
-        return manyCashiers;
+    public static synchronized boolean isLimitCashiers() {
+        return limitCashiers;
     }
 
-    public static synchronized void setManyCashiers(boolean manyCashiers) {
-        Manager.manyCashiers = manyCashiers;
+    public static synchronized void setLimitCashiers(boolean limitCashiers) {
+        Manager.limitCashiers = limitCashiers;
     }
 
     private static void openCashier(int num) {

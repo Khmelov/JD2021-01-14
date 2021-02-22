@@ -32,7 +32,7 @@ public class Cashier implements Runnable {
                     customer.notify();
                 }
             }
-            if (Manager.isManyCashiers()) {
+            if (Manager.isLimitCashiers()) {
                 break;
             }
         }
