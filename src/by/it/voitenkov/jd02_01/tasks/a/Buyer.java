@@ -1,6 +1,6 @@
-package by.it.voitenkov.jd01_16;
+package by.it.voitenkov.jd02_01.tasks.a;
 
-public class Buyer implements BuyerBehavior, Runnable {
+class Buyer implements BuyerBehavior, Runnable {
     private final String name;
 
     public Buyer(String name) {
@@ -26,7 +26,7 @@ public class Buyer implements BuyerBehavior, Runnable {
     public void run() {
         enterToMarket();
         try {
-            Thread.sleep((long) Time.getItemSelectionTime());
+            Thread.sleep(Time.TIME_UPDATE_NUMBER_NEW_BUYERS/Time.SPEED_UP_STORE_OPENING_HOURS);
             chooseGoods();
         } catch (InterruptedException e) {
             e.printStackTrace();

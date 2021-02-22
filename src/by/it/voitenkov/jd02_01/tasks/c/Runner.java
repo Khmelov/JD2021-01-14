@@ -1,9 +1,11 @@
-package by.it.voitenkov.jd01_16;
+package by.it.voitenkov.jd02_01.tasks.c;
 
-public class Runner {
+class Runner {
+
     public static void main(String[] args) throws InterruptedException {
-        Store store = new Store("Виталюр", 2);
+        Store store = new Store("Vitalur", 120);
         Thread thread = new Thread(store);
         thread.start();
+        thread.join();
     }
 }
