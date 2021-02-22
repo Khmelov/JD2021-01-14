@@ -1,53 +1,77 @@
 package by.it.lapushkin.jd02_02;
 
+import static by.it.lapushkin.jd02_02.Helper.logicCustomers;
+import static by.it.lapushkin.jd02_02.Helper.timeout;
+
 public class Manager {
     private static final int MAX_CASHIER = 5;
+    private static final int END_DAY = 120;
+    private static final int TIMEOUT = 1000;
     private static int currentTime = 0;
     private static boolean manyCashiers;
 
     public static void main(String[] args) {
-        int timeEnd = 120;
+        workDay();
+    }
+
+    public static void workDay() {
         startDay();
-        startSupportManager();
-        for (int time = 0; time <= timeEnd; time++) {
+        startCashierManager();
+        startScoreManager();
+
+        for (int time = 0; time <= END_DAY; time++) {
             setCurrentTime(time);
-            int circleTime = time%60;
-            int max  = (circleTime < 30) ? circleTime + 10 : circleTime - 10;
-            Score.jobScore(max);
-            Helper.timeout(1000);
+            Score.jobScore(logicCustomers(time));
+            timeout(TIMEOUT);
         }
-        Score.closeDoorScore();
+
+        Score.closeDoor();
+
+        //ожидаем пока кассы обслужат последних клиентов и закроются
         while (!Monitoring.emptyScore() && !Monitoring.cashierIsEmpty()) {
             //overtime
             currentTime++;
-            Helper.timeout(1000);
+            timeout(TIMEOUT);
             //ожидаха
         }
         endDay();
     }
 
-    public static void setManyCashiers(boolean manyCashiers) {
-        Manager.manyCashiers = manyCashiers;
+    private static void startScoreManager() {
+        Thread customerManager = new Thread(() -> {
+            while (Score.isScore()) {
+                if (Monitoring.fullScore()) {
+                    if (Score.isDoor()){
+                        Score.closeDoor();
+                    }
+                }else {
+                    if (!Score.isDoor() && currentTime < END_DAY){
+                        Score.openDoor();
+                    }
+                }
+            }
+            timeout(TIMEOUT);
+        });
+        customerManager.start();
     }
 
-    private static void startSupportManager() {
+    private static void startCashierManager() {
         Thread helperManager = new Thread(() -> {
-            while (Score.isScoreOpen()) {
-                int queueLength = QueueCustomers.getLengthCustomerDeque() + QueueCustomers.getLengthOldCustomerDeque();
-                int expectedCashier = queueLength / MAX_CASHIER;
+            while (Score.isScore()) {
+                int expectedCashier = QueueCustomers.getLengthAllQueue() / MAX_CASHIER;
                 if (Monitoring.getCountOpenCashier() < MAX_CASHIER) {
                     if (expectedCashier > Monitoring.getCountOpenCashier()) {
                         Manager.setManyCashiers(false);
                         openCashier(Monitoring.getNumberCashier());
                     }
                     //last CASHIER
-                    else if (Monitoring.getCountOpenCashier() != 1){
+                    else if (Monitoring.getCountOpenCashier() != 1) {
                         Manager.setManyCashiers(true);
                     }
-                }else if (expectedCashier < MAX_CASHIER){
+                } else if (expectedCashier < MAX_CASHIER) {
                     Manager.setManyCashiers(true);
                 }
-                Helper.timeout(50);
+                Helper.timeout(TIMEOUT);
             }
         });
         helperManager.start();
@@ -55,6 +79,10 @@ public class Manager {
 
     public static synchronized boolean isManyCashiers() {
         return manyCashiers;
+    }
+
+    public static synchronized void setManyCashiers(boolean manyCashiers) {
+        Manager.manyCashiers = manyCashiers;
     }
 
     private static void openCashier(int num) {
@@ -65,18 +93,18 @@ public class Manager {
 
     private static void startDay() {
         Score.openScore();
-        Score.openDoorScore();
+        Score.openDoor();
     }
 
     private static void endDay() {
         Score.closeScore();
     }
 
-    private static void setCurrentTime(int currentTime) {
-        Manager.currentTime = currentTime;
-    }
-
     public static int getCurrentTime() {
         return currentTime;
+    }
+
+    private static void setCurrentTime(int currentTime) {
+        Manager.currentTime = currentTime;
     }
 }

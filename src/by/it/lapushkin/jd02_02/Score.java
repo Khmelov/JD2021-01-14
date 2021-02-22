@@ -9,47 +9,44 @@ public class Score {
     }
 
     public static void jobScore(int exValueCustomers) {
-        if (!Monitoring.fullScore()) {
-            for (int i = 0; i < exValueCustomers; i++) {
-                boolean oldCustomers = i % 4 == 0;
-                inputCustomers(Monitoring.getNumberCustomer(), oldCustomers);
-            }
+
+        for (int i = 0; i < exValueCustomers; i++) {
+            boolean oldCustomers = i % 4 == 0;
+            inputCustomers(Monitoring.getNumberCustomer(), oldCustomers);
         }
     }
 
     private static void inputCustomers(int number, boolean oldCustomer) {
         if (stateDoor) {
             new Person(number, oldCustomer);
-        } else {
-            System.out.println("The doors are closed, i can't let clients in");
         }
     }
 
-    public static void openScore() {
+    public static synchronized void openScore() {
         stateScore = State.OPEN.getState();
         System.out.println("Score is opened!");
     }
 
-    public static void closeScore() {
+    public static synchronized void closeScore() {
         stateScore = State.ClOSED.getState();
         System.out.println("Score is closed!");
     }
 
-    public static void openDoorScore() {
+    public static synchronized void openDoor() {
         stateDoor = State.OPEN.getState();
         System.out.println("Door is opened!");
     }
 
-    public static void closeDoorScore() {
+    public static synchronized void closeDoor() {
         stateDoor = State.ClOSED.getState();
         System.out.println("Door is closed!");
     }
 
-    public static boolean isScoreOpen() {
+    public static synchronized boolean isScore() {
         return stateScore;
     }
 
-    public static boolean isDoorOpen() {
+    public static synchronized boolean isDoor() {
         return stateDoor;
     }
 

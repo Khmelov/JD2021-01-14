@@ -6,8 +6,11 @@ import java.util.Deque;
 public class QueueCustomers {
 
     private static final Deque<Person> CUSTOMER_DEQUE = new ArrayDeque<>();
-
     private static final Deque<Person> OLD_CUSTOMER_DEQUE = new ArrayDeque<>();
+
+    private QueueCustomers() {
+
+    }
 
     static synchronized void oldAdd(Person oldCustomer) {
         OLD_CUSTOMER_DEQUE.addLast(oldCustomer);
@@ -20,8 +23,13 @@ public class QueueCustomers {
     static synchronized int getLengthCustomerDeque() {
         return CUSTOMER_DEQUE.size();
     }
+
     static synchronized int getLengthOldCustomerDeque() {
         return OLD_CUSTOMER_DEQUE.size();
+    }
+
+    static synchronized int getLengthAllQueue() {
+        return getLengthCustomerDeque() + getLengthOldCustomerDeque();
     }
 
     static synchronized void add(Person customer) {
@@ -29,9 +37,9 @@ public class QueueCustomers {
     }
 
     static synchronized Person poll() {
-        if (isOldDequeEmpty()){
+        if (isOldDequeEmpty()) {
             return CUSTOMER_DEQUE.pollFirst();
-        }else{
+        } else {
             return OLD_CUSTOMER_DEQUE.pollFirst();
         }
 

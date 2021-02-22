@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Cashier implements Runnable {
-    private final int NUMBER;
     static final Object MONITOR = new Object();
+    private final int NUMBER;
 
     public Cashier(int number) {
         Monitoring.addCashier(this);
@@ -32,7 +32,7 @@ public class Cashier implements Runnable {
                     customer.notify();
                 }
             }
-            if (Manager.isManyCashiers()){
+            if (Manager.isManyCashiers()) {
                 break;
             }
         }
@@ -41,34 +41,31 @@ public class Cashier implements Runnable {
     }
 
     private void printCheck(Person customer) {
-        String min = "#".repeat(10);
-        String max = "#".repeat(50);
-        String tr ="\n";
+        String tr = "\n";
+        String separatorLine = "#".repeat(50) + tr;
         StringBuilder sb = new StringBuilder();
-        sb.append(tr);
-        sb.append(max).append(tr);
-        sb.append(String.format("%s%-30s%s\n",min," Time : "+ Manager.getCurrentTime(),min));
-        sb.append(max).append(tr);
-        sb.append(String.format("%s%-30s%s\n",min," Check for : "+ customer,min));
-        sb.append(max).append(tr);
-        sb.append(String.format("%s%-30s%s\n",min," Cashier : "+this,min));
-        sb.append(String.format("%s%-30s%s\n",min," Cashier in work : "+Monitoring.getCountOpenCashier(),min));
-        sb.append(max).append(tr);
+        sb.append(tr).append(separatorLine);
+        sb.append(strFormat(" Time : " + Manager.getCurrentTime())).append(separatorLine);
+        sb.append(strFormat(" Check for : " + customer)).append(separatorLine);
+        sb.append(strFormat(" Cashier : " + this));
+        sb.append(strFormat(" Cashier in work : " + Monitoring.getCountOpenCashier())).append(separatorLine);
 
         int sum = 0;
         for (Map.Entry<String, Integer> entry : customer.getProductInBasket().entrySet()) {
-            sb.append(String.format("%s%-30s%s\n",min," "+entry.getKey()+" price : "+entry.getValue()+" $",min));
+            sb.append(strFormat(" " + entry.getKey() + " price : " + entry.getValue() + " $"));
             sum += entry.getValue();
         }
-
         Bank.increaseRevenue(sum);
-        sb.append(String.format("%s%-30s%s\n",min," Total coast : "+sum+" $",min));
-        sb.append(max).append(tr);
-        sb.append(String.format("%s%-30s%s\n",min," Current queue : "+QueueCustomers.getLengthCustomerDeque(),min));
-        sb.append(max).append(tr);
-        sb.append(String.format("%s%-30s%s\n",min," Revenue : "+Bank.getRevenue()+" $",min));
-        sb.append(max).append(tr);
+
+        sb.append(strFormat(" Total coast : " + sum + " $")).append(separatorLine);
+        sb.append(strFormat(" Current queue : " + QueueCustomers.getLengthAllQueue())).append(separatorLine);
+        sb.append(strFormat(" Revenue : " + Bank.getRevenue() + " $")).append(separatorLine);
         System.out.println(sb);
+    }
+
+    private String strFormat(String string) {
+        String min = "#".repeat(10);
+        return String.format("%s%-30s%s%n", min, string, min);
     }
 
     private void startServiceCustomer(Person customer) {
