@@ -9,6 +9,7 @@ abstract class Var implements Operation {
     public static final String TXT = "vars.txt";
     private static Map<String, Var> vars = new HashMap<>();
 
+
     static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
@@ -25,10 +26,10 @@ abstract class Var implements Operation {
         }
     }
 
-    static Var save(String name, Var value) {
-        vars.put(name, value);
+    static Var save(String name, Var var) {
+        vars.put(name, var);
         saveToFile();
-        return value;
+        return var;
     }
 
     private static void saveToFile() {

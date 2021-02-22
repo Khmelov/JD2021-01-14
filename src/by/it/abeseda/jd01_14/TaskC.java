@@ -4,44 +4,46 @@ import java.io.*;
 
 public class TaskC {
 
-    private static String dir(Class<?> c1) {
-        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        String c1Dir = c1.getName().replace(c1.getSimpleName(), "").replace(".", File.separator);
-        //c1.getName(); by.it.abeseda.jd01_14.TaskA
-        //c1.getSimpleName(); TaskA
-        //c1Dir;by\it\abeseda\jd01_14\
-        return path + c1Dir;
-    }
+//    private static String dir(Class<?> c1) {
+//        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
+//        String c1Dir = c1.getName().replace(c1.getSimpleName(), "").replace(".", File.separator);
+//        c1.getName(); by.it.abeseda.jd01_14.TaskA
+//        c1.getSimpleName(); TaskA
+//        c1Dir;by\it\abeseda\jd01_14\
+//        return path + c1Dir;
+//    }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String mipath = System.getProperty("user.dir") + File.separator + "src" + File.separator +
                 "by" + File.separator + "it" + File.separator + "abeseda" + File.separator;
-        File catalog = new File(mipath);
-        String[] list = catalog.list();
-        try (PrintWriter out2 = new PrintWriter(new FileWriter(dir(TaskC.class) + "resultTaskC.txt"))) {
-            for (String s : list) {
+        File file=new File(mipath);
 
-                System.out.println("dir:" + s);
-                out2.println("dir:" + s);
-
-
-                String mipath2 = System.getProperty("user.dir") + File.separator + "src" + File.separator +
-                        "by" + File.separator + "it" + File.separator + "abeseda" + File.separator +
-                        s + File.separator;
-
-                File files = new File(mipath2);
-
-
-                File[] listFiles = files.listFiles();
-                for (File listFile : listFiles) {
-                    System.out.println("file:" + listFile.getName());
-                    out2.println("file:" + listFile.getName());
+        if(file.isDirectory()){
+            for (File file1 : file.listFiles()) {
+                if (file1.isFile()){
+                    System.out.println("file:"+file1.getName());
+                }
+                if (file1.isDirectory()){
+                    System.out.println("dir:"+file1.getName().replace(mipath, ""));
+                    for (File file2 : file1.listFiles()) {
+                        if (file2.isFile()){
+                            System.out.println("file:"+file2.getName());
+                        }
+                        if (file2.isDirectory()){
+                            System.out.println("dir:"+file2.getName());
+                            for (File file3 : file2.listFiles()){
+                                if (file3.isFile()){
+                                    System.out.println("file:"+file3.getName());
+                                }
+                                if (file3.isDirectory()){
+                                    System.out.println("dir:"+file3.getName());
+                                }
+                            }
+                        }
+                    }
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 }
 
