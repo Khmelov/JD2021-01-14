@@ -25,6 +25,7 @@ public class  Cashier implements Runnable {
                 }
                 System.out.println(this + "finished service for " + buyer);
             } else {
+
                 //нет покупателей в очереди
                 // тут подумайте как сделать так чтобы кассир ожидал (но не завис в конце работы)
                 Thread.onSpinWait();

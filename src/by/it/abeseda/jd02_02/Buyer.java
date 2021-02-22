@@ -17,6 +17,11 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
     //признак продолжения ожидания
     private boolean waitFlag;
 
+//    public boolean isWaitFlag() {
+//        return waitFlag;
+//    }
+
+
     //управление ожиданием извне
     public void setWaitFlag(boolean waitFlag) {
         this.waitFlag = waitFlag;
@@ -108,6 +113,9 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
         synchronized (this) { //начало - захват монитора
             OneQueueBuyers.add(this); //пока покупатель добавляется в очередь кассир не сможет захватить его монитор
             waitFlag = true; //установка признака ожидания
+
+
+
             while (waitFlag) //пока извне флаг ожидания не снимут
                 try {
                     this.wait(); //покупатель ожидает.

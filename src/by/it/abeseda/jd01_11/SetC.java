@@ -1,9 +1,6 @@
 package by.it.abeseda.jd01_11;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class SetC<T> implements Set<T> {
 
@@ -27,7 +24,7 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public int size() {
-        return size;
+        return this.size;
     }
     @Override
     public boolean add(T t) {
@@ -106,12 +103,16 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean remove(Object o) {
+        int index=0;
+        for (T t:elements) {
+            if (t == o) {
+                System.arraycopy(elements, index + 1, elements, index, size - index -1);
+                size--;
+            }
+            index++;
+        }
         return false;
     }
-
-
-
-
 
     @Override
     public boolean retainAll(Collection<?> c) {
@@ -120,20 +121,40 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        for (Object t: c) {
-            if (this.remove(t)) {
-                return false;
+       //
+      //исправила от 21.02
+        Object[] array = c.toArray();
+        int count = 1;
+
+        for (int i = 0; i <= size; i++) {
+            for (int j = 0; j < c.size(); j++) {
+                if (elements[i] != null && elements[i].equals(array[j])) {
+                    elements[i] = null;
+                    count++;
+                    break;
+                }
             }
         }
+
+        size -= count;
         return true;
-//        boolean result=false;
-//        for(Object t:c){
-//            if (this.remove(t)){
-//                result=true;
+
+//        Objects.requireNonNull(c);
+//        boolean modified = false;
+//
+//        if (size() > c.size()) {
+//            for (Iterator<?> i = c.iterator(); i.hasNext(); )
+//                modified |= remove(i.next());
+//        } else {
+//            for (Iterator<?> i = iterator(); i.hasNext(); ) {
+//                if (c.contains(i.next())) {
+//                    i.remove();
+//                    modified = true;
+//                }
 //            }
-//            this.remove(t);
 //        }
-//        return result;
+//        return modified;
+
     }
 
     @Override
