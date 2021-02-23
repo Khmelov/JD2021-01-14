@@ -5,10 +5,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 class Market extends Thread {
+    static final int COUNT_CASHIERS = 5;
 
-    private QueueBuyers queueBuyers;
+    private final QueueBuyers queueBuyers;
 
-    private Dispatcher dispatcher;
+    private final Dispatcher dispatcher;
+
+
+    Market(Dispatcher dispatcher, QueueBuyers queueBuyers) {
+        this.queueBuyers = queueBuyers;
+        this.dispatcher = dispatcher;
+    }
 
     public QueueBuyers getQueueBuyers() {
         return queueBuyers;
@@ -16,13 +23,6 @@ class Market extends Thread {
 
     public Dispatcher getDispatcher() {
         return dispatcher;
-    }
-
-    static final int COUNT_CASHIERS = 5;
-
-    Market(Dispatcher dispatcher, QueueBuyers queueBuyers) {
-        this.queueBuyers = queueBuyers;
-        this.dispatcher = dispatcher;
     }
 
     @Override
@@ -40,7 +40,7 @@ class Market extends Thread {
 
         threadPool.shutdown();
 
-        //теперь создаем и впускам покупателей пока их не будет создано ровно 100
+        //теперь создаем и запускаем потоки покупателей пока их не будет создано ровно 100
         while (dispatcher.marketIsOpened()) {
             int n = Utils.random(2);
             //тут важно проверить нужны ли новые покупатели, если их получилось 2 то можно впустить лишнего
@@ -54,8 +54,7 @@ class Market extends Thread {
 
         //осталось дождаться завершения всех потоков
         try {
-            while (!
-                    threadPool.awaitTermination(1, TimeUnit.SECONDS)) {
+            while (!threadPool.awaitTermination(1, TimeUnit.SECONDS)) {
                 Thread.onSpinWait();
             }
         } catch (InterruptedException e) {
