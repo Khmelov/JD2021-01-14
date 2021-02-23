@@ -9,6 +9,7 @@ public class  Cashier implements Runnable {
 
     public Cashier(int number, Market market) {
         this.number = number;
+        this.market = market;
     }
 
     @Override

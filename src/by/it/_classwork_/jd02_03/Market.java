@@ -35,7 +35,7 @@ class Market extends Thread {
         //создаем и запускаем двух кассиров
         for (int numberCashier = 1; numberCashier <= 2; numberCashier++) {
             Cashier cashier = new Cashier(numberCashier, this);
-            threadPool.submit(cashier);
+            threadPool.execute(cashier);
         }
 
         threadPool.shutdown();
