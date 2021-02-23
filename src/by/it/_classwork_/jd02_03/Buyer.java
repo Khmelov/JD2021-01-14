@@ -2,7 +2,7 @@ package by.it._classwork_.jd02_03;
 
 class Buyer extends Thread implements IBuyer {
 
-    private Market market;
+    private final Market market;
 
     //получение монитора для завершения ожидания извне
     Object getMonitorWaiting() {

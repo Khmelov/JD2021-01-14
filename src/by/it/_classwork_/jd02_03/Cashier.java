@@ -5,7 +5,7 @@ import java.util.Objects;
 public class  Cashier implements Runnable {
 
     private final int number;
-    private Market market;
+    private final Market market;
 
     public Cashier(int number, Market market) {
         this.number = number;
