@@ -1,5 +1,6 @@
 package by.it.petrov.calc;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ConsoleRunner {
@@ -11,9 +12,16 @@ public class ConsoleRunner {
         Printer printer = new Printer();
 
         while(!(line = sc.nextLine()).equals("end")){
+            if(line.toLowerCase(Locale.ROOT).equals("printvar")){
+                DataStore.printVar();
+                continue;
+            }
+            if(line.toLowerCase(Locale.ROOT).equals("sortvar")){
+                DataStore.sortVar();
+                continue;
+            }
             Var result = parser.calc(line);
             printer.print(result);
         }
-
     }
 }

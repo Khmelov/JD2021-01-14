@@ -1,11 +1,10 @@
 package by.it.lapushkin.jd01_15;
 
 
-import by.it.lapushkin.jd01_14.TaskB;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Scanner;
+
 
 public class TaskC {
     static StringBuilder path = new StringBuilder(Util.getPath(TaskC.class));
