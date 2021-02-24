@@ -8,7 +8,6 @@ class QueueBuyers {
     //сама очередь скрыта.
     private final BlockingDeque<Buyer> BUYER_DEQUE = new LinkedBlockingDeque<>(30);
 
-    //делаем обращение к очереди безопасным safe-thead (монитор - QueueBuyers.class)
     void add(Buyer buyer) {
         try {
             BUYER_DEQUE.putLast(buyer);
@@ -17,7 +16,6 @@ class QueueBuyers {
         }
     }
 
-    //делаем обращение к очереди безопасным safe-thead (монитор - QueueBuyers.class)
     Buyer poll() {
         return BUYER_DEQUE.pollFirst();
     }
