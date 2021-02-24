@@ -1,12 +1,15 @@
-package by.it.shebeko.jd02_02;
+package by.it.shebeko.jd02_03;
 
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyers extends Thread  implements IBuyer, IUseBasket {
+
+    private static Semaphore semaphore = new Semaphore(20);
 
     public Buyers (int number){
         this.setName("Buyer №" + number);
@@ -18,7 +21,16 @@ class Buyers extends Thread  implements IBuyer, IUseBasket {
     public void run() {
         enterTheMarket();
         takeBasket();
-        chooseGoods();
+        try{
+            semaphore.acquire();
+            chooseGoods();
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        finally {
+            semaphore.release();
+        }
         putToBasket();
         goToQueue();
         goOut();
@@ -44,7 +56,7 @@ class Buyers extends Thread  implements IBuyer, IUseBasket {
             goods.add(element);
             prices.add(pr);
         }
-        int count =Helper.getRandom(1, 4);
+        int count = Helper.getRandom(1, 4);
         String delimiter = "";
         int sum = 0;
         for (int i = 0; i < count; i++) {
@@ -76,7 +88,7 @@ class Buyers extends Thread  implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         System.out.println(this + " starts to choose goods");
-        int timeout =Helper.getRandom(100, 200);
+        int timeout =Helper.getRandom(500, 2000);
         Helper.timeout(timeout);
         System.out.println(this + " has chosen goods");
     }
@@ -85,7 +97,6 @@ class Buyers extends Thread  implements IBuyer, IUseBasket {
         System.out.println(this + " goes to queue");
         synchronized (this){
             QueueBuyers.add(this);
-            QueueBuyers.countBuyers++;
             try{
                 this.wait();
             }catch (InterruptedException e){
