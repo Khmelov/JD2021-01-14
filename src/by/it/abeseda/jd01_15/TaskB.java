@@ -40,7 +40,7 @@ jhjhvjhvjhvjhvjv
         try (PrintWriter out=new PrintWriter(new FileWriter(fileToWrite))){
             out.print(text);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();//хочу кушать
         }
     }
 
