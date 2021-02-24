@@ -11,7 +11,7 @@ public class MainMarket {
         List<Thread> threads = new ArrayList<>();
 
         //создаем и запускаем двух кассиров
-        for (int numberCashier = 1; numberCashier <= 2; numberCashier++) {
+        for (int numberCashier=1; numberCashier <= 2; numberCashier++) {
             Cashier cashier = new Cashier(numberCashier);
             Thread threadCashier = new Thread(cashier);
             threadCashier.start();
@@ -24,12 +24,26 @@ public class MainMarket {
             //тут важно проверить нужны ли новые покупатели, если их получилось 2 то можно впустить лишнего
             for (int i = 0; i < n && Dispatcher.marketIsOpened(); i++) {
                 Buyer buyer = new Buyer(++numberBuyer);
-                threads.add(buyer);
                 buyer.start();
+                threads.add(buyer);
+
             }
             //ждем одну секунду
             Generator.timeout(1000);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //осталось дождаться завершения всех потоков
         for (Thread thread : threads) {

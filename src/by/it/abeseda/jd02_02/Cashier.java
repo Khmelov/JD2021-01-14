@@ -14,14 +14,10 @@ public class Cashier implements Runnable{
     public void run() {
         System.out.println(this + " opened");
         while (!Dispatcher.marketIsClosed()) {
-            Buyer buyerin = OneQueueBuyers.poll();
-            //берем изобщей очереди одного покупателя
+            Buyer buyerin = OneQueueBuyers.poll();//берем изобщей очереди одного покупателя
             if (Objects.nonNull(buyerin)) {
-                /*
-                Возвращает значение true,
-                если указанная ссылка не равна нулю,
-                в противном случае возвращает значение false.
-                 */
+                /*Возвращает значение true, если указанная ссылка не равна нулю,
+                в противном случае возвращает значение false.*/
                 System.out.println(this + " started service for " + buyerin);
                 Generator.timeout(timeout);
                 synchronized (buyerin.getMonitorWaiting()) {
