@@ -3,9 +3,9 @@ package by.it.abeseda.jd02_02;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class  OneQueueBuyers {
+public class OneQueueBuyers {
 
-    //2 кассы, значит будет 2 очереди, значит будет 2 Cashier
+    //1 очередь и 2 Cashier
     private  static final Deque<Buyer> ONE_BUYERS_DEQUE=new ArrayDeque<>();
 
     //synchronized this. это тоже самое толькое медленнее в байт коде
@@ -22,7 +22,11 @@ public class  OneQueueBuyers {
     static synchronized Buyer poll(){
         return ONE_BUYERS_DEQUE.pollFirst();
     }
-}
+
+    static int size(){
+        return ONE_BUYERS_DEQUE.size();}
+    }
+
 
 
 

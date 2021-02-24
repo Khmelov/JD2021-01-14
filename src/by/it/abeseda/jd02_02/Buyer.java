@@ -21,6 +21,7 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
 //        return waitFlag;
 //    }
 
+    double check=0;//то наш общий чек
 
     //управление ожиданием извне
     public void setWaitFlag(boolean waitFlag) {
@@ -84,7 +85,7 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
         Map<String,Double> buyerBasket=new HashMap<>();
         List<String> productList = new ArrayList<>(marketBasket.keySet());
 
-        double check=0;//то наш общий чек
+
         for (int i = 1; i <= goods; i++) {
             int randIndexProduct = new Random().nextInt(marketBasket.size());
 
@@ -104,14 +105,18 @@ class Buyer extends Thread implements BuyerDoInMarket, Basket {
             check=check+price;
         }
         System.out.println(this.number+" payed for "+buyerBasket.size()+" goods.\n");
-        System.out.printf(this.number+" payed sum=%.2f %n", check);
     }
 
     @Override
     public void goToOneOfQueue() {
         System.out.println(this.number + " went to the queue");
         synchronized (this) { //начало - захват монитора
-            OneQueueBuyers.add(this); //пока покупатель добавляется в очередь кассир не сможет захватить его монитор
+
+                OneQueueBuyers.add(this); //пока покупатель добавляется в очередь кассир
+                // не сможет захватить его монитор
+
+            System.out.printf(this.number+" payed sum=%.2f %n", check);
+
             waitFlag = true; //установка признака ожидания
 
 
