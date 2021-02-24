@@ -10,4 +10,25 @@ public class Util {
                 packageName.replace(".", File.separator);
         return new File(dir, fileName);
     }
+
+
+
+    //для второго задания
+    static boolean isTextContainsSingleLineComment(StringBuilder text) {
+        return isCommentExists(text.indexOf("//"));
+    }
+
+    static boolean isTextContainsMultiLineComment(StringBuilder text) {
+        return isCommentExists(text.indexOf("/*"));
+    }
+
+    static boolean isTextContainsJavaDocLineComment(StringBuilder text) {
+        return isCommentExists(text.indexOf("/**"));
+    }
+
+    static boolean isCommentExists(int index){
+        return index!=-1;
+    }
+
+
 }
