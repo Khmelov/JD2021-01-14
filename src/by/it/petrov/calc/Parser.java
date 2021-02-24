@@ -20,6 +20,7 @@ public class Parser {
                 case "-": return one.sub(two);
                 case "/": return one.div(two);
                 case "*": return one.mul(two);
+                case "=": one.ass(operand[0], two); return DataStore.getVariable(operand[0]);
             }
         }
         return null; // TODO create error

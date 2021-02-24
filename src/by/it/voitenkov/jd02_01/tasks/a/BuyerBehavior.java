@@ -1,6 +1,6 @@
-package by.it.voitenkov.jd01_16;
+package by.it.voitenkov.jd02_01.tasks.a;
 
-public interface BuyerBehavior {
+interface BuyerBehavior {
 
     void enterToMarket();
 

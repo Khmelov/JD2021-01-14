@@ -13,7 +13,14 @@ abstract class Var implements Operation {
         if (operand.matches(Patterns.MATRIX)){
             return new Matrix(operand);
         }
+        if (operand.matches(Patterns.VARIABLE)){
+            return new Variable(operand);
+        }
         return null;
+    }
+
+    public void ass(String name, Var value){
+        System.out.println("Операция присвоения невозможна (ошибка возникла в абстрактном классе)");
     }
 
     @Override
