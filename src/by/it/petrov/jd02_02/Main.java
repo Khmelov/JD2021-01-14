@@ -24,20 +24,20 @@ public class Main {
         while (timer.isAlive()) {
 
             if (Timer.getSecondsPassed() < 30 && currentVisitorsCountInTheShop < Timer.getSecondsPassed() + 10) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 1; i++) {
                     Buyer buyer = new Buyer(("Visitor number " + (totalVisitorsCount + 1)));
                     totalVisitorsCount++;
-                    Thread.sleep(300 / Timer.getSpeedCoefficient());
+                    Thread.sleep(100 / Timer.getSpeedCoefficient());
                 }
             } else if (Timer.getSecondsPassed() < 30 && currentVisitorsCountInTheShop >= Timer.getSecondsPassed() + 10) {
                 System.out.println("Too many customers ... (max: " + (Timer.getSecondsPassed() + 10) + ") (current: "
                         + currentVisitorsCountInTheShop);
                 Thread.sleep(2000 / Timer.getSpeedCoefficient());
             } else if (Timer.getSecondsPassed() >= 30 && currentVisitorsCountInTheShop <= 40 + (30 - Timer.getSecondsPassed())) {
-                for (int i = 0; i < 2; i++) {
+                for (int i = 0; i < 1; i++) {
                     Buyer buyer = new Buyer(("Visitor number " + (totalVisitorsCount + 1)));
                     totalVisitorsCount++;
-                    Thread.sleep(300 / Timer.getSpeedCoefficient());
+                    Thread.sleep(100 / Timer.getSpeedCoefficient());
                 }
             } else if (Timer.getSecondsPassed() >= 30 && currentVisitorsCountInTheShop > 40 + (30 - Timer.getSecondsPassed())) {
                 System.out.println("Too many customers ... (max: " + (Timer.getSecondsPassed() + 10) +
