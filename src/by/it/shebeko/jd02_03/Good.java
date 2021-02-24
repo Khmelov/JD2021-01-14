@@ -1,10 +1,10 @@
-package by.it.shebeko.jd02_01;
+package by.it.shebeko.jd02_03;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Good {
-    public static Map<String, Integer> goods(){
+    static Map<String, Integer> goods(){
         Map<String , Integer> good = new HashMap<>();
         good.put("bread", 5);
         good.put("potato", 4);
