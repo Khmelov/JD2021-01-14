@@ -11,7 +11,7 @@ public class ParserTest {
     private Parser parser;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         parser = new Parser();
     }
 
@@ -24,6 +24,7 @@ public class ParserTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
+        System.out.println("end");
     }
 }
