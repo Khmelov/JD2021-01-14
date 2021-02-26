@@ -14,6 +14,8 @@ abstract class Var implements Operation {
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         }
+//        System.out.println(operand);
+//        operand="{1,2}";
         if (operand.matches(Patterns.VECTOR)) {
             return new Vector(operand);
         }
@@ -21,7 +23,7 @@ abstract class Var implements Operation {
             return new Matrix(operand); }
         else {
             Var var = vars.get(operand);
-            System.out.println(var);
+//            System.out.println(var);
             if (var == null) { throw new CalcException("Вот тут косяк " + var); }
             return var;
         }
