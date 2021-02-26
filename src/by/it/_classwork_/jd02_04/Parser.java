@@ -25,7 +25,6 @@ class Parser {
         }
         return Var.createVar(operands.get(0));
 
-
     }
 
     private static final Map<String, Integer> PRIOR = Map.of(
