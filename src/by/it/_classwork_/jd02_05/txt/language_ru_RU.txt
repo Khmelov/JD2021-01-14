@@ -1,0 +1,4 @@
+message.welcome=Привет!
+message.question=Как дела?
+user.firstName=Александр
+user.lastName=Хмелев
