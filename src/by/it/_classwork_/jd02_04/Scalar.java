@@ -44,7 +44,7 @@ class Scalar extends Var {
             double result=this.value-sc.value;
             return new Scalar(result);
         }
-        return other.add(this).mul(new Scalar(-1));
+        return other.sub(this).mul(new Scalar(-1));
     }
 
     @Override
