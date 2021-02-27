@@ -1,7 +1,6 @@
 package by.it.abeseda.jd02_05;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class ConsoleRunner {
     public static void main(String[] args) {
@@ -9,14 +8,20 @@ public class ConsoleRunner {
         //выполненіе все по порядку как в командной строке
         //заходім в папку с данным файлом і запускаем его, все автоматізіровано
 
-        String reference="by.it.abeseda.jd02_05.resourse.language";
-        //ссылка на папку, где искать переводы
-        //копіровані через точкі -команда copy Reference
+        Language instance = Language.INSTANCE;
+        Locale.setDefault(Locale.ENGLISH);
+//        Locale locale=new Locale("be", "BY");
 
-        Locale locale=new Locale("be", "BY");
-        ResourceBundle rb = ResourceBundle.getBundle(reference);
-        rb.getString("");
+        if (args.length==2){
+            instance.setLocale(new Locale(args[0], args[1]));
+        }
 
+
+ //       System.out.println(Locale.getDefault());
+        System.out.println(instance.get(Messages.WELCOM));
+        System.out.println(instance.get(Messages.QUESTION));
+        System.out.println(instance.get(User.FIRST_NAME));
+        System.out.println(instance.get(User.LAST_NAME));
 
     }
 }
