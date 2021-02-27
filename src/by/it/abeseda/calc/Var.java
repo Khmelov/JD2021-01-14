@@ -10,7 +10,7 @@ abstract class Var implements Operation {
     private static final Map<String, Var> vars = new HashMap<>();
 
     static Var createVar(String operand) throws CalcException {
-        operand = operand.trim().replace("\\s+", "");
+        operand = operand.trim().replaceAll("\\s+", "");
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         }
