@@ -1,4 +1,4 @@
-package by.it.petrov.jd02_02;
+package by.it.petrov.jd02_03;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -8,7 +8,8 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
     private final String BUYERS_NAME;
     private boolean pensioneer;
     private final double PENSIONEER_SPEED_COEFFICIENT = 0.66;
-    private double totalSpeed;
+    private final double totalSpeed;
+    private final double pensioneerProbability = 0.25;
     private ArrayList<String> purchasedProducts = new ArrayList<>();
 
     private final Map<String, Integer> goods = Map.of(
@@ -27,7 +28,6 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
     public Buyer(String buyersName) {
         super(buyersName);
         this.BUYERS_NAME = buyersName;
-        double pensioneerProbability = 0.25;
         if (Math.random() <= pensioneerProbability) {
             this.pensioneer = true;
         }
@@ -37,6 +37,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
         } else {
             totalSpeed = 1;
         }
+        Manager.totalVisitorsCount.getAndAdd(1);
         System.out.println(buyersName + " was created");
         start();
     }
@@ -55,20 +56,20 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
 
     @Override
     public void layOutGoodsToCashier() {
-        synchronized (Deque.class) {
             Deque.add(this);
             if (this.pensioneer) {
                 System.out.println(this.getBuyersName() + " is in the Queue (Pensioneers queue). And waiting for his turn ...");
             } else {
                 System.out.println(this.getBuyersName() + " is in the Queue! And waiting for his turn ...");
             }
-        }
         synchronized (this) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            Manager.totalVisitorsServedCount.getAndAdd(1);
+            System.out.println(this.getBuyersName() + " has been served!");
         }
     }
 
@@ -106,11 +107,9 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
 
     @Override
     public void enteredToMarket() {
-        synchronized (Main.class) {
-            Main.currentVisitorsCountInTheShop += 1;
-        }
+        Manager.currentVisitorsCountInTheShop.getAndAdd(1);
         System.out.println(BUYERS_NAME + " entered the market! " +
-                "Total customers in shop at the current moment: " + Main.currentVisitorsCountInTheShop);
+                "Total customers in shop at the current moment: " + Manager.currentVisitorsCountInTheShop);
     }
 
     @Override
@@ -126,8 +125,10 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
 
     @Override
     public void goOut() {
-        Main.currentVisitorsCountInTheShop -= 1;
+        synchronized (Main.class) {
+            Manager.currentVisitorsCountInTheShop.getAndAdd(-1);
+        }
         System.out.println(BUYERS_NAME + " has left the market ... " +
-                "Total customers in shop at the current moment: " + Main.currentVisitorsCountInTheShop);
+                "Total customers in shop at the current moment: " + Manager.currentVisitorsCountInTheShop);
     }
 }
