@@ -10,6 +10,8 @@ public class Log {
     //TODO : Сделать путь по человечески :)
     private static final String PATHTOLOGFILE = "src/by/it/lapushkin/calc/logs/logs.txt";
 
+    private Log(){
+    }
     public static void saveLog(String message) {
 
         try (OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream(PATHTOLOGFILE, true))

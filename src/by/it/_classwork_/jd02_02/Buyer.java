@@ -15,7 +15,6 @@ class Buyer extends Thread implements IBuyer {
         this.waitFlag = waitFlag;
     }
 
-
     Buyer(int number) {
         super("Buyer №" + number);
         //важно учитывать создание в конструкторе, а не после старта потока

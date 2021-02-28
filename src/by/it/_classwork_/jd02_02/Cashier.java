@@ -2,7 +2,7 @@ package by.it._classwork_.jd02_02;
 
 import java.util.Objects;
 
-public class Cashier implements Runnable {
+public class  Cashier implements Runnable {
 
     private final int number;
 
@@ -25,6 +25,7 @@ public class Cashier implements Runnable {
                 }
                 System.out.println(this + "finished service for " + buyer);
             } else {
+
                 //нет покупателей в очереди
                 // тут подумайте как сделать так чтобы кассир ожидал (но не завис в конце работы)
                 Thread.onSpinWait();
