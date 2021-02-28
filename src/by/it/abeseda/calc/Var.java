@@ -14,25 +14,17 @@ abstract class Var implements Operation {
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         }
-//        System.out.println(operand);
-//        operand="{1,2}";
-        if (operand.matches(Patterns.VECTOR)) {
+        else if (operand.matches(Patterns.VECTOR)) {
             return new Vector(operand);
         }
-        if (operand.matches(Patterns.MATRIX)) {
+        else if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand); }
-        else {
-            Var var = vars.get(operand);
-//            System.out.println(var);
-            if (var == null) { throw new CalcException("Вот тут косяк " + var); }
-            return var;
+        else if(vars.containsKey(operand)) {
+            return vars.get(operand);
+        }else{
+            throw new CalcException("Вот тут косяк " + operand);
         }
     }
-
-
-
-
-
 
     static Var saveVar(String name, Var var){
         vars.put(name, var);
