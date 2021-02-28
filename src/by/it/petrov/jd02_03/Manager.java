@@ -8,6 +8,7 @@ public class Manager {
     public static AtomicInteger currentVisitorsCountInTheShop = new AtomicInteger(0);
     public static AtomicInteger totalVisitorsCount = new AtomicInteger(0);
     public static AtomicInteger totalVisitorsServedCount = new AtomicInteger(0);
+    public static AtomicInteger totalVisitorsInHallCount = new AtomicInteger(0);
 
     public static Integer determineNumberOfCashiersNeeded(Integer currentCustomersInDeque) {
         if (Deque.currentCustomersInDeque() == 0) {
@@ -104,4 +105,5 @@ public class Manager {
             }
         }
     }
+
 }

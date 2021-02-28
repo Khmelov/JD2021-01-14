@@ -9,7 +9,7 @@ public class Main {
         int speedCoefficient = 50;
         Timer timer = new Timer(120, speedCoefficient);
         Deque paymentsDeque = new Deque();
-        int setCashiersCount = 2;
+        int setCashiersCount = 1;
         ExecutorService executors = Executors.newFixedThreadPool(setCashiersCount);
 
         for (int i = 0; i < setCashiersCount; i++) {
@@ -18,11 +18,11 @@ public class Main {
             System.out.println("Cashier has been created through 'execute'");
         }
 
-        int setBuyersCount = 100;
-        ExecutorService executorsBuy = Executors.newFixedThreadPool(setCashiersCount);
+        int setBuyersCount = 1;
+        ExecutorService executorsBuy = Executors.newFixedThreadPool(setBuyersCount);
         for (int i = 0; i < setBuyersCount; i++) {
+            System.out.println("Number " + (i + 1) + " has been created through 'execute'");
             executorsBuy.execute(new Buyer("Number" + (i + 1)));
-            System.out.println("Cashier has been created through 'execute'");
         }
     }
 }

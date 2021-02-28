@@ -34,7 +34,6 @@ public class Cashier extends Thread implements ICashier {
             cashiersDeque.add(this);
         }
         System.out.println(this.CASHIERS_NAME + " has been opened! (created)");
-        start();
     }
 
 
@@ -73,7 +72,7 @@ public class Cashier extends Thread implements ICashier {
     @Override
     public void meetTheClientAtCheckoutCounter() {
         Buyer buyer;
-        while (TIMER_TO_LIVE.isAlive() || (Manager.totalVisitorsCount.get() < Manager.totalVisitorsServedCount.get())) {
+        while (TIMER_TO_LIVE.isAlive() || (Manager.totalVisitorsServedCount.get() < Manager.totalVisitorsCount.get())) {
             if ((buyer = Deque.poll()) != null) {
                 System.out.println(this.CASHIERS_NAME + ": Please, come here " + buyer.getBuyersName());
                 try {
@@ -81,11 +80,11 @@ public class Cashier extends Thread implements ICashier {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                Manager.totalVisitorsServedCount.getAndAdd(1);
                 calculatePurchases(buyer);
                 synchronized (buyer) {
                     buyer.notify();
                 }
-                continue;
             }
 
             cashiersDeque.remove(this);
@@ -102,7 +101,7 @@ public class Cashier extends Thread implements ICashier {
 
                     System.out.println("--------------------------------------------------------------------------------------------");
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(500 / Timer.getSpeedCoefficient());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -129,6 +128,7 @@ public class Cashier extends Thread implements ICashier {
             System.out.printf("%-19s%-10s%n", "Total:", totalCount);
             System.out.printf("%-19s%-10s%n", "Customers served:", Manager.totalVisitorsServedCount.get());
             System.out.printf("%-19s%-10s%n", "Total customers:", Manager.totalVisitorsCount.get());
+            System.out.printf("%-19s%-10s%n", "Customers in Hall:", Manager.totalVisitorsInHallCount.get());
             System.out.println("----------------------");
             System.out.println();
             addCashiersProfit(this.CASHIERS_NAME, totalCount);

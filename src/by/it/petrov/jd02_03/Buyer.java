@@ -3,7 +3,7 @@ package by.it.petrov.jd02_03;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
+public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private final String BUYERS_NAME;
     private boolean pensioneer;
@@ -39,7 +39,6 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
         }
         Manager.totalVisitorsCount.getAndAdd(1);
         System.out.println(buyersName + " was created");
-        start();
     }
 
     public ArrayList<String> getProductList() {
@@ -56,19 +55,19 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
 
     @Override
     public void layOutGoodsToCashier() {
-            Deque.add(this);
-            if (this.pensioneer) {
-                System.out.println(this.getBuyersName() + " is in the Queue (Pensioneers queue). And waiting for his turn ...");
-            } else {
-                System.out.println(this.getBuyersName() + " is in the Queue! And waiting for his turn ...");
-            }
+        Deque.add(this);
+        Manager.totalVisitorsInHallCount.getAndAdd(-1);
+        if (this.pensioneer) {
+            System.out.println(this.getBuyersName() + " is in the Queue (Pensioneers queue). And waiting for his turn ...");
+        } else {
+            System.out.println(this.getBuyersName() + " is in the Queue! And waiting for his turn ...");
+        }
         synchronized (this) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Manager.totalVisitorsServedCount.getAndAdd(1);
             System.out.println(this.getBuyersName() + " has been served!");
         }
     }
@@ -107,6 +106,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
 
     @Override
     public void enteredToMarket() {
+        Manager.totalVisitorsInHallCount.getAndAdd(1);
         Manager.currentVisitorsCountInTheShop.getAndAdd(1);
         System.out.println(BUYERS_NAME + " entered the market! " +
                 "Total customers in shop at the current moment: " + Manager.currentVisitorsCountInTheShop);
