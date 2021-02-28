@@ -84,7 +84,7 @@ public class Matrix extends Var {
             return new Matrix(res);
         } else if (other instanceof Matrix) {//складывать можно матрицы только одинакового размера
             if (value.length!=((Matrix) other).value[0].length){
-                throw  new CalcException("Сложение возможно только матриц одинакового размера.");
+                throw new CalcException("Сложение возможно только матриц одинакового размера.");
             }
 
             double[][] res = new double[value.length][0];

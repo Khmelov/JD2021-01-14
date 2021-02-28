@@ -7,15 +7,12 @@ import static org.junit.Assert.*;
 
 public class VectorTest {
 
-
     private Parser parser;
 
-    @Before// запускается перед каждым тестовым методом
-    //   сначала мы запускаем класс парсер, потом только у нас все работает
+    @Before
     public void setUp() {
         parser = new Parser();
-    }
-//это аналогічно еслі б мы в начале создали Parser parser=new Parser();
+    }//это аналогічно еслі б мы в начале создали Parser parser=new Parser();
 
     @Test
     public void vectorAddScalar() throws Exception {
