@@ -1,4 +1,4 @@
-package by.it.voitenkov.jd02_01.tasks.a;
+package by.it.voitenkov.jd02_02.tasks.c;
 
 import java.util.Random;
 

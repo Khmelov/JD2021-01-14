@@ -57,4 +57,3 @@ class Store implements StoreBehavior, Runnable {
         close();
     }
 }
-
