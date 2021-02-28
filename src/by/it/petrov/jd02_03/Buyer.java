@@ -2,6 +2,7 @@ package by.it.petrov.jd02_03;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
 
@@ -11,6 +12,10 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     private final double totalSpeed;
     private final double pensioneerProbability = 0.25;
     private ArrayList<String> purchasedProducts = new ArrayList<>();
+
+    private final Semaphore queueSem;
+    private final Semaphore hallSem;
+    private final Semaphore backetSem;
 
     private final Map<String, Integer> goods = Map.of(
             "Meet", 300,
@@ -25,8 +30,11 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
         return pensioneer;
     }
 
-    public Buyer(String buyersName) {
+    public Buyer(String buyersName, Semaphore hallSem, Semaphore queueSem, Semaphore backetSem) {
         super(buyersName);
+        this.queueSem = queueSem;
+        this.hallSem = hallSem;
+        this.backetSem = backetSem;
         this.BUYERS_NAME = buyersName;
         if (Math.random() <= pensioneerProbability) {
             this.pensioneer = true;
@@ -55,8 +63,15 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void layOutGoodsToCashier() {
+        try {
+            queueSem.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Deque.add(this);
-        Manager.totalVisitorsInHallCount.getAndAdd(-1);
+        hallSem.release();
+        System.out.println(this.getBuyersName() + "stands in the queue ... " +
+                "Visitors in the hall left: " + Manager.totalVisitorsInHallCount.addAndGet(-1));
         if (this.pensioneer) {
             System.out.println(this.getBuyersName() + " is in the Queue (Pensioneers queue). And waiting for his turn ...");
         } else {
@@ -65,6 +80,8 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
         synchronized (this) {
             try {
                 this.wait();
+                queueSem.release();
+                backetSem.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -74,6 +91,11 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void takeBasket() {
+        try {
+            backetSem.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println(this.BUYERS_NAME + " has taken a basket ...");
     }
 
@@ -84,7 +106,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
         chooseGoods();
         for (int i = 0; i < numberOfGoodsToBuy; i++) {
             try {
-                Thread.sleep((int) (Math.round(Math.random() * 1500 + 500) / (this.totalSpeed * Timer.getSpeedCoefficient())));
+                Thread.sleep((int) (Math.round(Math.random() * 500 + 500) / (this.totalSpeed * Timer.getSpeedCoefficient())));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -97,6 +119,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void run() {
+        Manager.totalVisitorsBehindTheDoors.addAndGet(1);
         enteredToMarket();
         takeBasket();
         putGoodsToBasket();
@@ -106,10 +129,15 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enteredToMarket() {
-        Manager.totalVisitorsInHallCount.getAndAdd(1);
-        Manager.currentVisitorsCountInTheShop.getAndAdd(1);
+        try {
+            hallSem.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Manager.totalVisitorsBehindTheDoors.addAndGet(-1);
         System.out.println(BUYERS_NAME + " entered the market! " +
-                "Total customers in shop at the current moment: " + Manager.currentVisitorsCountInTheShop);
+                "Total customers in shop at the current moment: " + Manager.currentVisitorsCountInTheShop.addAndGet(1));
+        System.out.println("Customers in the hall " + Manager.totalVisitorsInHallCount.addAndGet(1));
     }
 
     @Override
@@ -125,9 +153,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void goOut() {
-        synchronized (Main.class) {
-            Manager.currentVisitorsCountInTheShop.getAndAdd(-1);
-        }
+        Manager.currentVisitorsCountInTheShop.getAndAdd(-1);
         System.out.println(BUYERS_NAME + " has left the market ... " +
                 "Total customers in shop at the current moment: " + Manager.currentVisitorsCountInTheShop);
     }

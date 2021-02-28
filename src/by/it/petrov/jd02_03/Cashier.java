@@ -129,6 +129,7 @@ public class Cashier extends Thread implements ICashier {
             System.out.printf("%-19s%-10s%n", "Customers served:", Manager.totalVisitorsServedCount.get());
             System.out.printf("%-19s%-10s%n", "Total customers:", Manager.totalVisitorsCount.get());
             System.out.printf("%-19s%-10s%n", "Customers in Hall:", Manager.totalVisitorsInHallCount.get());
+            System.out.printf("%-19s%-10s%n", "Behind the doors:", Manager.totalVisitorsBehindTheDoors.get());
             System.out.println("----------------------");
             System.out.println();
             addCashiersProfit(this.CASHIERS_NAME, totalCount);
