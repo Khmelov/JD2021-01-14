@@ -12,7 +12,7 @@ public class PrintString {
 
         for (Method method : methods) {
             if ((method.getModifiers() & Modifier.STATIC) != Modifier.STATIC) {
-                System.out.println(method);
+                System.out.println(method.getName());
             }
         }
     }

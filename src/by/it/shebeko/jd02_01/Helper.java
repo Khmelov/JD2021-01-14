@@ -7,18 +7,18 @@ public class Helper {
 
     private static Random random = new Random();
 
-    static int getRandom (int min, int max){
-        return min + random.nextInt(max + min + 1);
+    public static int getRandom(int min, int max){
+        return min + random.nextInt(max - min + 1);
     }
-    static int getRandom(int max) {
+    public static int getRandom(int max) {
         return getRandom(0, max);
     }
 
-    static void timeout (int seconds){
+    public static void timeout(int seconds){
         try{
             Thread.sleep(111/K_SPEED);
         }catch (InterruptedException e){
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 }
