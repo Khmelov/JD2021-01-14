@@ -1,43 +1,41 @@
-{2,3,4}*2={4.0, 6.0, 8.0}java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: vector sizejava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: vector sizejava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)2/{1,2,3}={0.5, 1.0, 1.5}java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)3.8+26.2=30.0java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: Division by zerojava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: Incorrect input Varjava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)Matrix size Errjava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь){2,3,4}*2={4.0, 6.0, 8.0}java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: vector sizejava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: vector sizejava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)2/{1,2,3}={0.5, 1.0, 1.5}java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)3.8+26.2=30.0java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: Division by zerojava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: Incorrect input Varjava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)Matrix size Errjava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)3.8+26.2=30.0java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: Division by zerojava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: Incorrect input Varjava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь){2,3,4}*2={4.0, 6.0, 8.0}java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: vector sizejava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: vector sizejava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)2/{1,2,3}={0.5, 1.0, 1.5}java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)Matrix size Errjava.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь){2,3,4}*2={4.0, 6.0, 8.0}java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)ERROR: vector size
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: vector size
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-2/{1,2,3}={0.5, 1.0, 1.5}
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-3.8+26.2=30.0
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: Division by zero
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: Incorrect input Var
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-3.8+26.2=30.0
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: Division by zero
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: Incorrect input Var
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-Matrix size Err
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-{2,3,4}*2={4.0, 6.0, 8.0}
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: vector size
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: vector size
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-2/{1,2,3}={0.5, 1.0, 1.5}
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-Matrix size Err
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-3.8+26.2=30.0
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: Division by zero
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: Incorrect input Var
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-{2,3,4}*2={4.0, 6.0, 8.0}
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: vector size
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-ERROR: vector size
-java.io.FileNotFoundException: src\by\it\lapushkin\calc\repository\vars.txt (Системе не удается найти указанный путь)
-2/{1,2,3}={0.5, 1.0, 1.5}
+A=7.3B=25.55C=40.15D=10.0E={10.0,15.0}V={65.0,105.0}B1=25.0B2=A/2-1B2=2.65A=7.3B=25.55C=40.15D=10.0E={10.0,15.0}V={65.0,105.0}B1=25.0C=B+(A*2)A*2B2=2.65A=7.3B=25.55C=40.15D=10.0E={10.0,15.0}V={65.0,105.0}B1=25.0D=((C-0.15)-20) / (7-5)C-0.1540.0-207-57-57-5B2=2.65A=7.3B=25.55C=40.15D=10.0E={10.0,15.0}V={65.0,105.0}B1=25.0E={2,3}*(D/2)D/2B2=2.65A=7.3B=25.55C=40.15D=10.0E={10.0,15.0}V={65.0,105.0}B1=25.0V={{2,3},{3,5}}*E
+B2=2.65
+A=7.3
+B=25.55
+C=40.15
+D=10.0
+E={10.0,15.0}
+V={65.0,105.0}
+B1=25.0
+A=2+5.3
+B2=2.65
+A=7.3
+B=25.55
+C=40.15
+D=10.0
+E={10.0,15.0}
+V={65.0,105.0}
+B1=25.0
+125/12
+125/12=10.416666666666666
+A=5+5
+A=5+5=10.0
+B=A*(4/2)
+4/2
+B=A*(4/2)=20.0
+C=B/A
+C=B/A=2.0
+
+ERROR:incorrect input 
+ERROR:division by zero
+ERROR:division by zero
+ERROR:incorrect input asd
+ERROR:incorrect input {1,2,3,4}}
+ERROR:division by zero
+ERROR:incorrect input asd
+ERROR:ERROR: vector size
+ERROR:division by zero
+ERROR:incorrect input asd
+ERROR:incorrect length
+ERROR:division by zero
+ERROR:incorrect input asd
