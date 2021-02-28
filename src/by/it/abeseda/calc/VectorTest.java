@@ -18,22 +18,21 @@ public class VectorTest {
 
 
     @Test
-    public void add() throws Exception {
-        String expression = "A={2,2}*2";
-        double[] expected = new double[]{4.0, 4.0};
-        double actual = Double.parseDouble(parser.calc(expression).toString());
-//        assertEquals(expected[], actual, 1e-10);
+    public void addVector() throws Exception {
+        String expession="{1,2}+{3,4}";
+//        String result="{4.0, 6.0}";
+
     }
 
     @Test
-    public void sub() {
+    public void sub() throws Exception  {
     }
 
     @Test
-    public void mul() {
+    public void mul() throws Exception  {
     }
 
     @Test
-    public void div() {
+    public void div() throws Exception  {
     }
 }

@@ -60,34 +60,7 @@ public class Parser {
             case "/":
                 return left.div(right);
         }
-//            if (operand.length != 1) {
-//                Var two = Var.createVar(operand[1]);
-//                if (expression.contains("=")) {
-//                    return Var.saveVar(operand[0], two);
-//                }
-//                Var one = Var.createVar(operand[0]);
-//                if (one == null || two == null) {
-//                    throw new CalcException("Неправильный ввод данных. Смотри Parser");
-//
-//                }
-//                Pattern p = Pattern.compile(Patterns.OPERATION);
-//                Matcher m = p.matcher(expression);
-//                if (m.find()) {
-//                    String operation = m.group();
-//        switch (operation) {
-//            case "+":
-//                return one.add(two);
-//            case "-":
-//                return one.sub(two);
-//            case "*":
-//                return one.mul(two);
-//            case "/":
-//                return one.div(two);
-//        }
-//                }
-//            } else {
-//                return Var.createVar(expression);
-//            }
+
        throw new CalcException("Неправильный ввод данных. Смотри Parser");
     }
 //A=5.0

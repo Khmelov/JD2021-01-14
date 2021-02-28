@@ -1,5 +1,7 @@
 package by.it.abeseda.jd02_05;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -10,20 +12,27 @@ public enum Language {
     //singleTon-это класс, у которого экземпляр создаётся только один раз.
 
 
-    private static final String REFER="by.it.abeseda.jd02_05.resourse.language";
+    private String REFER="by.it.abeseda.jd02_05.resourse.language";
 
     private ResourceBundle rb;
+//    private DateFormat df;
 
-    Language() {
-        setLocale(Locale.getDefault());
+ //   Language() {
+//        setLocale(Locale.getDefault());
+//    }
+ Language() {
+     setLocale(Locale.ENGLISH);
+ }
+
+    public Locale getLocale(){
+     return rb.getLocale();
     }
-
 
     //ссылка на папку, где искать переводы
     //копіровані через точкі -команда copy Reference
 
 
-    public void setLocale(Locale locale){
+    void setLocale(Locale locale){
         rb= ResourceBundle.getBundle(REFER, locale);
     }
 
