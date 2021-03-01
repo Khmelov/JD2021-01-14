@@ -1,12 +1,16 @@
 package by.it.lapushkin.calc.model;
 
 
+import by.it.lapushkin.calc.ConsoleRunner;
 import by.it.lapushkin.calc.model.support.CalcException;
+import by.it.lapushkin.calc.service.ResourseManager;
+import by.it.lapushkin.calc.service.support.ErrorMessages;
 import by.it.lapushkin.calc.utils.Parser;
 import by.it.lapushkin.calc.utils.Patterns;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public abstract class Var implements Operations {
@@ -21,8 +25,15 @@ public abstract class Var implements Operations {
             return new Vector(strVar);
         } else if (strVar.matches(Patterns.MATRIX)) {
             return new Matrix(strVar);
-        } else
-            throw new CalcException("ERROR: Incorrect input Var");
+        } else if (vars.containsKey(strVar)){
+            return vars.get(strVar);
+        }else {
+            throw new CalcException(
+                    ConsoleRunner.resourseManager.get(
+                            ErrorMessages.ERROR_INCORRECT_INPUT)+" "+strVar);
+        }
+
+
     }
 
     public static Var save(String name, Var value) {
@@ -56,66 +67,78 @@ public abstract class Var implements Operations {
 
     @Override
     public Var add(Scalar scalar) throws CalcException {
-        throw new CalcException("Sum Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_ADD));
     }
 
     @Override
     public Var add(Vector vector) throws CalcException {
-        throw new CalcException("Sum Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_ADD));
     }
 
     @Override
     public Var add(Matrix matrix) throws CalcException {
-        throw new CalcException("Sum Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_ADD));
     }
 
     @Override
     public Var sub(Scalar scalar) throws CalcException {
-        throw new CalcException("Sub Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_SUB));
     }
 
     @Override
     public Var sub(Vector vector) throws CalcException {
-        throw new CalcException("Sub Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_SUB));
     }
 
     @Override
     public Var sub(Matrix matrix) throws CalcException {
-        throw new CalcException("Sub Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_SUB));
     }
 
     @Override
     public Var mul(Scalar scalar) throws CalcException {
-        throw new CalcException("Mul Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_MUL));
     }
 
     @Override
     public Var mul(Vector vector) throws CalcException {
-        throw new CalcException("Mul Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_MUL));
     }
 
     @Override
     public Var mul(Matrix matrix) throws CalcException {
-        throw new CalcException("Mul Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_MUL));
     }
 
     @Override
     public Var div(Scalar scalar) throws CalcException {
-        throw new CalcException("Div Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_DIV));
     }
 
     @Override
     public Var div(Vector vector) throws CalcException {
-        throw new CalcException("Div Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_DIV));
     }
 
     @Override
     public Var div(Matrix matrix) throws CalcException {
-        throw new CalcException("Div Error");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_DIV));
     }
 
     @Override
     public String toString() {
-        return "abstract Var";
+        return "SUPER VAR";
     }
 }

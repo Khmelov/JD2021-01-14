@@ -1,7 +1,9 @@
 package by.it.lapushkin.calc.model;
 
 
+import by.it.lapushkin.calc.ConsoleRunner;
 import by.it.lapushkin.calc.model.support.CalcException;
+import by.it.lapushkin.calc.service.support.ErrorMessages;
 
 public class Scalar extends Var {
 
@@ -26,7 +28,7 @@ public class Scalar extends Var {
 
     @Override
     public Var add(Scalar scalar) throws CalcException {
-        return new Scalar(this.value + scalar.value);
+        return new Scalar(scalar.value + this.value);
     }
 
     @Override
@@ -46,7 +48,8 @@ public class Scalar extends Var {
 
     @Override
     public Var sub(Scalar scalar) throws CalcException {
-        return new Scalar(this.value - scalar.value);
+        //return new Scalar(this.value - scalar.value).mul(new Scalar(-1));
+        return new Scalar(scalar.value - this.value);
     }
 
     @Override
@@ -56,7 +59,7 @@ public class Scalar extends Var {
 
     @Override
     public Var sub(Matrix matrix) throws CalcException {
-        return matrix.sub(this).mul(new Scalar(-1));
+        return matrix.sub(this);
     }
 
     @Override
@@ -66,7 +69,8 @@ public class Scalar extends Var {
 
     @Override
     public Var mul(Scalar scalar) throws CalcException {
-        return new Scalar(this.value * scalar.value);
+       // return new Scalar(this.value * scalar.value);
+        return new Scalar(scalar.value * this.value);
     }
 
     @Override
@@ -87,14 +91,16 @@ public class Scalar extends Var {
     @Override
     public Var div(Scalar scalar) throws CalcException {
         if (scalar.value == 0 || this.value == 0) {
-            throw new CalcException("ERROR: Division by zero");
+            throw new CalcException(ConsoleRunner.resourseManager.get(
+                    ErrorMessages.ERROR_DIVISION_BY_ZERO));
         }
-        return new Scalar(this.value / scalar.value);
+        return new Scalar(scalar.value / this.value);
+        //return new Scalar(this.value / scalar.value);
     }
 
     @Override
     public Var div(Vector vector) throws CalcException {
-        return super.div(vector);
+        return vector.div(this);
     }
 
     @Override
