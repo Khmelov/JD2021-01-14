@@ -2,6 +2,9 @@ package by.it.abeseda.calc;
 
 public class Patterns {
 
+    //счітаем первым делом с скобках
+    static final String OPERATION_FIRST="[(]([^()]+)[)]";
+
     static final String OPERATION="(?<=[^-+*/=,{])[-+*/=]";//паттерн для поиска вида операции
     //исключаем знак перед числом
     // A=-2*{-4,6,-8}--3+-6

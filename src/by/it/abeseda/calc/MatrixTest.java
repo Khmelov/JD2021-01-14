@@ -16,6 +16,13 @@ public class MatrixTest {
     Parser parser=new Parser();
 
     @Test
+    public void testCreateMatrix() throws CalcException {
+        parser.calc("M={{-1.22,123.58, -16}, {0,0, 0.012},{0,-16,-8.55}}");
+        String result = parser.calc("M").toString();
+        assertEquals("{{-1.22, 123.58, -16.0}, {0.0, 0.0, 0.012}, {0.0, -16.0, -8.55}}", result);
+    }
+
+    @Test
     public void matrixAddScalar() throws CalcException {
         String result=parser.calc(MATRIX1+"+"+ SCALAR).toString();
         String expected="{{6.0, 7.0, 8.0}, {9.0, 10.0, 11.0}, {12.0, 13.0, 14.0}}";

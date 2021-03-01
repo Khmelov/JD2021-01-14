@@ -18,8 +18,8 @@ public class ScalarTest {
 
     @Test
     public void testCreateScalar() throws Exception {
-        Scalar scalar = (Scalar) parser.calc("A=-5");
-        assertEquals("-5.0", scalar.toString());
+        Scalar scalar = (Scalar) parser.calc("A=-99");
+        assertEquals("-99.0", scalar.toString());
     }
 
     @Test
