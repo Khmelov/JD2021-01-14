@@ -9,33 +9,33 @@ public class ParserTest {
 
     @Test
     public void checkScalar1() throws CalcException {
-        Var res = parser.calc("A=2+9");
+        Var res = parser.calc("A=2+5.3");
         double actual = Double.parseDouble(res.toString());
-        double expected = 11.0;
+        double expected = 7.3;
         assertEquals(expected, actual, 1e-10);
     }
 
     @Test
     public void checkScalar2() throws CalcException {
-        Var res = parser.calc("4*8");
+        Var res = parser.calc("B=A*3.5");
         double actual = Double.parseDouble(res.toString());
-        double expected = 32.0;
+        double expected = 25.55;
         assertEquals(expected, actual, 1e-10);
     }
 
     @Test
     public void checkScalar3() throws CalcException {
-        Var res = parser.calc("C=4*8+2+5*-2");
+        Var res = parser.calc("B1=B+0.11*-5");
         double actual = Double.parseDouble(res.toString());
-        double expected = 24;
+        double expected = 25;
         assertEquals(expected, actual, 1e-10);
     }
 
     @Test
     public void checkScalar4() throws CalcException {
-        Var res = parser.calc("D =4*8+2+5*-2+18/-9 ");
+        Var res = parser.calc("B2=A/2-1");
         double actual = Double.parseDouble(res.toString());
-        double expected = 22;
+        double expected = 2.65;
         assertEquals(expected, actual, 1e-10);
     }
 }

@@ -18,6 +18,8 @@ abstract class Var implements Operation {
             return new Vector(operand);
         } else if (operand.matches(Patterns.MATRIX)) {
             return new Matrix(operand);
+        } else if (operand.matches(Patterns.VAR_NAME)) {
+            return vars.get(operand);
         } else {
             throw new CalcException("Unknown variable");
         }
