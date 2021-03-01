@@ -26,11 +26,6 @@ abstract class Var implements Operation {
         }
     }
 
-
-
-
-
-
     static Var saveVar(String name, Var var){
         vars.put(name, var);
         saveToFile();
@@ -60,7 +55,6 @@ abstract class Var implements Operation {
             throw new CalcException(e);
         }
     }
-
 
     @Override
     public Var add(Var other) throws CalcException{
