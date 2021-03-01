@@ -18,7 +18,6 @@ public class ConsoleRunner {
                System.out.println(e.getMessage());
            }
        }
-
         try {
             Var.loadMap();
         } catch (CalcException e) {

@@ -17,5 +17,4 @@ public class Patterns {
 
 // static final String MATRIX="\\{" + VECTOR + "," + VECTOR + "+ }";
     static final String MATRIX="[{](" + VECTOR + ",?\\s?)+}";
-
 }

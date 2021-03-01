@@ -9,14 +9,25 @@ import java.util.regex.Pattern;
 
 public class Parser {
     Var calc(String expression) throws CalcException {
+
+        Pattern pattern1 = Pattern.compile(Patterns.OPERATION_FIRST);
+        Matcher matcher1 = pattern1.matcher(expression);
+        while (matcher1.find()) {
+            String res = calc(matcher1.group(1)).toString();
+            StringBuilder sb = new StringBuilder(expression);
+            expression = sb.replace(matcher1.start(), matcher1.end(), res).toString();
+            expression = expression.replaceAll(" ", "").replace("\\s+", "");
+            matcher1 = pattern1.matcher(expression);
+        }
+
         expression=expression.replaceAll("\\s+", "");
         String[] arrayOperands = expression.split(Patterns.OPERATION);
         List<String> operands= new ArrayList<>(Arrays.asList(arrayOperands));
         List<String> operations= new ArrayList<>();
-        Pattern pattern=Pattern.compile(Patterns.OPERATION);
-        Matcher matcher= pattern.matcher(expression);
-        while (matcher.find()){
-            operations.add(matcher.group());
+        Pattern pattern2=Pattern.compile(Patterns.OPERATION);
+        Matcher matcher2= pattern2.matcher(expression);
+        while (matcher2.find()){
+            operations.add(matcher2.group());
         }
         while (!operations.isEmpty()){
             //A=5.0
