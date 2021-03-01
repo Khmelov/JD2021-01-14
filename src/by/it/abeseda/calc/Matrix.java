@@ -119,9 +119,9 @@ public class Matrix extends Var {
         }
         else if (other instanceof Matrix) {
             if (value.length!=((Matrix) other).value[0].length){
-                throw  new CalcException("Умножать матрицы можно тогда и только тогда, когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
+                throw  new CalcException("Умножать матрицы можно тогда и только тогда, " +
+                        "когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
             }
-
             double[][] z = new double[value.length][((Matrix) other).value[0].length];
             for (int i = 0; i < value.length; i++) {
                 z[i] = Arrays.copyOf(z[i], value.length);
@@ -137,7 +137,8 @@ public class Matrix extends Var {
         else if (other instanceof Vector) {
 
             if (value.length!=((Vector) other).getValue().length){
-                throw new CalcException("Умножать матрицы можно тогда и только тогда, когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
+                throw new CalcException("Умножать матрицы можно тогда и только тогда, " +
+                        "когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
             }
            double[][] z = new double[value.length][0];
             double[] vec = new double[value.length];

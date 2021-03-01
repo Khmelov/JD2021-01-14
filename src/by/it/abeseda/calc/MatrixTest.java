@@ -91,6 +91,15 @@ public class MatrixTest {
     }
 
     @Test
-    public void div() {
+    public void matrixDivScalar() throws CalcException {
+        String result=parser.calc(MATRIX1+"/"+ SCALAR).toString();
+        String expected="{{0.2, 0.4, 0.6}, {0.8, 1.0, 1.2}, {1.4, 1.6, 1.8}}";
+        assertEquals(expected,result);
+    }
+
+    @Test (expected=CalcException.class)
+    public void matrixDivScalarNull() throws CalcException {
+        parser.calc(MATRIX1+"/"+ 0);
+        fail();
     }
 }
