@@ -1,4 +1,4 @@
-Version.javapackage by.it.abeseda.jd01_10;
+package by.it.abeseda.jd01_10;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
