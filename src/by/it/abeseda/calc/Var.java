@@ -10,12 +10,10 @@ abstract class Var implements Operation {
     private static final Map<String, Var> vars = new HashMap<>();
 
     static Var createVar(String operand) throws CalcException {
-        operand = operand.trim().replace("\\s+", "");
+        operand = operand.trim().replaceAll("\\s+", "");
         if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         }
-//        System.out.println(operand);
-//        operand="{1,2}";
         if (operand.matches(Patterns.VECTOR)) {
             return new Vector(operand);
         }
@@ -23,16 +21,10 @@ abstract class Var implements Operation {
             return new Matrix(operand); }
         else {
             Var var = vars.get(operand);
-//            System.out.println(var);
             if (var == null) { throw new CalcException("Вот тут косяк " + var); }
             return var;
         }
     }
-
-
-
-
-
 
     static Var saveVar(String name, Var var){
         vars.put(name, var);
@@ -63,7 +55,6 @@ abstract class Var implements Operation {
             throw new CalcException(e);
         }
     }
-
 
     @Override
     public Var add(Var other) throws CalcException{

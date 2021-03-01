@@ -5,8 +5,10 @@ public class Timer extends Thread implements Runnable {
     private Integer setTimer;
     private static Integer secondsPassed;
     private static Integer speedCoefficient;
+    private static String timersName = "TIMER";
 
     public Timer(Integer setTimer, Integer speedCoefficientInput) {
+        super(timersName);
         this.setTimer = setTimer;
         speedCoefficient = speedCoefficientInput;
         secondsPassed = 0;
