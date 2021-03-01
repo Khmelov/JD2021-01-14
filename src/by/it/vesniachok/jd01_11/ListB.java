@@ -2,8 +2,69 @@ package by.it.vesniachok.jd01_11;
 import java.util.*;
 
  class ListB<E> implements List<E> {
+      private E [] elements = (E[]) new Object[]{};
 
+     private int size = 0;
+     @Override
+     public E remove(int index) {
+         E del = elements[index];
+         System.arraycopy(elements, index + 1, elements, index, size - 1 - index);
+         size--;
+         return del;
+     }
+     @Override
+     public E get(int index) {
+         return elements[index];
+     }
 
+     @Override
+     public boolean add(E t) {
+         if (size == elements.length)
+             elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
+         elements[size++] = t;
+         return true;
+     }
+
+     @Override
+     public E set(int index, E element) {
+         E del = elements[index];
+         if (size == elements.length)
+             elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
+         elements [index] = element;
+         return del;
+     }
+
+     @Override
+     public void add(int index, E element) {
+         if (size == elements.length)
+             elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
+         System.arraycopy(elements, index, elements, index + 1, size - index);
+         elements[index] = element;
+         size++;
+     }
+
+     @Override
+     public boolean addAll(Collection<? extends E> c) {
+         for (E element : c){
+             if (size == elements.length)
+                 elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
+             elements[size++] = element;
+         }
+         return true;
+     }
+
+     @Override
+     public String toString() {
+         StringBuilder sb = new StringBuilder("[");
+         String delimiter = "";
+         for (int i = 0; i < size; i++) {
+             sb.append(delimiter);
+             sb.append(elements[i]);
+             delimiter = ", ";
+         }
+         sb.append("]");
+         return sb.toString();
+     }
      @Override
      public int size() {
          return 0;
@@ -34,13 +95,11 @@ import java.util.*;
          return null;
      }
 
-     @Override
-     public boolean add(E e) {
-         return false;
-     }
+
 
      @Override
      public boolean remove(Object o) {
+
          return false;
      }
 
@@ -49,10 +108,6 @@ import java.util.*;
          return false;
      }
 
-     @Override
-     public boolean addAll(Collection<? extends E> c) {
-         return false;
-     }
 
      @Override
      public boolean addAll(int index, Collection<? extends E> c) {
@@ -74,25 +129,8 @@ import java.util.*;
 
      }
 
-     @Override
-     public E get(int index) {
-         return null;
-     }
 
-     @Override
-     public E set(int index, E element) {
-         return null;
-     }
 
-     @Override
-     public void add(int index, E element) {
-
-     }
-
-     @Override
-     public E remove(int index) {
-         return null;
-     }
 
      @Override
      public int indexOf(Object o) {
