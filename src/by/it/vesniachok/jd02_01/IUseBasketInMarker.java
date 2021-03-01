@@ -1,6 +1,6 @@
-package by.it.abeseda.jd02_01;
+package by.it.vesniachok.jd02_01;
 
-interface Basket {
+public interface IUseBasketInMarker {
     void takeBasket();       //взял корзину
     void putGoodsToBasket(); //положил выбранный товар
 }
