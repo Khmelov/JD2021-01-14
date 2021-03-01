@@ -1,14 +1,19 @@
 package by.it.voitenkov.jd02_02.tasks.b;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
 
 public class Store implements StoreBehavior, Runnable {
-    private final String nameStore; // имя магазина
+    private final String nameStore;
+    private int id = 0;
     private final long shopOpeningHours;
-    private int id = 0; // id покупателя
+    private int counterBuyers = 0;
+
     private static final HashMap<String, BigDecimal> productsList = new HashMap<>(); // список продуктов
-    private final List<Thread> listThreadsBuyers = new ArrayList<>();
+
+    private final Deque<Thread> listThreadsBuyers = new ArrayDeque<>();
     private final Dispatcher dispatcher;
 
     public Store(String nameStore, long shopOpeningHours, Dispatcher dispatcher) {
@@ -42,14 +47,16 @@ public class Store implements StoreBehavior, Runnable {
         while (dispatcher.threadDispatcher.isAlive()) {
             getBuyer();
         }
+        while (isWorkThreads()) {
 
-        while (dispatcher.getQueueBuyers().numberWorkingStreamsOfBuyers() > 0) {
+        }
+        while (isWorkCashiers()) {
 
         }
         close();
     }
 
-    public void getBuyer() {
+    public synchronized void getBuyer() {
         Buyer buyer;
         if (Math.random() < 0.25) {
             buyer = new Pensioner(String.valueOf(++id), dispatcher);
@@ -57,21 +64,51 @@ public class Store implements StoreBehavior, Runnable {
             buyer = new Buyer(String.valueOf(++id), dispatcher);
         }
         Thread threadBuyer = new Thread(buyer);
-        threadBuyer.start();
         listThreadsBuyers.add(threadBuyer);
+        counterBuyers++;
+        threadBuyer.start();
 
         try {
             Thread.sleep(Time.TIME_UPDATE_NUMBER_NEW_BUYERS / Time.SPEED_UP_STORE_OPENING_HOURS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public boolean isWorkCashiers() {
+        for (Thread listCashiersThread : dispatcher.getQueueBuyers().getListCashiersThreads()) {
+            if (listCashiersThread.isAlive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isWorkThreads() {
+        for (Thread listThreadsBuyer : listThreadsBuyers) {
+            if (listThreadsBuyer.isAlive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getNumberWorkThreads() {
+        int count = 0;
+        for (Thread listThreadsBuyer : listThreadsBuyers) {
+            if (listThreadsBuyer.isAlive()) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public HashMap<String, BigDecimal> getProductsList() {
         return productsList;
     }
 
-    public List<Thread> getListThreadsBuyers() {
+    public Deque<Thread> getListThreadsBuyers() {
         return listThreadsBuyers;
     }
 
@@ -81,5 +118,9 @@ public class Store implements StoreBehavior, Runnable {
 
     public long getShopOpeningHours() {
         return shopOpeningHours;
+    }
+
+    public int getCounterBuyers() {
+        return counterBuyers;
     }
 }

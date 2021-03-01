@@ -7,26 +7,29 @@ import java.util.Random;
 import java.util.Set;
 
 class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
+    private boolean waiting = true;
+    private final Dispatcher dispatcher;
     private final String name;
     private final HashMap<String, BigDecimal> basket = new HashMap<>();
-    private final Dispatcher dispatcher;
-    private volatile boolean setBuyerPaid = false;
+
 
     public Buyer(String name, Dispatcher dispatcher) {
         this.name = name;
         this.dispatcher = dispatcher;
+        dispatcher.getStore().setWentTheStore(dispatcher.getStore().getWentTheStore() + 1);
     }
 
     @Override
-    public synchronized void enterToMarket() {
-        System.out.println(this + " вошел в магазин.");
+    public void enterToMarket() {
+//        System.out.println(this + " вошел в магазин.");
     }
+
     @Override
     public void takeBasket() {
         try {
             double timeOperation = Time.getItemSelectionTime();
             Thread.sleep(timeOperationLong() / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s взял корзину. (%.2f секунд.)\n", this, timeOperation);
+//            System.out.printf("%s взял корзину. (%.2f секунд.)\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -38,7 +41,7 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
         try {
             double timeOperation = Time.getItemSelectionTime();
             Thread.sleep(timeOperationLong() / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s выбрал товар (%.2f секунд).\n", this, timeOperation);
+//            System.out.printf("%s выбрал товар (%.2f секунд).\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -54,7 +57,7 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
             listProductsId.put(id++, entry.getKey());
         }
 
-            for (int i = 0; i < new Random().nextInt(4) + 1; i++) {
+        for (int i = 0; i < new Random().nextInt(4) + 1; i++) {
             chooseGoods();
             String product = listProductsId.get(new Random().nextInt(listProductsId.size()) + 1);
             BigDecimal price = dispatcher.getStore().getProductsList().get(product);
@@ -68,22 +71,22 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
             try {
                 double timeOperation = Time.getItemSelectionTime();
                 Thread.sleep(timeOperationLong() / Time.SPEED_UP_STORE_OPENING_HOURS);
-                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, product, timeOperation);
+//                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, product, timeOperation);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println(this + " закончил выбирать продукты и пошел в кассу.");
+//        System.out.println(this + " закончил выбирать продукты и пошел в кассу.");
     }
 
     @Override
     public void toGetInLine() {
-            dispatcher.getQueueBuyers().toGetInLine(this);
+        dispatcher.getQueueBuyers().toGetInLine(this);
     }
 
     @Override
     public void leftTheStore() {
-        System.out.println(this + " вышел из магазина.");
+//        System.out.println(this + " вышел из магазина.");
     }
 
     @Override
@@ -92,14 +95,19 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
         takeBasket();
         putGoodsToBasket();
         toGetInLine();
-        while (!setBuyerPaid) {
-            try {
-                Thread.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        synchronized (this) {
+            while (!this.waiting) {
+                try {
+                    this.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         leftTheStore();
+        synchronized (dispatcher.getStore()) {
+            dispatcher.getStore().setLeftTheStore(dispatcher.getStore().getLeftTheStore() + 1);
+        }
     }
 
     @Override
@@ -124,6 +132,9 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
     }
 
     public void setSetBuyerPaid(boolean setBuyerPaid) {
-        this.setBuyerPaid = setBuyerPaid;
+    }
+
+    public void setWaiting(boolean waiting) {
+        this.waiting = waiting;
     }
 }

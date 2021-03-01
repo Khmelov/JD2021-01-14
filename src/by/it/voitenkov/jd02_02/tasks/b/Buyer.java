@@ -18,15 +18,15 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
     }
 
     @Override
-    public synchronized void enterToMarket() {
-        System.out.println(this + " вошел в магазин.");
+    public void enterToMarket() {
+//        System.out.println(this + " вошел в магазин.");
     }
     @Override
     public void takeBasket() {
         try {
             double timeOperation = Time.getItemSelectionTime();
             Thread.sleep(timeOperationLong() / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s взял корзину. (%.2f секунд.)\n", this, timeOperation);
+//            System.out.printf("%s взял корзину. (%.2f секунд.)\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -38,7 +38,7 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
         try {
             double timeOperation = Time.getItemSelectionTime();
             Thread.sleep(timeOperationLong() / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s выбрал товар (%.2f секунд).\n", this, timeOperation);
+//            System.out.printf("%s выбрал товар (%.2f секунд).\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -68,12 +68,12 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
             try {
                 double timeOperation = Time.getItemSelectionTime();
                 Thread.sleep(timeOperationLong() / Time.SPEED_UP_STORE_OPENING_HOURS);
-                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, product, timeOperation);
+//                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, product, timeOperation);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println(this + " закончил выбирать продукты и пошел в кассу.");
+//        System.out.println(this + " закончил выбирать продукты и пошел в кассу.");
     }
 
     @Override
@@ -83,7 +83,7 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
 
     @Override
     public void leftTheStore() {
-        System.out.println(this + " вышел из магазина.");
+//        System.out.println(this + " вышел из магазина.");
     }
 
     @Override
@@ -93,11 +93,6 @@ class Buyer implements BuyerBehavior, BasketBehavior, Runnable {
         putGoodsToBasket();
         toGetInLine();
         while (!setBuyerPaid) {
-            try {
-                Thread.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
         leftTheStore();
     }

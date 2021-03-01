@@ -2,11 +2,10 @@ package by.it.voitenkov.jd02_02.tasks.b;
 
 public class Dispatcher implements Runnable {
     private Store store;
-    private QueueBuyers queueBuyers;
+    private final QueueBuyers queueBuyers = new QueueBuyers(this);
     Thread threadStore;
     Thread threadDispatcher;
     Thread threadQueueBuyers;
-
     public Dispatcher() {
         threadDispatcher = new Thread(this);
         threadDispatcher.start();
@@ -15,10 +14,9 @@ public class Dispatcher implements Runnable {
     @Override
     public void run() {
         store = new Store("Vitalur", 120, this);
-        queueBuyers= new QueueBuyers(this);
         threadStore = new Thread(store);
-        threadQueueBuyers = new Thread(queueBuyers);
         threadStore.start();
+        threadQueueBuyers = new Thread(queueBuyers);
         threadQueueBuyers.start();
         try {
             Thread.sleep(this.getStore().getShopOpeningHours() / Time.SPEED_UP_STORE_OPENING_HOURS);

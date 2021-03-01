@@ -17,7 +17,7 @@ public class Pensioner extends Buyer {
         try {
             double timeOperation = timeOperationDouble();
             Thread.sleep(timeOperationLong(timeOperation) / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s выбирал товар (%.2f секунд).\n", this, timeOperation);
+//            System.out.printf("%s выбирал товар (%.2f секунд).\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,7 @@ public class Pensioner extends Buyer {
         try {
             double timeOperation = timeOperationDouble();
             Thread.sleep(timeOperationLong(timeOperation) / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s взял корзину (%.2f секунд.)\n", this, timeOperation);
+//            System.out.printf("%s взял корзину (%.2f секунд.)\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -42,7 +42,7 @@ public class Pensioner extends Buyer {
         for (Map.Entry<String, BigDecimal> entry : entries) {
             listProductsId.put(id++, entry.getKey());
         }
-        //заполняем корзину случайными продуктами
+
         for (int i = 0; i < new Random().nextInt(4) + 1; i++) {
             chooseGoods();
             String randomProduct = listProductsId.get(new Random().nextInt(listProductsId.size()) + 1);
@@ -57,7 +57,7 @@ public class Pensioner extends Buyer {
             try {
                 double timeOperation = timeOperationDouble();
                 Thread.sleep(timeOperationLong(timeOperation) / Time.SPEED_UP_STORE_OPENING_HOURS);
-                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, randomProduct, timeOperation);
+//                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, randomProduct, timeOperation);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -67,7 +67,7 @@ public class Pensioner extends Buyer {
 
     @Override
     public String toString() {
-        return "Покупатель (пенсионер) № " + this.getName();
+        return "Пенсионер № " + this.getName();
     }
 
     static double timeOperationDouble() {

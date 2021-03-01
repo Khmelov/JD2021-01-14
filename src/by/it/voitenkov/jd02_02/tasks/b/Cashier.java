@@ -1,47 +1,48 @@
 package by.it.voitenkov.jd02_02.tasks.b;
 
-import by.it.abeseda.jd01_11.Person;
-import by.it.voitenkov.lessons.lesson_jd01_01.SortingArray;
-
 import java.math.BigDecimal;
 import java.util.*;
 
 public class Cashier implements Runnable {
-    static int name = 0;
+    private int name = 0;
     private final Dispatcher dispatcher;
     private BigDecimal cashOnHand = new BigDecimal("0.00");
     private final HashMap<Object, BigDecimal> listItemsSold = new LinkedHashMap<>();
-    private final List<Buyer> listOfByersInTheQueue = new ArrayList<>();// СПИСОК В ОЧЕРЕДИ
 
-    public Cashier(Dispatcher dispatcher) {
+    private Deque<Buyer> listOfByersInTheQueue = new ArrayDeque<>();// СПИСОК В ОЧЕРЕДИ
+
+    public Cashier(int name, Dispatcher dispatcher) {
         this.dispatcher = dispatcher;
-        name = name + 1;
+        this.name = name;
     }
 
     public void openCashier() {
         System.out.println(this + " открылась.");
     }
 
-    public void countThePurchaseAmount(Buyer buyer) throws InterruptedException {
-        synchronized (this) {
-            if (buyer != null) {
-                System.out.println(buyer + " в кассе № " + this.getName());
+    public synchronized void countThePurchaseAmount(Deque<Buyer> listOfByersInTheQueue) throws InterruptedException {
+        synchronized (System.out) {
+            openCashier();
+            Set<Map.Entry<String, BigDecimal>> entries = dispatcher.getStore().getProductsList().entrySet();
+            for (Map.Entry<String, BigDecimal> entry : entries) {
+                System.out.printf("Товар - %-10s Стоимость - %s \n", entry.getKey(), entry.getValue());
+            }
+            for (Buyer buyer : listOfByersInTheQueue) {
                 Set<Map.Entry<String, BigDecimal>> productList = buyer.getBasket().entrySet();
                 BigDecimal purchaseAmount = new BigDecimal("0.00");
                 for (Map.Entry<String, BigDecimal> product : productList) {
                     purchaseAmount = purchaseAmount.add(product.getValue());
-                    System.out.println(buyer.toString() + " взял " + product.getKey() + " на сумму " + product.getValue());
                 }
                 cashOnHand = cashOnHand.add(purchaseAmount);
                 listItemsSold.put(buyer, purchaseAmount);
                 long timeOperationLong = (long) ((new Random().nextDouble() * (5 - 1)) + 2);
-                System.out.println(this
-                        + ". Сумма покупки " + buyer.toString() + " = "
-                        + purchaseAmount + ". Время нахождения в кассе = "
-                        + timeOperationLong + " сек.");
+                System.out.println(buyer.toString() + " сумма покупки" + " = " + purchaseAmount);
                 Thread.sleep((timeOperationLong * 1000) / Time.SPEED_UP_STORE_OPENING_HOURS);
                 buyer.setSetBuyerPaid(true);
+
             }
+            closeCheckout();
+            System.out.println();
         }
     }
 
@@ -51,16 +52,11 @@ public class Cashier implements Runnable {
 
     @Override
     public void run() {
-        openCashier();
-        for (Buyer buyer : listOfByersInTheQueue) {
-            try {
-                countThePurchaseAmount(buyer);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            countThePurchaseAmount(listOfByersInTheQueue);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println(this + " сумма = " + cashOnHand);
-        closeCheckout();
     }
 
     @Override
@@ -76,7 +72,7 @@ public class Cashier implements Runnable {
         return name;
     }
 
-    public List<Buyer> getListOfByersInTheQueue() {
-        return listOfByersInTheQueue;
+    public void setListOfByersInTheQueue(Deque<Buyer> listOfByersInTheQueue) {
+        this.listOfByersInTheQueue = listOfByersInTheQueue;
     }
 }

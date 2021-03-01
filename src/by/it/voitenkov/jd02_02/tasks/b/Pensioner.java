@@ -17,7 +17,7 @@ public class Pensioner extends Buyer {
         try {
             double timeOperation = timeOperationDouble();
             Thread.sleep(timeOperationLong(timeOperation) / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s выбирал товар (%.2f секунд).\n", this, timeOperation);
+//            System.out.printf("%s выбирал товар (%.2f секунд).\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,7 @@ public class Pensioner extends Buyer {
         try {
             double timeOperation = timeOperationDouble();
             Thread.sleep(timeOperationLong(timeOperation) / Time.SPEED_UP_STORE_OPENING_HOURS);
-            System.out.printf("%s взял корзину (%.2f секунд.)\n", this, timeOperation);
+//            System.out.printf("%s взял корзину (%.2f секунд.)\n", this, timeOperation);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -57,7 +57,7 @@ public class Pensioner extends Buyer {
             try {
                 double timeOperation = timeOperationDouble();
                 Thread.sleep(timeOperationLong(timeOperation) / Time.SPEED_UP_STORE_OPENING_HOURS);
-                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, randomProduct, timeOperation);
+//                System.out.printf("%s положил %s в корзину (%.2f секунд.)\n", this, randomProduct, timeOperation);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
