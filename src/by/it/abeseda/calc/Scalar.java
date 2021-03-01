@@ -26,16 +26,12 @@ class Scalar extends Var {
     }
 
 
-    //    определяем метод add для Scalar
     @Override
     public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double sum = this.value + ((Scalar) other).value;
             return new Scalar(sum);
         } else return other.add(this);
-        //итого операцию сложения скалярной величины можно выполнять только с числами
-        //5+vector --->vector.add(5) -- если other был вектором, то ищем add в векторе
-        //5+matrix --->matrix.add(5) -- если other был матрицей, то ищем add в матрице
     }
 
 
@@ -45,8 +41,6 @@ class Scalar extends Var {
             double sub = this.value - ((Scalar) other).value;
             return new Scalar(sub);
         } else return new Scalar(-1).mul(other).add(this);
-        //помним, что вектор и матрица это одно и тоже и при вычитании операция выглядит следующим образом
-        // -5*(1,2,3,4,5) -->((-1)*(1,2,3,4,5))+5
     }
 
     @Override
@@ -55,7 +49,6 @@ class Scalar extends Var {
             double mul = this.value * ((Scalar) other).value;
             return new Scalar(mul);
         } else return other.mul(this);
-
     }
 
     @Override

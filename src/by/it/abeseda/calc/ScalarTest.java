@@ -15,8 +15,15 @@ public class ScalarTest {
         parser = new Parser();
     }
 
+
     @Test
-    public void scalarAddScalar()throws Exception {
+    public void testCreateScalar() throws Exception {
+        Scalar scalar = (Scalar) parser.calc("A=-5");
+        assertEquals("-5.0", scalar.toString());
+    }
+
+    @Test
+    public void testScalarAddScalar()throws Exception {
         String expression = "A=2+2*2";
         double expected = 6.0;
         double actual = Double.parseDouble(parser.calc(expression).toString());
@@ -28,7 +35,7 @@ public class ScalarTest {
 //об аварийном завершении теста. При аварийном завершении
 //генерируется ошибка java.lang.AssertionError.
     @Test
-    public void scalarSubScalar()throws Exception {
+    public void testScalarSubScalar()throws Exception {
         String expression = "A=2-2*2";
         double expected = -2.0;
         double actual = Double.parseDouble(parser.calc(expression).toString());
@@ -36,7 +43,7 @@ public class ScalarTest {
     }
 
     @Test
-    public void scalarMulScalar() throws Exception {
+    public void testScalarMulScalar() throws Exception {
         String expression = "A=2*2";
         double expected = 4.0;
         double actual = Double.parseDouble(parser.calc(expression).toString());
@@ -44,15 +51,15 @@ public class ScalarTest {
     }
 
     @Test
-    public void scalarDivScalar() throws Exception {
+    public void testScalarDivScalar() throws Exception {
         String expression = "A=2/2";
         double expected = 1.0;
         double actual = Double.parseDouble(parser.calc(expression).toString());
         assertEquals(expected, actual, 1e-10);
     }
 
-    @Test(expected =CalcException.class)
-    public void scalarDivScalarNull() throws Exception {
+    @Test(expected=CalcException.class)
+    public void testScalarDivScalarNull() throws Exception {
         parser.calc("A=2/0");
         fail();
     }
