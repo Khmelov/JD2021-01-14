@@ -32,7 +32,7 @@ public class Deque {
         return PAYMENT_DEQUE_PENSIONEER.isEmpty();
     }
 
-    public static synchronized Integer currentCustomersInDeque() {
+    public static Integer currentCustomersInDeque() {
         return PAYMENT_DEQUE.size() + PAYMENT_DEQUE_PENSIONEER.size();
     }
 }

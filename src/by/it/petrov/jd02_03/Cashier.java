@@ -1,13 +1,14 @@
-package by.it.petrov.jd02_02;
+package by.it.petrov.jd02_03;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Cashier extends Thread implements ICashier {
 
-    private static Integer marketsProfit = 0;
-    private static Map<String, Integer> cashiersProfit = new HashMap<>(Map.of(
+    private static AtomicInteger marketsProfit = new AtomicInteger(0);
+    private static volatile Map<String, Integer> cashiersProfit = new HashMap<>(Map.of(
             "Cashier #1", 0,
             "Cashier #2", 0,
             "Cashier #3", 0,
@@ -18,18 +19,30 @@ public class Cashier extends Thread implements ICashier {
     private final String CASHIERS_NAME;
     private final Integer SPEED_COEFFICIENT;
     private static ArrayList<Cashier> cashiersDeque = new ArrayList<>();
+    private static ArrayList<Cashier> initialCashiersList = new ArrayList<>();
     private final Timer TIMER_TO_LIVE;
 
-    public static void addMarketsProfit(Integer totalProfit) {
+    public Cashier(String cashiers_name, Integer speed_coefficient, Timer timer) {
+        super(cashiers_name);
+        this.TIMER_TO_LIVE = timer;
+        this.CASHIERS_NAME = cashiers_name;
+        this.SPEED_COEFFICIENT = speed_coefficient;
         synchronized (Cashier.class) {
-            marketsProfit += totalProfit;
+            initialCashiersList.add(this);
         }
+        synchronized (Cashier.class) {
+            cashiersDeque.add(this);
+        }
+        System.out.println(this.CASHIERS_NAME + " has been opened! (created)");
+    }
+
+
+    public static void addMarketsProfit(Integer totalProfit) {
+        marketsProfit.getAndAdd(totalProfit);
     }
 
     public static Integer getMarketsProfit() {
-        synchronized (Cashier.class) {
-            return marketsProfit;
-        }
+        return marketsProfit.get();
     }
 
     public static void addCashiersProfit(String cashiersName, Integer totalProfit) {
@@ -40,25 +53,15 @@ public class Cashier extends Thread implements ICashier {
     }
 
     public static Integer getCashiersProfit(String cashiersName) {
-        synchronized (Cashier.class) {
-            return cashiersProfit.get(cashiersName);
-        }
-    }
-
-    public Cashier(String cashiers_name, Integer speed_coefficient, Timer timer) {
-        super(cashiers_name);
-        this.TIMER_TO_LIVE = timer;
-        this.CASHIERS_NAME = cashiers_name;
-        this.SPEED_COEFFICIENT = speed_coefficient;
-        synchronized (Cashier.class) {
-            cashiersDeque.add(this);
-        }
-        System.out.println(this.CASHIERS_NAME + " has been opened! (created)");
-        start();
+        return cashiersProfit.get(cashiersName);
     }
 
     public static Integer getCurrentNumberOfCashiers() {
         return cashiersDeque.size();
+    }
+
+    public static Integer getInitialNumberOfCashiers() {
+        return initialCashiersList.size();
     }
 
     @Override
@@ -69,30 +72,22 @@ public class Cashier extends Thread implements ICashier {
     @Override
     public void meetTheClientAtCheckoutCounter() {
         Buyer buyer;
-        while (TIMER_TO_LIVE.isAlive()) {
-            while (!Deque.isEmpty() || !Deque.isEmptyP()) {
-                if (!Deque.isEmptyP()) {
-                    buyer = Deque.pollP();
-                    System.out.println(this.CASHIERS_NAME + ": (PENS!) Please, come here " + buyer.getBuyersName());
-                } else {
-                    synchronized (Deque.class) {
-                        buyer = Deque.poll();
-                        System.out.println(this.CASHIERS_NAME + ": Please, come here " + buyer.getBuyersName());
-                    }
-                }
+        while (TIMER_TO_LIVE.isAlive() || (Manager.totalVisitorsServedCount.get() < Manager.totalVisitorsCount.get())) {
+            if ((buyer = Deque.poll()) != null) {
+                System.out.println(this.CASHIERS_NAME + ": Please, come here " + buyer.getBuyersName());
                 try {
-                    Thread.sleep(5000 / Timer.getSpeedCoefficient());
+                    Thread.sleep(4250 / Timer.getSpeedCoefficient());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(this.CASHIERS_NAME + ": Thank you, " + buyer.getBuyersName() + ". Come here again!");
+                Manager.totalVisitorsServedCount.getAndAdd(1);
                 calculatePurchases(buyer);
                 synchronized (buyer) {
                     buyer.notify();
                 }
             }
+
             cashiersDeque.remove(this);
-            System.out.println(this.CASHIERS_NAME + " has been closed (but not destroyed");
             if (!TIMER_TO_LIVE.isAlive()) {
                 synchronized (System.out) {
                     System.out.println("--------------------------------------------------------------------------------------------");
@@ -103,7 +98,13 @@ public class Cashier extends Thread implements ICashier {
                             Cashier.getCashiersProfit("Cashier #3"), Cashier.getCashiersProfit("Cashier #4"),
                             Cashier.getCashiersProfit("Cashier #5"), Deque.currentCustomersInDeque(),
                             Cashier.getMarketsProfit());
+
                     System.out.println("--------------------------------------------------------------------------------------------");
+                    try {
+                        Thread.sleep(500 / Timer.getSpeedCoefficient());
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -125,6 +126,10 @@ public class Cashier extends Thread implements ICashier {
             }
             System.out.println("----------------------");
             System.out.printf("%-19s%-10s%n", "Total:", totalCount);
+            System.out.printf("%-19s%-10s%n", "Customers served:", Manager.totalVisitorsServedCount.get());
+            System.out.printf("%-19s%-10s%n", "Total customers:", Manager.totalVisitorsCount.get());
+            System.out.printf("%-19s%-10s%n", "Customers in Hall:", Manager.totalVisitorsInHallCount.get());
+            System.out.printf("%-19s%-10s%n", "Behind the doors:", Manager.totalVisitorsBehindTheDoors.get());
             System.out.println("----------------------");
             System.out.println();
             addCashiersProfit(this.CASHIERS_NAME, totalCount);
