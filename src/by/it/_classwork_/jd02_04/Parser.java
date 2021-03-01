@@ -35,12 +35,12 @@ class Parser {
             "/", 2
     );
 
-    private int getIndexOperation(List<String> operations) {
+    private int getIndexOperation(List<String> opera) {
         int index = -1;
         int currentPrior = -1;
 
-        for (int i = 0; i < operations.size(); i++) {
-            String operation = operations.get(i);
+        for (int i = 0; i < opera.size(); i++) {
+            String operation = opera.get(i);
             if (PRIOR.get(operation) > currentPrior) {
                 index = i;
                 currentPrior = PRIOR.get(operation);

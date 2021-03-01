@@ -8,7 +8,6 @@ public class Main {
 
     private static final int setBuyersCount = 100;
     private static final int setCashiersCount = 5;
-
     private static final int queueCount = 30; // Максимальное количество посетителей в очереди
     private static final int hallCount = 20; // Максимальное число посетителей в зале
     private static final int backetCount = 50; // Максимальное число корзин
