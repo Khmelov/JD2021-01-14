@@ -1,8 +1,6 @@
 package by.it.abeseda.calc;
 
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Matrix extends Var {
 
@@ -16,55 +14,32 @@ public class Matrix extends Var {
 
     @Override
     public String toString() {
-        StringBuilder st = new StringBuilder("{");
-        for (int i = 0; i < value.length; i++) {
-            st.append("{");
-            for (int j = 0; j < value.length; j++) {
-                st.append(value[i][j]);
-                if (j < value.length - 1) {
-                    st.append(", ");
-                }
+        StringBuilder stringBuilder = new StringBuilder("{{");
+        String s = "";
+        for (double[] aValue : value) {
+            for (double v : aValue) {
+                stringBuilder.append(s).append(v);
+                s = ", ";
             }
-            st.append("}");
-            if (i < value.length - 1) {
-                st.append(", ");
-            }
+            stringBuilder.append("}");
+            s = ", {";
         }
-        st.append("}");
-        return st.toString();
+        stringBuilder.append("}");
+        return stringBuilder.toString();
     }
 
-    // из двумерного массива в строку
-    // спросить у Александра про matcher.group - т.к. не разобралась
-
     public Matrix(String strMatrix) {
-
-        String[] emptyArray = {};//создаем пустой массив стринг
-        Pattern pattern = Pattern.compile("([0-9.,\\s]+[0-9.]+)");//шаблон для группы строка
-        //{{1,2,3},{4,5,6},{7,8,9},{7.0,0.8,33.1}} - находит 4 строки
-        Matcher matcher = pattern.matcher(strMatrix);
-
-        //НЕНОБХОДИМО НАЙТИ ПРОБЛЕМУ, почему это код работает. а мой, точно такой же - нет!
-        int count = 0;
-        while (matcher.find()) {
-            emptyArray = Arrays.copyOf(emptyArray, emptyArray.length + 1);
-            emptyArray[count] = matcher.group();
-            count++;
-        }
-        double[][] finishArray = new double[emptyArray.length][0];
-        for (int i = 0; i < emptyArray.length; i++) {
-            String[] middleArray = emptyArray[i].split("[ ,]");
-            int counter = 0;
-
-            for (String s : middleArray) {
-                if (s.matches("[0-9.]+")) {
-                    finishArray[i] = Arrays.copyOf(finishArray[i], finishArray[i].length + 1);
-                    finishArray[i][counter++] = Double.parseDouble(s);
-                }
+        strMatrix = strMatrix.replaceAll("[{|}]{2,}", "");
+        String[] stringValue = strMatrix.split("[}][\\s]?,[\\s]?[{]");
+        value = new double[stringValue.length][];
+        for (int i = 0; i < stringValue.length; i++) {
+            String[] valueStringNumber = stringValue[i].trim().split(",");
+            double[] tempArr = new double[valueStringNumber.length];
+            for (int j = 0; j < valueStringNumber.length; j++) {
+                tempArr[j] = Double.parseDouble(valueStringNumber[j]);
+                value[i] = tempArr;
             }
         }
-        this.value = finishArray;
-
     }
 
     public Matrix(Matrix matrix) {
@@ -76,7 +51,7 @@ public class Matrix extends Var {
         if (other instanceof Scalar) {
             double[][] res = new double[value.length][0];
             for (int i = 0; i < value.length; i++) {
-                res[i] = Arrays.copyOf(res[i], value.length);
+                res[i] = Arrays.copyOf(res[i], value[i].length);
                 for (int j = 0; j < res[i].length; j++) {
                     res[i][j] = value[i][j] + ((Scalar) other).getValue();
                 }
@@ -84,7 +59,7 @@ public class Matrix extends Var {
             return new Matrix(res);
         } else if (other instanceof Matrix) {//складывать можно матрицы только одинакового размера
             if (value.length!=((Matrix) other).value[0].length){
-                throw  new CalcException("Сложение возможно только матриц одинакового размера.");
+                throw new CalcException("Сложение возможно только матриц одинакового размера.");
             }
 
             double[][] res = new double[value.length][0];
@@ -103,14 +78,17 @@ public class Matrix extends Var {
     public Var sub(Var other) throws CalcException  {
 
         if (other instanceof Scalar) {
-            double[][] minus = new double[value.length][0];
-            for (int i = 0; i < value.length; i++) {
-                minus[i] = Arrays.copyOf(minus[i], value.length);
-                for (int j = 0; j < minus[i].length; j++) {
-                    minus[i][j] = value[i][j] - ((Scalar) other).getValue();
+            double[][] result = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < result.length; i++) {
+                result[i] = Arrays.copyOf(value[i], value[i].length);
+            }
+            for (int i = 0; i < result.length; i++) {
+                for (int j = 0; j < result[i].length; j++) {
+                    result[i][j] = result[i][j]-((Scalar) other).getValue();
                 }
             }
-            return new Matrix(minus);
+            return new Matrix(result);
+
         } else if (other instanceof Matrix) {
             if (value.length!=((Matrix) other).value[0].length){
                 throw  new CalcException("Вычитание возможно только матриц одинакового размера.");
@@ -141,9 +119,9 @@ public class Matrix extends Var {
         }
         else if (other instanceof Matrix) {
             if (value.length!=((Matrix) other).value[0].length){
-                throw  new CalcException("Умножать матрицы можно тогда и только тогда, когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
+                throw  new CalcException("Умножать матрицы можно тогда и только тогда, " +
+                        "когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
             }
-
             double[][] z = new double[value.length][((Matrix) other).value[0].length];
             for (int i = 0; i < value.length; i++) {
                 z[i] = Arrays.copyOf(z[i], value.length);
@@ -159,7 +137,8 @@ public class Matrix extends Var {
         else if (other instanceof Vector) {
 
             if (value.length!=((Vector) other).getValue().length){
-                throw  new CalcException("Умножать матрицы можно тогда и только тогда, когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
+                throw new CalcException("Умножать матрицы можно тогда и только тогда, " +
+                        "когда количество столбцов первой матрицы равно количеству строк второй матрицы.");
             }
            double[][] z = new double[value.length][0];
             double[] vec = new double[value.length];

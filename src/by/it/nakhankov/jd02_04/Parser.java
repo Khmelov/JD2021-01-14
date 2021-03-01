@@ -1,13 +1,15 @@
-package by.it._classwork_.jd02_04;
+package by.it.nakhankov.jd02_04;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
     Var parse(String expression) throws CalcException {
         expression = expression.replaceAll("\\s+", "");
-        //A=1+2*3/4
         String[] operandsArray = expression.split(Patterns.OPERATION);
         List<String> operands = new ArrayList<>(Arrays.asList(operandsArray));
         List<String> operations = new ArrayList<>();
@@ -35,12 +37,12 @@ class Parser {
             "/", 2
     );
 
-    private int getIndexOperation(List<String> opera) {
+    private int getIndexOperation(List<String> operations) {
         int index = -1;
         int currentPrior = -1;
 
-        for (int i = 0; i < opera.size(); i++) {
-            String operation = opera.get(i);
+        for (int i = 0; i < operations.size(); i++) {
+            String operation = operations.get(i);
             if (PRIOR.get(operation) > currentPrior) {
                 index = i;
                 currentPrior = PRIOR.get(operation);
@@ -52,7 +54,6 @@ class Parser {
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
 
         Var right = Var.createVar(strRight);
-        //A=2
         if (operation.equals("=")) {
             return Var.save(strLeft, right);
         }
@@ -67,6 +68,6 @@ class Parser {
             case "/":
                 return left.div(right);
         }
-        throw new CalcException("something stupid");
+        throw new CalcException("something unacceptable");
     }
 }
