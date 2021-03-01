@@ -35,26 +35,26 @@ public class MatrixTest {
         fail();
     }
 
-    @Test
-    public void matrixSubScalar() throws CalcException {
-        String result=parser.calc(matrix1+"-"+scalar).toString();
-        String expected="{{-4.0, -3.0, -2.0}, {-1.0, 0.0, 1.0}, {2.0, 3.0, 4.0}}";
-        assertEquals(expected,result);
-    }
-
-
 //    @Test
-//    public void matrixSubMatrixOneSize() throws CalcException {
-//        String result=parser.calc(matrix1+"-"+matrix2).toString();
-//        String expected="{{-9.0, -18.0, -27.0}, {-36.0, -45.0, -54.0}, {-63.0, -72.0, -81.0}}";
+//    public void matrixSubScalar() throws CalcException {
+//        String result=parser.calc(matrix1+"-"+scalar).toString();
+//        String expected="{{-4.0, -3.0, -2.0}, {-1.0, 0.0, 1.0}, {2.0, 3.0, 4.0}}";
 //        assertEquals(expected,result);
 //    }
-
-
-
+//
+//
+//    @Test
+//    public void matrixSubMatrixOneSize() throws CalcException {
+//        String result=parser.calc(matrix1+"-"+matrix1).toString();
+//        String expected="{{0.0, -18.0, -27.0}, {-36.0, -45.0, -54.0}, {-63.0, -72.0, -81.0}}";
+//        assertEquals(expected,result);
+//    }
+//
+//
+//
     @Test (expected=CalcException.class)
     public void matrixSubMatrixDifferentSize() throws CalcException {
-        parser.calc(matrix1+"+"+matrix3).toString();
+        parser.calc(matrix1+"+"+matrix3);
         fail();
     }
 
