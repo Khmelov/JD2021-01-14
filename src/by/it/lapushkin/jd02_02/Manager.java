@@ -40,7 +40,7 @@ public class Manager {
     private static void startScoreManager() {
         Thread customerManager = new Thread(() -> {
             while (Score.isScore()) {
-                if (Monitoring.fullScore()) {
+                if (Monitoring.isFullScore()) {
                     if (Score.isDoor()) {
                         Score.closeDoor();
                     }
