@@ -16,8 +16,8 @@ public class MyRunner {
 //все как в примере в лекции
     public static void main(String[] args) {
         for (int i = 1; i < 11; i++) {
-            new OneThread("th" + i).
-                    run();
+            new OneThread("Тут должен быть текст сообщения об ошибке " + i).
+                    start();
         }
     }
 }

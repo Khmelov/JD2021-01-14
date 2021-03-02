@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 
 //все как в примере
@@ -42,7 +43,8 @@ public class MyLogger {
                         new FileWriter(LOG_FILE, true)//перезаписывает или нет
                 )
         ) {
-            logWriter.println(logText);
+            Date date=new Date();
+            logWriter.println(logText+" "+date);
         } catch (IOException e) {
             e.printStackTrace();
         }
