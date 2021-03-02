@@ -1,9 +1,9 @@
-package by.it.voitenkov.jd02_01.tasks.a;
+package by.it.voitenkov.jd02_02.tasks.c;
 
 import java.util.Random;
 
 abstract class Time {
-    static final long SPEED_UP_STORE_OPENING_HOURS = 1000;
+    static final long SPEED_UP_STORE_OPENING_HOURS = 10000;
     static final long TIME_UPDATE_NUMBER_NEW_BUYERS = 1000;
     static final double MINIMUM_TIME_PRODUCT_SELECTION = 0.5;
     static final double MAXIMUM_TIME_PRODUCT_SELECTION = 2.0;
