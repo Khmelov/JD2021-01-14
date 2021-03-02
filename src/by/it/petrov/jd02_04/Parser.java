@@ -34,10 +34,11 @@ public class Parser {
     }
 
     Var calcSimple(String expression) { // если операндов 2, т.е. либо присвоение значения, либо операции без переменных
-        System.out.println("Executing calcSimple ...");
         Parser parser = new Parser();
         String[] operand = expression.split(Patterns.OPERATION);
-        System.out.println("Old case ...");
+            if (operand[1].matches(Patterns.VARIABLE)) {
+                operand[1] = String.valueOf(DataStore.getVariableValue(operand[1]));
+            }
         Var one = Var.createVar(operand[0]); //создаём переменную Var из левой переменной
         Var two = Var.createVar(operand[1]); //создаём переменную Var из правой переменной
         if (one == null || two == null) {
@@ -66,42 +67,71 @@ public class Parser {
 
 
     Var calcMultiple(String expression) {
-        System.out.println("Executing calcMultiple ...");
         Parser parser = new Parser();
         String[] operandStr = expression.split(Patterns.OPERATION);
+        Boolean rightPartContainsVariables = false;
+        if (!operand.isEmpty()) {
+            operand.clear();
+        }
+        for (int i = 1; i < operandStr.length; i++) {
+            if (operandStr[i].matches(Patterns.VARIABLE)) {
+                operandStr[i] = String.valueOf(DataStore.getVariableValue(operandStr[i]));
+            }
+        }
         operand.addAll(Arrays.asList(operandStr));
         Var one = Var.createVar(operand.get(0)); //создаём переменную Var из левой переменной
-
         Pattern patternForOperations = Pattern.compile(Patterns.OPERATION);
         Matcher matcherForOperations = patternForOperations.matcher(expression);
+        if (!operations.isEmpty()) {
+            operations.clear();
+        }
         while ((matcherForOperations.find())) {
             operations.add(matcherForOperations.group());
         }
-        System.out.println(operations);
-        System.out.println(operand);
-        System.out.println(getIndexOperation());
-        System.out.println(compute(getIndexOperation(),getIndexOperation() + 1, operations.get(getIndexOperation())));
-        return null;
+        if (operations.size() > 1) {
+            compute(getLeftIndexOperand(),getRightIndexOperand(),getNeededOperation());
+            return calcMultiple(getModifiedExpression());
+        }
+        return calcSimple(expression);
     }
 
-    private static Var compute(Integer leftArgumentIndex, Integer rightArgumentIndex, String operation) {
+    private Var compute(int leftArgumentIndex, int rightArgumentIndex, String operation) {
         Var left = Var.createVar(operand.get(leftArgumentIndex));
         Var right = Var.createVar(operand.get(rightArgumentIndex));
         switch (operation) {
             case "+":
-                return left.add(right);
+                Var resultAdd = left.add(right);
+                operand.remove(rightArgumentIndex);
+                operand.remove(leftArgumentIndex);
+                operand.add(leftArgumentIndex, String.valueOf(resultAdd));
+                operations.remove(getIndexOperation());
+                return resultAdd;
             case "-":
-                return left.sub(right);
+                Var resultSub = left.sub(right);
+                operand.remove(rightArgumentIndex);
+                operand.remove(leftArgumentIndex);
+                operand.add(leftArgumentIndex, String.valueOf(resultSub));
+                operations.remove(getIndexOperation());
+                return resultSub;
+
             case "/":
-                return left.div(right);
+                Var resultDiv = left.div(right);
+                operand.remove(rightArgumentIndex);
+                operand.remove(leftArgumentIndex);
+                operand.add(leftArgumentIndex, String.valueOf(resultDiv));
+                operations.remove(getIndexOperation());
+                return resultDiv;
             case "*":
-                return left.mul(right);
-            case "=":
-                left.ass(left.toString(), right);
-                return DataStore.getVariable(left.toString());
+                Var resultMul = left.mul(right);
+                operand.remove(rightArgumentIndex);
+                operand.remove(leftArgumentIndex);
+                operand.add(leftArgumentIndex, String.valueOf(resultMul));
+                operations.remove(getIndexOperation());
+                return resultMul;
         }
         return null;
     }
+
     private int getIndexOperation() {
         int index = -1;
         int currentPrior = -1;
@@ -114,5 +144,29 @@ public class Parser {
             }
         }
         return index;
+    }
+
+    private Integer getLeftIndexOperand() {
+        return getIndexOperation();
+    }
+
+    private Integer getRightIndexOperand() {
+        return getIndexOperation() + 1;
+    }
+
+    private String getNeededOperation() {
+        return operations.get(getIndexOperation());
+    }
+
+    private String getModifiedExpression() {
+        String result = "";
+        for (int i = 0; i < operand.size(); i++) {
+            if (i < operations.size()) {
+                result += operand.get(i) + operations.get(i);
+            } else {
+                result += operand.get(i);
+            }
+        }
+        return result;
     }
 }

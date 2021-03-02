@@ -23,6 +23,15 @@ public class DataStore {
     public static Var getVariable(String variable) {
         return variables.get(variable);
     }
+    public static Var getVariableValue(String variable){
+        Var result;
+        for (int i = 0; i < variables.size(); i++) {
+            if(variables.keySet().toArray()[i].equals(variable)){
+                return (Var) variables.values().toArray()[i];
+            }
+        }
+        return null;
+    }
 
     public static void setVariable(String variable, Var value) {
         DataStore.variables.put(variable, value);
