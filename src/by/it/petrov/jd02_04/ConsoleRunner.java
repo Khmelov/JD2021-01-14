@@ -21,6 +21,7 @@ public class ConsoleRunner {
                 continue;
             }
             Var result = parser.calc(line);
+            System.out.print("Answer: ");
             printer.print(result);
         }
     }
