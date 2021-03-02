@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Good {
-    static Map<String, Integer> goods(){
+    public static Map<String, Integer> goods(){
         Map<String , Integer> good = new HashMap<>();
         good.put("bread", 5);
         good.put("potato", 4);

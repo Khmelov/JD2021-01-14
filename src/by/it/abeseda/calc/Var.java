@@ -1,6 +1,5 @@
 package by.it.abeseda.calc;
 
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,44 +7,24 @@ import java.util.Map;
 abstract class Var implements Operation {
 
     public static final String TXT = "vars.txt";
-    private static final Map<String,Var> vars=new HashMap<>();
+    private static final Map<String, Var> vars = new HashMap<>();
 
-
-
-
-    static Var createVar(String operand) throws CalcException{
-        operand=operand.trim().replace("\\s+","");
-        if (operand.matches(Patterns.SCALAR)){
+    static Var createVar(String operand) throws CalcException {
+        operand = operand.trim().replaceAll("\\s+", "");
+        if (operand.matches(Patterns.SCALAR)) {
             return new Scalar(operand);
         }
-        else if (operand.matches(Patterns.VECTOR)){
+        if (operand.matches(Patterns.VECTOR)) {
             return new Vector(operand);
         }
-        else if (operand.matches(Patterns.MATRIX)) {
-            return new Matrix(operand);
-        }
-            else if(vars.containsKey(operand)){
-            return vars.get(operand);
-
-
-
-
-
-
-        } else {
-            Var var=vars.get(operand);
-            if (var==null){
-                throw new CalcException("Невозможно создать "+operand);//если есть ошибка
-            }
+        if (operand.matches(Patterns.MATRIX)) {
+            return new Matrix(operand); }
+        else {
+            Var var = vars.get(operand);
+            if (var == null) { throw new CalcException("Вот тут косяк " + var); }
             return var;
         }
-//        else if(vars.containsKey(operand)){
-//            return vars.get(operand);
-//        }
-//        throw new CalcException("Невозможно создать "+operand);//если есть ошибка
     }
-
-
 
     static Var saveVar(String name, Var var){
         vars.put(name, var);
@@ -63,8 +42,6 @@ abstract class Var implements Operation {
         }
     }
 
-
-
     static void loadMap() throws CalcException{
         Parser parser=new Parser();
         try (BufferedReader reader=new BufferedReader(new FileReader(TXT)))
@@ -78,10 +55,6 @@ abstract class Var implements Operation {
             throw new CalcException(e);
         }
     }
-
-
-
-
 
     @Override
     public Var add(Var other) throws CalcException{

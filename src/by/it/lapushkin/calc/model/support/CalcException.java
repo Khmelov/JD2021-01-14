@@ -1,5 +1,7 @@
 package by.it.lapushkin.calc.model.support;
 
+import by.it.lapushkin.calc.ConsoleRunner;
+import by.it.lapushkin.calc.service.support.ErrorMessages;
 import by.it.lapushkin.calc.utils.Log;
 
 public class CalcException extends Exception{
@@ -11,7 +13,7 @@ public class CalcException extends Exception{
     }
 
     public CalcException(String message) {
-        super(message);
+        super(ConsoleRunner.resourseManager.get(ErrorMessages.ERROR)+message);
         Log.saveLog(this.getMessage());
         System.out.println(this.getMessage());
     }
