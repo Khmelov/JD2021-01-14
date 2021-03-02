@@ -18,7 +18,7 @@ class Store implements StoreBehavior, Runnable {
 
     public Store(String nameStore, long shopOpeningHours) {
         this.nameStore = nameStore;
-        Store.shopOpeningHours = shopOpeningHours * 60000L;
+        Store.shopOpeningHours = shopOpeningHours;
     }
 
     @Override
