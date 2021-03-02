@@ -18,6 +18,10 @@ public class BasicTaskTest {
         String string = "A=2+5.3";
         String expected= "7.3";
         String actual = parser.calc(string).toString();
+        System.out.println();
+        System.out.println("TestA1");
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected,actual);
     }
 
@@ -28,6 +32,10 @@ public class BasicTaskTest {
         String string = "B=A*3.5";
         String expected= "25.55";
         String actual = parser.calc(string).toString();
+        System.out.println();
+        System.out.println("TestA2");
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected,actual);
     }
 
@@ -38,6 +46,11 @@ public class BasicTaskTest {
         String string = "B1=B+0.11*-5";
         String expected= "25.0";
         String actual = parser.calc(string).toString();
+        System.out.println();
+        System.out.println("TestA3");
+        System.out.println("Выражение: " + string);
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected,actual);
     }
 
@@ -48,6 +61,11 @@ public class BasicTaskTest {
         String string = "B2=A/2-1";
         String expected= "2.65";
         String actual = parser.calc(string).toString();
+        System.out.println();
+        System.out.println("TestA4");
+        System.out.println("Выражение: " + string);
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected,actual);
     }
 
@@ -57,6 +75,10 @@ public class BasicTaskTest {
         Var scalar2 = Var.createVar("5");
         double expected = 2;
         double actual = Double.parseDouble(scalar1.sub(scalar2).toString());
+        System.out.println();
+        System.out.println("testScalarSubScalar");
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected, actual, 1e-10);
     }
 
@@ -66,6 +88,10 @@ public class BasicTaskTest {
         Var scalar2 = Var.createVar("5");
         double expected = 12;
         double actual = Double.parseDouble(scalar1.add(scalar2).toString());
+        System.out.println();
+        System.out.println("testScalarAddScalar");
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected, actual, 1e-10);
     }
 
@@ -75,6 +101,10 @@ public class BasicTaskTest {
         Var rav = Var.createVar("5");
         double expected = 1.0;
         double actual = Double.parseDouble(var.div(rav).toString());
+        System.out.println();
+        System.out.println("testScalarDivScalar");
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected, actual, 1e-10);
     }
 
@@ -84,6 +114,10 @@ public class BasicTaskTest {
         Var rav = Var.createVar("2");
         double expected = 6;
         double actual = Double.parseDouble(var.mul(rav).toString());
+        System.out.println();
+        System.out.println("testScalarMulScalar");
+        System.out.println("Expected:  " + expected);
+        System.out.println("Actual:    " + actual);
         assertEquals(expected, actual, 1e-10);
     }
 }

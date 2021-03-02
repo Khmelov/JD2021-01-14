@@ -1,15 +1,15 @@
 package by.it.petrov.jd02_04;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
 
-    private static ArrayList<String> operations = new ArrayList<>();
-    private static ArrayList<String> operand = new ArrayList<>();
+    private static int argNumber = 0;
+
+    private static final ArrayList<String> operations = new ArrayList<>();
+    private static final ArrayList<String> operand = new ArrayList<>();
 
     private static final Map<String, Integer> PRIOR = Map.of(
             "=", 0,
@@ -20,6 +20,11 @@ public class Parser {
     );
 
     Var calc(String expression) {
+        expression = expression.trim();
+
+        if(expression.contains(")")){
+            return modifyExpressionWithBrackets(expression);
+        }
 
         if (expression.split(Patterns.OPERATION).length == 2) {
             return calcSimple(expression);
@@ -33,9 +38,9 @@ public class Parser {
     Var calcSimple(String expression) { // если операндов 2, т.е. либо присвоение значения, либо операции без переменных
         Parser parser = new Parser();
         String[] operand = expression.split(Patterns.OPERATION);
-            if (operand[1].matches(Patterns.VARIABLE)) {
-                operand[1] = String.valueOf(DataStore.getVariableValue(operand[1]));
-            }
+        if (operand[1].matches(Patterns.VARIABLE)) {
+            operand[1] = String.valueOf(DataStore.getVariableValue(operand[1]));
+        }
         Var one = Var.createVar(operand[0]); //создаём переменную Var из левой переменной
         Var two = Var.createVar(operand[1]); //создаём переменную Var из правой переменной
         if (one == null || two == null) {
@@ -63,6 +68,7 @@ public class Parser {
     }
 
     Var calcMultiple(String expression) {
+
         Parser parser = new Parser();
         String[] operandStr = expression.split(Patterns.OPERATION);
         Boolean rightPartContainsVariables = false;
@@ -85,7 +91,7 @@ public class Parser {
             operations.add(matcherForOperations.group());
         }
         if (operations.size() > 1) {
-            compute(getLeftIndexOperand(),getRightIndexOperand(),getNeededOperation());
+            compute(getLeftIndexOperand(), getRightIndexOperand(), getNeededOperation());
             return calcMultiple(getModifiedExpression());
         }
         return calcSimple(expression);
@@ -165,4 +171,60 @@ public class Parser {
         }
         return result;
     }
+
+    public Var modifyExpressionWithBrackets(String expression) {
+
+        ArrayList<String> expressionArray = new ArrayList<>(Arrays.asList(expression.split("")));
+
+        StringBuilder searchedExpression = new StringBuilder(); // Объявили переменную искомой операции в выражении
+        StringBuilder localExpression = new StringBuilder(); // Объявили переменую для локальной операции которая будет присвоена аргументу
+        String argument = "arg" + (++argNumber); // Имя локального аргумента которому будет присвоено значение локальной функции
+        System.out.println(argument);
+
+        StringBuilder sb = new StringBuilder(expression); // Преобразовали выражение в SB
+
+        Pattern closingBracketsPattern = Pattern.compile("[)]"); // Создали паттерн и матчер на закрывающиеся скобки
+        Matcher closingBracketsMatcher = closingBracketsPattern.matcher(sb);
+
+        closingBracketsMatcher.find();  //Нашли индекс первых закрывающихся скобочек
+        int closingBracketsIndex = closingBracketsMatcher.start();
+        System.out.println(closingBracketsMatcher.start());
+
+        System.out.println(expressionArray);
+
+        int openBracketsIndex = -666; //проводим поиск индекса закрывающихся скобочек
+        for (int i = closingBracketsIndex - 1; i >= 0 ; i--) {
+            if(expressionArray.get(i).equals("(")){
+                openBracketsIndex = i;
+                break;
+            }
+        }
+
+        //удалили скобочки, подготовили локальное выражение для назначения переменной, подготовили ArrayList
+        int localExpressionLength = closingBracketsIndex - openBracketsIndex;
+        for (int i = openBracketsIndex, k = 0; ; ) {
+            if(!(expressionArray.get(i).equals("(")) && !(expressionArray.get(i).equals(")"))){
+                localExpression.append(expressionArray.get(i));
+            }
+            expressionArray.remove(i);
+            k++;
+            if (k > localExpressionLength){
+                break;
+            }
+        }
+        localExpression.insert(0, argument +"=");
+        expressionArray.add(openBracketsIndex, argument);
+
+        Parser parser = new Parser(); // Присвоили аргументу значение локальной функции
+        parser.calc(String.valueOf(localExpression));
+
+        for (String s : expressionArray) { //Собираем искомое значение
+            searchedExpression.append(s);
+        }
+
+        if(String.valueOf(searchedExpression).contains(")")){ //проверяем - если остались скобочки, то рекурсивное выполнение метода
+            return modifyExpressionWithBrackets(String.valueOf(searchedExpression));
+        }
+        return parser.calc(String.valueOf(searchedExpression));
+    } //Выполнение вычисления на выражении со скобками
 }
