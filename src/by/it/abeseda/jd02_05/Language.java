@@ -1,7 +1,5 @@
 package by.it.abeseda.jd02_05;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -15,12 +13,8 @@ public enum Language {
     private String REFER="by.it.abeseda.jd02_05.resourse.language";
 
     private ResourceBundle rb;
-//    private DateFormat df;
 
- //   Language() {
-//        setLocale(Locale.getDefault());
-//    }
- Language() {
+    Language() {
      setLocale(Locale.ENGLISH);
  }
 
