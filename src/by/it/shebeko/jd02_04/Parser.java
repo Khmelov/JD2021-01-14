@@ -14,6 +14,37 @@ public class Parser {
             this.put("*", 2);
         }
     };
+    Var calcWithBrackets(String expression) throws CalcException {
+        Map.Entry<Integer, Integer> bracketIndex = findExpressionInBrackets(expression);
+        Var result = null;
+        while(bracketIndex!=null){
+            String expressionInBrackets = expression.substring(bracketIndex.getKey()+ 1,bracketIndex.getValue());
+            Var calculatedExpression = calc(expressionInBrackets );
+            String newExpression = expression.substring(0,bracketIndex.getKey())
+                    + calculatedExpression.toString() +  expression.substring(bracketIndex.getValue()+1);
+            expression = newExpression;
+            bracketIndex = findExpressionInBrackets(expression);
+        }
+        return  calc(expression);
+    }
+
+
+    private Map.Entry<Integer, Integer> findExpressionInBrackets(String expression) {
+        char [] charArray = expression.toCharArray();
+        int start = -1;
+        int finish = -1;
+        for (int i = 0; i < charArray.length; i++) {
+            char currentChar = charArray[i];
+            if(currentChar == '('){
+                start = i;
+            } else if (currentChar == ')'){
+                finish = i;
+                return new AbstractMap.SimpleEntry<Integer, Integer>(start, finish);
+            }
+        }
+        return null;
+    }
+
 
     Var calc(String expression) throws CalcException {
         expression= expression.replace(" ","");
@@ -43,7 +74,7 @@ public class Parser {
         }
         Var leftOperand = Var.createVar(left);
         if (leftOperand == null || rightOperand == null) {
-            throw new CalcException("Оба операнда равны нулю!");
+            throw new CalcException("Both are null");
         }
         switch (operation) {
             case "+":
