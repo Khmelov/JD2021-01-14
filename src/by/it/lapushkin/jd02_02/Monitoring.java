@@ -51,10 +51,8 @@ public class Monitoring {
         return CUSTOMERS_LIST.size();
     }
 
-    public static synchronized boolean fullScore() {
-        int time = Manager.getCurrentTime();
-        int circleTime = time % 60;
-        return getCountCustomersInScore() >= 40 + (20 - circleTime);
+    public static synchronized boolean isFullScore() {
+        return getCountCustomersInScore() >= 40 + (20 - (Manager.getCurrentTime() % 60));
     }
 
     public static synchronized boolean emptyScore() {

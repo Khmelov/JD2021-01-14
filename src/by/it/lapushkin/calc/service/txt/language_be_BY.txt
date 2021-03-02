@@ -1,0 +1,8 @@
+error.add=невреная операция сложения (be)
+error.div=невреная операция деления (be)
+error.division_by_zero=деление на 0 (be)
+error.incorrect_input=неверный ввод (be)
+error.incorrect_length=невреная длинна (be)
+error.mul=невреная операция умножения (be)
+error.sub=невреная операция вычитания (be)
+error.error=ОШИБКА:
