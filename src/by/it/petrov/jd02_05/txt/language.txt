@@ -1,0 +1,5 @@
+message.welcome=Hi!
+message.question=How are you
+user.firstName=Petrov
+user.lastName=Aleksey
+format.console=%s\n%s\n%s\n%s\n
