@@ -2,23 +2,23 @@ package by.it._classwork_.jd02_06;
 
 import java.io.*;
 
-class Logger {
+class MyLogger {
 
     private final File logFile;
 
-    private static volatile Logger instance;
+    private static volatile MyLogger instance;
 
-    private Logger() {
-        logFile = Util.getFile(Logger.class, "log.txt");
+    private MyLogger() {
+        logFile = Util.getFile(MyLogger.class, "log.txt");
     }
 
-    public static Logger getLogger() {
-        Logger local = instance;
+    public static MyLogger getLogger() {
+        MyLogger local = instance;
         if (local == null) {
-            synchronized (Logger.class) {
+            synchronized (MyLogger.class) {
                 local =instance;
                 if (local == null) {
-                    local = new Logger();
+                    local = new MyLogger();
                     instance = local;
                 }
             }

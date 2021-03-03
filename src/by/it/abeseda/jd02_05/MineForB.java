@@ -8,9 +8,10 @@ import java.util.Locale;
 public class MineForB {
 
     public static void main(String[] args) {
-//        Date date=new Date();
-//        String s=date.toString();
-
+        Date date=new Date();
+        System.out.println(date);
+        String s=date.toString();
+        System.out.println(s);
 
 //        DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
 //        Date fullDate = null;
@@ -22,12 +23,12 @@ public class MineForB {
 //            System.err.println("Ошібка: "+e.getErrorOffset());
 //        }
 
-        DateFormat df;
-        df=DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("ru", "RU"));
-        System.out.println(df.format(new Date()));
-        df=DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("be", "BY"));
-        System.out.println(df.format(new Date()));
-        df=DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("en", "EN"));
-        System.out.println(df.format(new Date()));
+//        DateFormat df;
+//        df=DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("ru", "RU"));
+//        System.out.println(df.format(new Date()));
+//        df=DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("be", "BY"));
+//        System.out.println(df.format(new Date()));
+//        df=DateFormat.getDateInstance(DateFormat.MEDIUM,new Locale("en", "EN"));
+//        System.out.println(df.format(new Date()));
     }
 }
