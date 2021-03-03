@@ -1,6 +1,7 @@
 package by.it.lapushkin.calc.utils;
 
 import by.it.lapushkin.calc.model.Var;
+import by.it.lapushkin.calc.model.VarCreator;
 import by.it.lapushkin.calc.model.support.CalcException;
 
 import java.util.*;
@@ -8,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
+    private final VarCreator varCreator = VarCreator.INSTANCE;
 
     private static final Map<String, Integer> PRIOR = Map.of(
             "=", 0,
@@ -61,7 +63,6 @@ public class Parser {
     }
 
     public Var parse(String expression) throws CalcException {
-        Log.saveLog(expression);
         expression = calcWithBrackets( expression);
         expression = expression.replaceAll("\\s+", "");
         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
@@ -82,7 +83,7 @@ public class Parser {
             Var resultOneOperation = oneOperation(left, operation, right);
             operands.add(indexOperation, resultOneOperation.toString());
         }
-        return Var.createVar(operands.get(0));
+        return varCreator.createVar(operands.get(0));
     }
 
     private int getIndexOperation(List<String> operations) {
@@ -101,12 +102,12 @@ public class Parser {
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
 
-        Var right = Var.createVar(strRight);
+        Var right = varCreator.createVar(strRight);
         //A=2
         if (operation.equals("=")) {
             return Var.save(strLeft, right);
         }
-        Var left = Var.createVar(strLeft);
+        Var left = varCreator.createVar(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);

@@ -6,32 +6,34 @@ import by.it.lapushkin.calc.utils.Log;
 
 public class CalcException extends Exception{
 
+    Log log = Log.getInstance();
+
     public CalcException(){
         super();
-        Log.saveLog(this.getMessage());
+        log.saveLog(this.getMessage());
         System.err.println(this.getMessage());
     }
 
     public CalcException(String message) {
         super(ConsoleRunner.resourseManager.get(ErrorMessages.ERROR)+message);
-        Log.saveLog(this.getMessage());
+        log.saveLog(this.getMessage());
         System.out.println(this.getMessage());
     }
 
     public CalcException(String message, Throwable cause) {
         super(message, cause);
-        Log.saveLog(this.getMessage());
+        log.saveLog(this.getMessage());
         System.err.println(this.getMessage());
     }
 
     public CalcException(Throwable cause) {
         super(cause);
-        Log.saveLog(this.getMessage());
+        log.saveLog(this.getMessage());
         System.err.println(this.getMessage());
     }
     public CalcException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
-        Log.saveLog(this.getMessage());
+        log.saveLog(this.getMessage());
         System.err.println(this.getMessage());
     }
 }
