@@ -21,7 +21,6 @@ abstract class Var implements Operation {
 
     static void load() throws CalcException {
         try {
-
             List<String> lines = Files.lines(Paths.get(GetFileName.getFilename())).collect(Collectors.toList());
             Parser parser = new Parser();
             for (String line : lines) {
