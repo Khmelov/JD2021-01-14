@@ -1,8 +1,11 @@
 package by.it.lapushkin.calc.model;
 
+import by.it.lapushkin.calc.ConsoleRunner;
 import by.it.lapushkin.calc.model.support.CalcException;
+import by.it.lapushkin.calc.service.support.ErrorMessages;
 
 import java.util.Arrays;
+import java.util.StringJoiner;
 
 public class Vector extends Var {
 
@@ -51,7 +54,8 @@ public class Vector extends Var {
             }
             return new Vector(result);
         } else {
-            throw new CalcException("ERROR: vector size");
+            throw new CalcException(ConsoleRunner.resourseManager.get(
+                    ErrorMessages.ERROR_INCORRECT_LENGTH));
         }
 
     }
@@ -68,15 +72,16 @@ public class Vector extends Var {
 
     @Override
     public Var sub(Scalar scalar) throws CalcException {
-        return this.add((Scalar) new Scalar(-1).mul(scalar));
+        return this.mul(new Scalar("-1")).add(scalar);
     }
 
     @Override
     public Var sub(Vector vector) throws CalcException {
         if (this.value.length != vector.value.length) {
-            throw new CalcException("ERROR: vector size");
+            throw new CalcException(ConsoleRunner.resourseManager.get(
+                    ErrorMessages.ERROR_INCORRECT_LENGTH));
         }
-        return this.add(new Vector((Vector) vector.mul(new Scalar(-1))));
+        return this.mul(new Scalar(-1)).add(vector);
     }
 
     @Override
@@ -101,7 +106,8 @@ public class Vector extends Var {
     @Override
     public Var mul(Vector vector) throws CalcException {
         if (this.value.length != vector.value.length) {
-            throw new CalcException("ERROR: vector size");
+            throw new CalcException(ConsoleRunner.resourseManager.get(
+                    ErrorMessages.ERROR_INCORRECT_LENGTH));
         }
         double result = 0;
         for (int i = 0; i < this.value.length; i++) {
@@ -129,7 +135,8 @@ public class Vector extends Var {
             }
             return new Vector(result);
         }
-        throw new CalcException("ERROR: Division by zero");
+        throw new CalcException(ConsoleRunner.resourseManager.get(
+                ErrorMessages.ERROR_DIVISION_BY_ZERO));
     }
 
     @Override
@@ -149,13 +156,10 @@ public class Vector extends Var {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("{");
-        String delimiter = "";
-        for (double element : value) {
-            sb.append(delimiter).append(element);
-            delimiter = ", ";
+        StringJoiner stringJoiner = new StringJoiner(",", "{", "}");
+        for (double v : value) {
+            stringJoiner.add(Double.toString(v));
         }
-        sb.append("}");
-        return sb.toString();
+        return stringJoiner.toString();
     }
 }

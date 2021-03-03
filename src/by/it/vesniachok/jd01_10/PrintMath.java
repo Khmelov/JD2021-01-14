@@ -6,25 +6,43 @@ import java.lang.reflect.Modifier;
 
 public class PrintMath {
     public static void main(String[] args) {
-        Class<Math> structureClass = Math.class;
-        Method[] methods = structureClass.getMethods();
-        for (Method method : methods) {
-            int modifiers = method.getModifiers();
-            StringBuilder out = new StringBuilder();
-            if (Modifier.isStatic(modifiers))
-                out.append("static ");
-            Class<?> returnType = method.getReturnType();
-            out.append(returnType.getSimpleName()).append(" ");
-            out.append(method.getName()).append("(");
-            Class<?>[] types = method.getParameterTypes();
-            String delimiter = "";
-            for (Class<?> type : types) {
-                out.append(delimiter).append(type.getTypeName());
-                delimiter = ",";
+
+        Class<Math> userClass = Math.class;
+        Method[] allMethodsMath = userClass.getDeclaredMethods();
+        for (Method method : allMethodsMath) {
+            if ((method.getModifiers() & Modifier.PUBLIC) == Modifier.PUBLIC) {
+                if ((method.getModifiers() & Modifier.STATIC) == Modifier.STATIC) {
+                    String returnType = method.getReturnType().toString();
+                    String methodName = method.getName();
+                    StringBuilder parameterTypes = new StringBuilder();
+                    for (Class<?> parameterClass : method.getParameterTypes()) {
+                        if (parameterTypes.length() != 0) parameterTypes.append(",");
+                        parameterTypes.append(parameterClass.getName());
+                    }
+                    System.out.printf("%s %s %s(%s)\n", "public static", returnType, methodName, parameterTypes);
+                }
             }
-            out.append(")");
-            System.out.println(out);
+        }
+        Field[] declaredFields = userClass.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            if ((declaredField.getModifiers() & Modifier.PUBLIC)== Modifier.PUBLIC){
+                if((declaredField.getModifiers() & Modifier.STATIC)== Modifier.STATIC){
+                    if((declaredField.getModifiers() & Modifier.FINAL)== Modifier.FINAL) {
+                        String declaredFieldName = declaredField.getName();
+                        String type = declaredField.getType().getTypeName();
+//                    System.out.println(declaredField);System.out.println(declaredFieldName);System.out.println(type);
+                        System.out.printf("%s %s %s\n", "public static final", type, declaredFieldName);
+                        //                   System.out.printf("%s %s %s %s %s\n",Modifier.PUBLIC,Modifier.STATIC,Modifier.FINAL, type, declaredFieldName);
+                    }
+                }
+            }
+        }
 
         }
     }
-}
+
+
+
+
+
+

@@ -18,7 +18,6 @@ public class ConsoleRunner {
                System.out.println(e.getMessage());
            }
        }
-//обязательно чтобы работало! она должна быть тут! выгрузка карты должна быть после создания переменной!
         try {
             Var.loadMap();
         } catch (CalcException e) {

@@ -126,6 +126,4 @@ class Vector extends Var {
         }
         return super.div(other);
     }
-
-
 }

@@ -46,6 +46,7 @@ public class Cashier extends Thread implements ICashier {
     }
 
     public Cashier(String cashiers_name, Integer speed_coefficient, Timer timer) {
+        super(cashiers_name);
         this.TIMER_TO_LIVE = timer;
         this.CASHIERS_NAME = cashiers_name;
         this.SPEED_COEFFICIENT = speed_coefficient;

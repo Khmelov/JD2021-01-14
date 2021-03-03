@@ -1,7 +1,9 @@
 package by.it.lapushkin.calc.model;
 
 
+import by.it.lapushkin.calc.ConsoleRunner;
 import by.it.lapushkin.calc.model.support.CalcException;
+import by.it.lapushkin.calc.service.support.ErrorMessages;
 
 public class Matrix extends Var {
 
@@ -77,7 +79,8 @@ public class Matrix extends Var {
             }
             return new Matrix(result);
         } else {
-            throw new CalcException("Matrix size Err");
+            throw new CalcException(ConsoleRunner.resourseManager.get(
+                    ErrorMessages.ERROR_INCORRECT_LENGTH));
         }
     }
 
@@ -117,7 +120,7 @@ public class Matrix extends Var {
                     result[i][j] -= matrix.value[i][j];
                 }
             }
-            return new Matrix(result);
+            return new Matrix(result).mul(new Scalar(-1));
         } else {
             throw new CalcException("Matrix size Err");
         }
@@ -144,16 +147,17 @@ public class Matrix extends Var {
 
     @Override
     public Var mul(Vector vector) throws CalcException {
-        if (this.value[0].length == vector.getValue().length) {
-            double[] result = new double[this.value.length];
-            for (int i = 0; i < this.value.length; i++) {
+        if (this.value.length == vector.getValue().length) {
+            double[] result = new double[vector.getValue().length];
+            for (int i = 0; i < this.value[0].length; i++) {
                 for (int j = 0; j < this.value[0].length; j++) {
                     result[i] += this.value[i][j] * vector.getValue()[j];
                 }
             }
             return new Vector(result);
         } else {
-            throw new CalcException("Vector size Err");
+            throw new CalcException(ConsoleRunner.resourseManager.get(
+                    ErrorMessages.ERROR_INCORRECT_LENGTH));
         }
     }
 
@@ -170,7 +174,8 @@ public class Matrix extends Var {
             }
             return new Matrix(result);
         } else {
-            throw new CalcException("Matrix size Err");
+            throw new CalcException(ConsoleRunner.resourseManager.get(
+                    ErrorMessages.ERROR_INCORRECT_LENGTH));
         }
     }
 
@@ -221,10 +226,10 @@ public class Matrix extends Var {
                 if (j == 0)
                     delimiter = "";
                 sb.append(delimiter).append(value[i][j]);
-                delimiter = ", ";
+                delimiter = ",";
             }
             if (i <= value.length - 2) {
-                sb.append("}, {");
+                sb.append("},{");
             }
         }
         sb.append("}}");
