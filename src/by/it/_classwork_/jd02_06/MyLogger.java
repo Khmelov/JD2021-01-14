@@ -4,7 +4,7 @@ import java.io.*;
 
 class MyLogger {
 
-    private File logFile;
+    private final File logFile;
 
     private static volatile MyLogger instance;
 
