@@ -25,6 +25,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket, Runnable {
     }
 
     public Buyer(String buyersName) {
+        super(buyersName);
         this.BUYERS_NAME = buyersName;
         double pensioneerProbability = 0.25;
         if (Math.random() <= pensioneerProbability) {
