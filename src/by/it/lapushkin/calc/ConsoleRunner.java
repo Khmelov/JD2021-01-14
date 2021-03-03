@@ -1,5 +1,6 @@
 package by.it.lapushkin.calc;
 
+import by.it.lapushkin.calc.logger.*;
 import by.it.lapushkin.calc.model.Var;
 import by.it.lapushkin.calc.model.support.CalcException;
 import by.it.lapushkin.calc.service.ResourseManager;
@@ -14,17 +15,33 @@ import java.util.Scanner;
 
 public class ConsoleRunner {
     public static ResourseManager resourseManager = ResourseManager.INSTANCE;
+    private static Log log = Log.getInstance();
 
-    public static void main(String[] args) throws CalcException {
+    public static void main(String[] args) {
+        LoggerManager loggerManager = new LoggerManager();
+        LoggerBuilder loggerBuilder = new LogAdvanced();
+        loggerManager.setBuilder(loggerBuilder);
+        loggerManager.constructLog();
+
+        Logger logger = loggerBuilder.getLogger();
+
+
         Locale.setDefault(Locale.ENGLISH);
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
-        Var.loadMap();
+        try {
+            Var.loadMap();
+        } catch (CalcException e) {
+            e.printStackTrace();
+        }
 
-        for (;;) {
+
+        for (; ; ) {
             String expression = scanner.nextLine();
+            logger.write(expression);
             if (expression.equals("end")) {
+                logger.print();
                 break;
             }
             if (expression.equals(Language.BE)) {
@@ -38,11 +55,16 @@ public class ConsoleRunner {
                 resourseManager.setLocale(new Locale(Language.EN));
             }
 
-            Var result = parser.parse(expression);
+            Var result = null;
+            try {
+                result = parser.parse(expression);
+            } catch (CalcException e) {
+             loggerBuilder.buildLog(e);
+            }
             printer.print(result);
-            Log.saveLog(expression + "=" + result);
+            log.saveLog(expression + "=" + result);
 
-
+            loggerBuilder.buildDate();
         }
     }
 }

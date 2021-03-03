@@ -3,14 +3,11 @@ package by.it.lapushkin.calc.model;
 
 import by.it.lapushkin.calc.ConsoleRunner;
 import by.it.lapushkin.calc.model.support.CalcException;
-import by.it.lapushkin.calc.service.ResourseManager;
 import by.it.lapushkin.calc.service.support.ErrorMessages;
 import by.it.lapushkin.calc.utils.Parser;
-import by.it.lapushkin.calc.utils.Patterns;
 
 import java.io.*;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public abstract class Var implements Operations {
@@ -18,22 +15,8 @@ public abstract class Var implements Operations {
     public static final String TXT = "src/by/it/lapushkin/calc/repository/vars.txt";
     private static final Map<String, Var> vars = new HashMap<>();
 
-    public static Var createVar(String strVar) throws CalcException {
-        if (strVar.matches(Patterns.SCALAR)) {
-            return new Scalar(strVar);
-        } else if (strVar.matches(Patterns.VECTOR)) {
-            return new Vector(strVar);
-        } else if (strVar.matches(Patterns.MATRIX)) {
-            return new Matrix(strVar);
-        } else if (vars.containsKey(strVar)){
-            return vars.get(strVar);
-        }else {
-            throw new CalcException(
-                    ConsoleRunner.resourseManager.get(
-                            ErrorMessages.ERROR_INCORRECT_INPUT)+" "+strVar);
-        }
-
-
+    public static Map<String, Var> getVars() {
+        return vars;
     }
 
     public static Var save(String name, Var value) {
@@ -55,7 +38,7 @@ public abstract class Var implements Operations {
     public static void loadMap() throws CalcException {
         Parser parser = new Parser();
         try (BufferedReader reader = new BufferedReader(new FileReader(TXT))) {
-            for (; ; ) {
+            for (;;) {
                 String line = reader.readLine();
                 if (line == null) break;
                 parser.parse(line);

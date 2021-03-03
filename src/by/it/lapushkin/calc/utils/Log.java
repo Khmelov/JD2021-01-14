@@ -7,12 +7,27 @@ import java.util.List;
 
 
 public class Log {
-    //TODO : Сделать путь по человечески :)
-    private static final String PATHTOLOGFILE = "src/by/it/lapushkin/calc/logs/logs.txt";
+    private static volatile Log logInstance;
+    private final String PATHTOLOGFILE = "src/by/it/lapushkin/calc/logs/logs.txt";
 
-    private Log(){
+    private Log() {
     }
-    public static void saveLog(String message) {
+
+    public static Log getInstance() {
+        Log localInstance = logInstance;
+        if (localInstance == null) {
+            synchronized (Log.class) {
+                localInstance = logInstance;
+                if (localInstance == null) {
+                    logInstance = localInstance = new Log();
+                }
+            }
+        }
+        return localInstance;
+    }
+
+
+    public void saveLog(String message) {
 
         try (OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream(PATHTOLOGFILE, true))
         ) {
@@ -23,7 +38,7 @@ public class Log {
         clearLog();
     }
 
-    private static void clearLog() {
+    private void clearLog() {
         try (
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(PATHTOLOGFILE))
 
