@@ -1,10 +1,12 @@
 package by.it.shebeko.jd01_15;
 
+/**
+ * javadoc
+ */
 
 import java.io.*;
 
 public class TaskB {
-
     private static final String SRC = "src";
     private static final String USER_DIR = "user.dir";
     private static final String TASK_B = "TaskB.java";
@@ -26,10 +28,12 @@ public class TaskB {
                 }
                 String trim = s.trim();
                 String lineToPrint = s + "\n";
+
                 if (comment) {
                     lineToPrint = "";
                     if (trim.endsWith("*/")) {
                         comment = false;
+                    }
                     } else {
                         if (trim.startsWith("//")) {
                             lineToPrint = lineToPrint.substring(0, lineToPrint.indexOf("//")) + "\n";
@@ -41,7 +45,7 @@ public class TaskB {
                     text.append(lineToPrint);
                     s = bufferedReader.readLine();
                 }
-            }
+
         }catch (IOException e){
             throw new RuntimeException(e);
         }
@@ -55,8 +59,8 @@ public class TaskB {
             throw new RuntimeException(e);
         }
 
+}
 
-    }
 
     private static String getPath(Class<TaskB> bClass) {
         String packageName = bClass
@@ -70,3 +74,4 @@ public class TaskB {
     }
 
 }
+
