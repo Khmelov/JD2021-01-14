@@ -179,7 +179,6 @@ public class Parser {
         StringBuilder searchedExpression = new StringBuilder(); // Объявили переменную искомой операции в выражении
         StringBuilder localExpression = new StringBuilder(); // Объявили переменую для локальной операции которая будет присвоена аргументу
         String argument = "arg" + (++argNumber); // Имя локального аргумента которому будет присвоено значение локальной функции
-        System.out.println(argument);
 
         StringBuilder sb = new StringBuilder(expression); // Преобразовали выражение в SB
 
@@ -188,9 +187,6 @@ public class Parser {
 
         closingBracketsMatcher.find();  //Нашли индекс первых закрывающихся скобочек
         int closingBracketsIndex = closingBracketsMatcher.start();
-        System.out.println(closingBracketsMatcher.start());
-
-        System.out.println(expressionArray);
 
         int openBracketsIndex = -666; //проводим поиск индекса закрывающихся скобочек
         for (int i = closingBracketsIndex - 1; i >= 0 ; i--) {
