@@ -59,6 +59,7 @@ public class Parser {
                 ex = calcWithBrackets(ex);
             }
         }
+        //1
         return ex;
     }
 
