@@ -1,0 +1,8 @@
+message.welcome=Прывітанне!
+message.question=Як справы?
+user.firstName=Юлія
+user.lastName=Шабека
+language.country=be
+language.language=BY
+language.choice=Беларуская мова
+message.data=Дата: %s\n
