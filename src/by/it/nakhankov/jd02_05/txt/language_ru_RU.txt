@@ -1,4 +1,0 @@
-message.welcome=Привет!
-message.question=Как дела?
-user.firstName=Алексей
-user.lastName=Наханьков
