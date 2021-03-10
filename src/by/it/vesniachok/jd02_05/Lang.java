@@ -9,7 +9,7 @@ public enum Lang {
 
     INSTANCE;
 
-    private static final String LANGUAGE = "by.it.shebeko.jd02_05.res.language";
+    private static final String LANGUAGE = "by.it.vesniachok.jd02_05.res.language";
     public static final Map<String, String> lang = new HashMap<>();
     static {
         lang.put("en","UK");
